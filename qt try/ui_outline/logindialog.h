@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QtCore>
 #include <QMessageBox>
+#include "configure.h"
 
 namespace Ui {
 class LoginDialog;
@@ -19,7 +20,7 @@ public:
 
     void OpenMainWindowofStudent();
     void OpenMainWindowofAdministrator();
-    void ShowRefutation();
+    void ShowUnmatchRefutation();
     void ShowBlankRefutation();
     void ShowNoQuestRefutation();
 signals:
@@ -30,7 +31,7 @@ private slots:
     void on_LoginButton_clicked();
     void on_RegisterButton_clicked();
     void on_CancelButton_clicked();
-    void debug(QString accnount, QString password);
+//    void debug(QString accnount, QString password);
 
 private:
     Ui::LoginDialog *ui;

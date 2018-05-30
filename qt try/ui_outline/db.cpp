@@ -6,6 +6,8 @@
 #include <QMessageBox>
 
 
+
+
 #include <QDebug>
 DB::DB(const QString& path)
 {
@@ -21,6 +23,8 @@ DB::DB(const QString& path)
        {
          qDebug() << "Database: connection ok";
        }
+
+
 }
 DB::~DB()
 {

@@ -8,8 +8,8 @@ LoginDialog::LoginDialog(QWidget *parent) :
     ui(new Ui::LoginDialog)
 {
     ui->setupUi(this);
-    connect(this,SIGNAL(LoginSignals(QString, QString)),
-          this,SLOT(debug(QString, QString)));
+//    connect(this,SIGNAL(LoginSignals(QString, QString)),
+//          this,SLOT(debug(QString, QString)));
 }
 
 LoginDialog::~LoginDialog()
@@ -46,7 +46,7 @@ void LoginDialog::OpenMainWindowofAdministrator(){
     this->close();
 }
 
-void LoginDialog::ShowRefutation(){
+void LoginDialog::ShowUnmatchRefutation(){
     QMessageBox::StandardButton reply;
     reply = QMessageBox::critical(this, tr("密码错误"),tr("密码错误，请重新尝试"),QMessageBox::Retry);
 }
@@ -64,21 +64,17 @@ void LoginDialog::ShowNoQuestRefutation(){
 void LoginDialog::on_CancelButton_clicked(){
     this->close();
 }
- void LoginDialog::debug(QString accnount, QString password){
-      DB test("F:\\sqlite\\admitDB.db");
-      int flag=test.EnterCheck(accnount,password);
+// void LoginDialog::debug(QString accnount, QString password){
+//      DB test("F:\\sqlite\\admitDB.db");
+//      int flag=test.EnterCheck(accnount,password);
 
-      if(flag==0){
-         this->OpenMainWindowofStudent();
-      }
-      else if(flag==1){
-          this->ShowNoQuestRefutation();
-      }
-      else{
-          this->ShowRefutation();
-      }
-
-
-
-
- }
+//      if(flag==0){
+//         this->OpenMainWindowofStudent();
+//      }
+//      else if(flag==1){
+//          this->ShowNoQuestRefutation();
+//      }
+//      else{
+//          this->ShowUnmatchRefutation();
+//      }
+// }

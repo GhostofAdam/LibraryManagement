@@ -16,16 +16,16 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     logindialog.cpp \
-    libman.cpp \
     register.cpp \
-    db.cpp
+    db.cpp\
+    controller.cpp
 
 HEADERS  += mainwindow.h \
     logindialog.h \
-    libman.h \
     register.h \
     configure.h \
-    db.h
+    db.h\
+    controller.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
