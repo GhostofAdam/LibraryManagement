@@ -24,3 +24,14 @@ std::vector<QString> DataUser::TranslateToString(){
 
     return list;
 }
+void DataUser::Insert(QSqlDatabase& db){
+    QSqlQuery query(db);
+    query.prepare(QString("insert into USERS values (%1, %2, %3, %4, %5, %6, %7)")
+                  .arg(this->account).arg(this->password).arg(this->schoolID).arg(this->department).arg(this->major).arg(this->name).arg(this->sex));
+}
+
+bool DataUser::IsExist(QSqlDatabase& db){
+    QSqlQuery query(db);
+    bool _isExist = query.exec(QString("select count(*) from %1 where account ='%2')").arg("USERS").arg(account));
+    return _isExist;
+}
