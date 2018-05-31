@@ -37,7 +37,7 @@ int DB::EnterCheck(const QString &username, const QString &password)
 {
         qDebug() << username;
         qDebug() << password;
-        QSqlQuery checkQuery;
+        QSqlQuery checkQuery(m_db);
         checkQuery.prepare("SELECT PASSWORD FROM ADMITS WHERE USERNAME = (:name)");
         checkQuery.bindValue(":name", username);
 
@@ -79,8 +79,8 @@ bool DB::CreateTable(const QString& type){
         QString create_sql = 
                 "create table USERS (account int primary key, password varchar(30), schoolID int, department varchar(30),major varchar(30),"
                 "name varchar(30),sex boolean)";
-        sql_query.prepare(create_sql);
-        if(!sql_query.exec())
+        query.prepare(create_sql);
+        if(!query.exec())
         {
             qDebug() << "Error: Fail to create table." << sql_query.lastError();
             return FAIL;
