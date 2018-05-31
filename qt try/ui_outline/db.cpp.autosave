@@ -110,8 +110,8 @@ bool DB::DeleteTable(const QString &type){
     }
     else{
     QString clear_sql = "delete from "+type;
-    query.prepare(clear_sql);
-    if(!query.exec())
+    sql_query.prepare(clear_sql);
+    if(!sql_query.exec())
     {
         qDebug() << "delete failed"<<sql_query.lastError();
         return FAIL;
@@ -136,14 +136,8 @@ void DB:: PrintTablesType(){
                outPutTableInfo(tableNmae);  
            }  
 }
-bool DB::isExist(const QString& key,const QString& table){
-    QSqlQuery query(m_db);
-    bool _isExist = query.exec(QString("select count(*) from %1 where account ='%2')").arg(table).arg(key));
-    return _isExist;
-}
 
- 
-/*bool InsertUser(const QString& _account, 
+bool InsertUser(const QString& _account, 
 const QString&  _password ,
 const QString& _schoolID ,
 const QString& _department ,
@@ -170,4 +164,4 @@ const QString& _sex ){
      }
    }
     
-}*/
+}
