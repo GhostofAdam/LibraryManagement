@@ -6,9 +6,10 @@
 #include <QMessageBox>
 #include <QAbstractButton>
 #include <QDialog>
-#include <logindialog.h>
-#include <db.h>
+#include "logindialog.h"
+#include "db.h"
 #include "configure.h"
+#include "registerdialog.h"
 
 class Controller : public QObject
 {
@@ -16,12 +17,17 @@ class Controller : public QObject
 private:
     LoginDialog * loginptr = nullptr;
     DB * databaseptr = nullptr;
+    RegisterDialog * registerptr = nullptr;
+    MainWindow * mainwindowptr = nullptr;
 
 public:
     explicit Controller(QObject *parent = 0);
     void ShowLogin();
 public slots:
-    void  login(QString,QString);
+    void Login(QString,QString);
+    void OpenLogin();
+    void OpenRegister();
+    void OpenMainWindow();
 signals:
 
 public slots:

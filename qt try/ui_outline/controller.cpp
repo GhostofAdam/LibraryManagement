@@ -2,15 +2,34 @@
 
 Controller::Controller(QObject *parent) : QObject(parent)
 {
-    //一打开就有登录界面
-    loginptr = new LoginDialog ();
     //database 路径暂时就是"../../sqlite/admitDB.db"
     databaseptr = new DB("../../sqlite/admitDB.db");
-    this->ShowLogin();
 
+    OpenLogin();
+}
 
-    connect(loginptr, SIGNAL(LoginSignals(QString,QString)),this,SLOT(login(QString,QString)));
-    //连接信号调用
+void Controller::OpenLogin(){
+    if(loginptr != nullptr)
+        return;
+    loginptr = new LoginDialog ();
+    loginptr->show();
+    connect(loginptr, SIGNAL(LoginSignals(QString,QString)),this,SLOT(Login(QString,QString)));
+    connect(loginptr, SIGNAL(OpenRegisterSignals()),this,SLOT(OpenRegister()));
+}
+
+void Controller::OpenRegister(){
+    if(registerptr != nullptr)
+        return;
+    registerptr = new RegisterDialog();
+    registerptr->show();
+}
+
+void Controller::OpenMainWindow(){
+    if(mainwindowptr != nullptr)
+        return;
+    //needs switch
+    mainwindowptr = new MainWindow();
+    mainwindowptr->show();
 }
 
 void Controller::ShowLogin(){
@@ -21,7 +40,7 @@ void Controller::ShowLogin(){
     }
 }
 
-void Controller::login(QString account,QString password){
+void Controller::Login(QString account,QString password){
     if(account.size() == 0 || password.size() == 0){
         //账号或密码为空
         loginptr->ShowBlankRefutation();
@@ -30,9 +49,8 @@ void Controller::login(QString account,QString password){
         //
         switch(databaseptr->EnterCheck(account, password)){
         case LOGINCHECK_SUCCESS:
-            //TODO 分清楚是管理员还是用户
-            loginptr->OpenMainWindowofAdministrator();
             loginptr->close();
+            OpenMainWindow();
             break;
         case LOGINCHECK_NOQUEST:
             loginptr->ShowNoQuestRefutation();

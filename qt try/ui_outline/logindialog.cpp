@@ -1,6 +1,5 @@
 #include "logindialog.h"
 #include "ui_logindialog.h"
-#include "libman.h"
 #include "db.h"
 
 LoginDialog::LoginDialog(QWidget *parent) :
@@ -8,13 +7,10 @@ LoginDialog::LoginDialog(QWidget *parent) :
     ui(new Ui::LoginDialog)
 {
     ui->setupUi(this);
-//    connect(this,SIGNAL(LoginSignals(QString, QString)),
-//          this,SLOT(debug(QString, QString)));
 }
 
 LoginDialog::~LoginDialog()
 {
-    emit LoginDestruction();
     delete ui;
 }
 
@@ -22,28 +18,12 @@ void LoginDialog::on_LoginButton_clicked()
 {
     QString account = ui->AccountEdit->text();
     QString password = ui->PasswordEdit->text();
-//    this->ShowRefutation();
     emit LoginSignals(account, password);
 }
 
 void LoginDialog::on_RegisterButton_clicked()
 {
-    Register* registr = new Register();
-    registr ->exec();
-}
-
-void LoginDialog::OpenMainWindowofStudent(){
-
-    MainWindow * mainwnd = new MainWindow(nullptr,USER_NUM);
-    mainwnd -> show();
-    this->~LoginDialog();
-}
-
-void LoginDialog::OpenMainWindowofAdministrator(){
-
-    MainWindow * mainwnd = new MainWindow(nullptr,USER_NUM);
-    mainwnd -> show();
-    this->close();
+    emit OpenRegisterSignals();
 }
 
 void LoginDialog::ShowUnmatchRefutation(){
@@ -64,17 +44,3 @@ void LoginDialog::ShowNoQuestRefutation(){
 void LoginDialog::on_CancelButton_clicked(){
     this->close();
 }
-// void LoginDialog::debug(QString accnount, QString password){
-//      DB test("F:\\sqlite\\admitDB.db");
-//      int flag=test.EnterCheck(accnount,password);
-
-//      if(flag==0){
-//         this->OpenMainWindowofStudent();
-//      }
-//      else if(flag==1){
-//          this->ShowNoQuestRefutation();
-//      }
-//      else{
-//          this->ShowUnmatchRefutation();
-//      }
-// }

@@ -16,17 +16,21 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     logindialog.cpp \
-    register.cpp \
     db.cpp\
-    controller.cpp
+    controller.cpp \
+    registerdialog.cpp \
+    data.cpp \
+    datauser.cpp
 
 HEADERS  += mainwindow.h \
     logindialog.h \
-    register.h \
     configure.h \
     db.h\
-    controller.h
+    controller.h \
+    registerdialog.h \
+    data.h \
+    datauser.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
-    register.ui
+    registerdialog.ui

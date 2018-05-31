@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QHeaderView>
@@ -29,13 +30,13 @@ public:
     QLineEdit *lineEdit;
     QLineEdit *lineEdit_2;
     QLineEdit *lineEdit_3;
-    QLineEdit *lineEdit_4;
     QLineEdit *lineEdit_5;
     QLabel *label_2;
     QLabel *label_3;
     QLabel *label_4;
     QLabel *label_5;
     QLabel *label_6;
+    QComboBox *comboBox;
 
     void setupUi(QDialog *Register)
     {
@@ -61,9 +62,6 @@ public:
         lineEdit_3->setObjectName(QStringLiteral("lineEdit_3"));
         lineEdit_3->setGeometry(QRect(130, 190, 113, 21));
         lineEdit_3->setEchoMode(QLineEdit::Password);
-        lineEdit_4 = new QLineEdit(Register);
-        lineEdit_4->setObjectName(QStringLiteral("lineEdit_4"));
-        lineEdit_4->setGeometry(QRect(130, 250, 113, 21));
         lineEdit_5 = new QLineEdit(Register);
         lineEdit_5->setObjectName(QStringLiteral("lineEdit_5"));
         lineEdit_5->setGeometry(QRect(130, 310, 113, 21));
@@ -82,6 +80,9 @@ public:
         label_6 = new QLabel(Register);
         label_6->setObjectName(QStringLiteral("label_6"));
         label_6->setGeometry(QRect(30, 310, 72, 15));
+        comboBox = new QComboBox(Register);
+        comboBox->setObjectName(QStringLiteral("comboBox"));
+        comboBox->setGeometry(QRect(130, 250, 111, 22));
 
         retranslateUi(Register);
         QObject::connect(buttonBox, SIGNAL(accepted()), Register, SLOT(accept()));
@@ -99,6 +100,11 @@ public:
         label_4->setText(QApplication::translate("Register", "\345\257\206\347\240\201\347\241\256\350\256\244", Q_NULLPTR));
         label_5->setText(QApplication::translate("Register", "\346\200\247\345\210\253", Q_NULLPTR));
         label_6->setText(QApplication::translate("Register", "\345\255\246\345\217\267", Q_NULLPTR));
+        comboBox->clear();
+        comboBox->insertItems(0, QStringList()
+         << QApplication::translate("Register", "\347\224\267", Q_NULLPTR)
+         << QApplication::translate("Register", "\345\245\263", Q_NULLPTR)
+        );
     } // retranslateUi
 
 };

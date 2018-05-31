@@ -5,6 +5,8 @@
 #include <QtCore>
 #include <QMessageBox>
 #include "configure.h"
+#include "registerdialog.h"
+#include "mainwindow.h"
 
 namespace Ui {
 class LoginDialog;
@@ -18,14 +20,12 @@ public:
     explicit LoginDialog(QWidget *parent = 0);
     ~LoginDialog();
 
-    void OpenMainWindowofStudent();
-    void OpenMainWindowofAdministrator();
     void ShowUnmatchRefutation();
     void ShowBlankRefutation();
     void ShowNoQuestRefutation();
 signals:
     void LoginSignals(QString accnount, QString password);
-    void LoginDestruction();
+    void OpenRegisterSignals();
 
 private slots:
     void on_LoginButton_clicked();

@@ -1,6 +1,6 @@
 #include "logindialog.h"
 #include "mainwindow.h"
-#include "register.h"
+#include "registerdialogr.h"
 #include <QObject>
 #include "configure.h"
 #include "db.h"
