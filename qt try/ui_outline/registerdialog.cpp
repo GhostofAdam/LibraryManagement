@@ -13,8 +13,12 @@ RegisterDialog::~RegisterDialog()
     delete ui;
 }
 
-void RegisterDialog::on_buttonBox_clicked(QAbstractButton *button)
+void RegisterDialog::on_ok_clicked()
 {
+    if(ui->password->text() != ui->passwordaffirm->text()){
+     QMessageBox::critical(this,tr("错误"),tr("两次密码不一样"),QMessageBox::Retry);
+    }
+    else{
     QString account = ui->account->text();
     QString password = ui->password->text();
     QString schoolID = ui->schoolID->text();
@@ -23,7 +27,13 @@ void RegisterDialog::on_buttonBox_clicked(QAbstractButton *button)
     QString name = ui->name->text();
     QString sex = ui->sex->currentText();
 
-    DataUser data(account,password,schoolID
+    DataUser data(account,password,schoolID,
                   department, major, name, sex);
     emit Register(data);
+    }
+}
+
+void RegisterDialog::on_pushButton_2_clicked()
+{
+    emit Destruction();
 }

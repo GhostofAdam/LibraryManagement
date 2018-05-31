@@ -22,6 +22,8 @@ void Controller::OpenRegister(){
         return;
     registerptr = new RegisterDialog();
     registerptr->show();
+    connect(registerptr, SIGNAL(Register(DataUser)),this,SLOT(Register(DataUser)));
+    connect(registerptr, SIGNAL(Destruction()),this,SLOT(CloseRegister()));
 }
 
 void Controller::OpenMainWindow(){
@@ -30,6 +32,14 @@ void Controller::OpenMainWindow(){
     //needs switch
     mainwindowptr = new MainWindow();
     mainwindowptr->show();
+}
+
+void Controller::CloseRegister()
+{
+    if(registerptr != nullptr){
+    registerptr ->close();
+    registerptr = nullptr;
+    }
 }
 
 void Controller::Register(DataUser data)

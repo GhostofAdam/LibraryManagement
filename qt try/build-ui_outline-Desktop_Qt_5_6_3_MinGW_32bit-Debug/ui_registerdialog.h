@@ -15,56 +15,58 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialog>
-#include <QtWidgets/QDialogButtonBox>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
+#include <QtWidgets/QPushButton>
 
 QT_BEGIN_NAMESPACE
 
 class Ui_RegisterDialog
 {
 public:
-    QDialogButtonBox *buttonBox;
     QLabel *label;
-    QLineEdit *lineEdit;
-    QLineEdit *lineEdit_2;
-    QLineEdit *lineEdit_3;
-    QLineEdit *lineEdit_5;
+    QLineEdit *account;
+    QLineEdit *password;
+    QLineEdit *passwordaffirm;
+    QLineEdit *schoolID;
     QLabel *label_2;
     QLabel *label_3;
     QLabel *label_4;
     QLabel *label_5;
     QLabel *label_6;
-    QComboBox *comboBox;
+    QComboBox *sex;
+    QLineEdit *department;
+    QLabel *label_7;
+    QLineEdit *major;
+    QLabel *label_8;
+    QLineEdit *name;
+    QLabel *label_9;
+    QPushButton *ok;
+    QPushButton *pushButton_2;
 
     void setupUi(QDialog *RegisterDialog)
     {
         if (RegisterDialog->objectName().isEmpty())
             RegisterDialog->setObjectName(QStringLiteral("RegisterDialog"));
-        RegisterDialog->resize(480, 640);
-        buttonBox = new QDialogButtonBox(RegisterDialog);
-        buttonBox->setObjectName(QStringLiteral("buttonBox"));
-        buttonBox->setGeometry(QRect(390, 10, 81, 621));
-        buttonBox->setOrientation(Qt::Vertical);
-        buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+        RegisterDialog->resize(480, 514);
         label = new QLabel(RegisterDialog);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(150, 30, 72, 15));
-        lineEdit = new QLineEdit(RegisterDialog);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(130, 70, 113, 21));
-        lineEdit_2 = new QLineEdit(RegisterDialog);
-        lineEdit_2->setObjectName(QStringLiteral("lineEdit_2"));
-        lineEdit_2->setGeometry(QRect(130, 130, 113, 21));
-        lineEdit_2->setEchoMode(QLineEdit::Password);
-        lineEdit_3 = new QLineEdit(RegisterDialog);
-        lineEdit_3->setObjectName(QStringLiteral("lineEdit_3"));
-        lineEdit_3->setGeometry(QRect(130, 190, 113, 21));
-        lineEdit_3->setEchoMode(QLineEdit::Password);
-        lineEdit_5 = new QLineEdit(RegisterDialog);
-        lineEdit_5->setObjectName(QStringLiteral("lineEdit_5"));
-        lineEdit_5->setGeometry(QRect(130, 310, 113, 21));
+        account = new QLineEdit(RegisterDialog);
+        account->setObjectName(QStringLiteral("account"));
+        account->setGeometry(QRect(130, 70, 113, 21));
+        password = new QLineEdit(RegisterDialog);
+        password->setObjectName(QStringLiteral("password"));
+        password->setGeometry(QRect(130, 130, 113, 21));
+        password->setEchoMode(QLineEdit::Password);
+        passwordaffirm = new QLineEdit(RegisterDialog);
+        passwordaffirm->setObjectName(QStringLiteral("passwordaffirm"));
+        passwordaffirm->setGeometry(QRect(130, 190, 113, 21));
+        passwordaffirm->setEchoMode(QLineEdit::Password);
+        schoolID = new QLineEdit(RegisterDialog);
+        schoolID->setObjectName(QStringLiteral("schoolID"));
+        schoolID->setGeometry(QRect(130, 310, 113, 21));
         label_2 = new QLabel(RegisterDialog);
         label_2->setObjectName(QStringLiteral("label_2"));
         label_2->setGeometry(QRect(30, 70, 72, 15));
@@ -80,13 +82,35 @@ public:
         label_6 = new QLabel(RegisterDialog);
         label_6->setObjectName(QStringLiteral("label_6"));
         label_6->setGeometry(QRect(30, 310, 72, 15));
-        comboBox = new QComboBox(RegisterDialog);
-        comboBox->setObjectName(QStringLiteral("comboBox"));
-        comboBox->setGeometry(QRect(130, 250, 111, 22));
+        sex = new QComboBox(RegisterDialog);
+        sex->setObjectName(QStringLiteral("sex"));
+        sex->setGeometry(QRect(130, 250, 111, 22));
+        department = new QLineEdit(RegisterDialog);
+        department->setObjectName(QStringLiteral("department"));
+        department->setGeometry(QRect(130, 370, 113, 21));
+        label_7 = new QLabel(RegisterDialog);
+        label_7->setObjectName(QStringLiteral("label_7"));
+        label_7->setGeometry(QRect(30, 370, 72, 15));
+        major = new QLineEdit(RegisterDialog);
+        major->setObjectName(QStringLiteral("major"));
+        major->setGeometry(QRect(130, 420, 113, 21));
+        label_8 = new QLabel(RegisterDialog);
+        label_8->setObjectName(QStringLiteral("label_8"));
+        label_8->setGeometry(QRect(30, 420, 72, 15));
+        name = new QLineEdit(RegisterDialog);
+        name->setObjectName(QStringLiteral("name"));
+        name->setGeometry(QRect(130, 470, 113, 21));
+        label_9 = new QLabel(RegisterDialog);
+        label_9->setObjectName(QStringLiteral("label_9"));
+        label_9->setGeometry(QRect(30, 470, 72, 15));
+        ok = new QPushButton(RegisterDialog);
+        ok->setObjectName(QStringLiteral("ok"));
+        ok->setGeometry(QRect(330, 210, 93, 28));
+        pushButton_2 = new QPushButton(RegisterDialog);
+        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
+        pushButton_2->setGeometry(QRect(330, 250, 93, 28));
 
         retranslateUi(RegisterDialog);
-        QObject::connect(buttonBox, SIGNAL(accepted()), RegisterDialog, SLOT(accept()));
-        QObject::connect(buttonBox, SIGNAL(rejected()), RegisterDialog, SLOT(reject()));
 
         QMetaObject::connectSlotsByName(RegisterDialog);
     } // setupUi
@@ -100,11 +124,18 @@ public:
         label_4->setText(QApplication::translate("RegisterDialog", "\345\257\206\347\240\201\347\241\256\350\256\244", Q_NULLPTR));
         label_5->setText(QApplication::translate("RegisterDialog", "\346\200\247\345\210\253", Q_NULLPTR));
         label_6->setText(QApplication::translate("RegisterDialog", "\345\255\246\345\217\267", Q_NULLPTR));
-        comboBox->clear();
-        comboBox->insertItems(0, QStringList()
+        sex->clear();
+        sex->insertItems(0, QStringList()
          << QApplication::translate("RegisterDialog", "\347\224\267", Q_NULLPTR)
          << QApplication::translate("RegisterDialog", "\345\245\263", Q_NULLPTR)
         );
+        department->setText(QString());
+        label_7->setText(QApplication::translate("RegisterDialog", "\351\231\242\347\263\273", Q_NULLPTR));
+        label_8->setText(QApplication::translate("RegisterDialog", "\344\270\223\344\270\232", Q_NULLPTR));
+        name->setText(QString());
+        label_9->setText(QApplication::translate("RegisterDialog", "\345\247\223\345\220\215", Q_NULLPTR));
+        ok->setText(QApplication::translate("RegisterDialog", "\346\217\220\344\272\244", Q_NULLPTR));
+        pushButton_2->setText(QApplication::translate("RegisterDialog", "\345\217\226\346\266\210", Q_NULLPTR));
     } // retranslateUi
 
 };

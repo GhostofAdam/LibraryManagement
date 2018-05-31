@@ -28,6 +28,8 @@ public slots:
     void OpenLogin();
     void OpenRegister();
     void OpenMainWindow();
+    void CloseRegister();
+    void Register(DataUser data);
 signals:
 
 public slots:
