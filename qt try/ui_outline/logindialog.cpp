@@ -16,8 +16,14 @@ LoginDialog::~LoginDialog()
 
 void LoginDialog::on_LoginButton_clicked()
 {
+
     QString account = ui->AccountEdit->text();
     QString password = ui->PasswordEdit->text();
+    if(account.size() == 0 || password.size() == 0){
+        //账号或密码为空
+        ShowBlankRefutation();
+        return;
+    }
     emit LoginSignals(account, password);
 }
 

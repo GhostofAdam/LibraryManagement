@@ -49,7 +49,7 @@ void Controller::Register(DataUser data)
         registerptr->ShowAlreadyExistError();
     else{
         databaseptr->Insert(&data);
-        registerptr->close();
+        CloseRegister();
     }
 }
 
@@ -62,27 +62,21 @@ void Controller::ShowLogin(){
 }
 
 void Controller::Login(QString account,QString password){
-    if(account.size() == 0 || password.size() == 0){
-        //账号或密码为空
-        loginptr->ShowBlankRefutation();
-    }
-    else{
-        //
-        switch(databaseptr->EnterCheck(account, password)){
-        case LOGINCHECK_SUCCESS:
-            loginptr->close();
-            OpenMainWindow();
-            break;
-        case LOGINCHECK_NOQUEST:
-            loginptr->ShowNoQuestRefutation();
-            break;
-        case LOGINCHECK_UNMATCH:
-            loginptr->ShowUnmatchRefutation();
-            break;
-        default:
-            BUG;
-            //
-        }
+        //ui信息未填完不会发送过来
+    switch(databaseptr->EnterCheck(account, password)){
+    case LOGINCHECK_SUCCESS:
+        loginptr->close();
+        OpenMainWindow();
+        break;
+    case LOGINCHECK_NOQUEST:
+        loginptr->ShowNoQuestRefutation();
+        break;
+    case LOGINCHECK_UNMATCH:
+        loginptr->ShowUnmatchRefutation();
+        break;
+    default:
+        BUG;
+       //以上三种情况
     }
 
 }

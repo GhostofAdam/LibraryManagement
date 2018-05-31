@@ -13,6 +13,8 @@ class RegisterDialog;
 class RegisterDialog : public QDialog
 {
     Q_OBJECT
+private:
+    bool CheckBlank();
 
 public:
     explicit RegisterDialog(QWidget *parent = 0);
