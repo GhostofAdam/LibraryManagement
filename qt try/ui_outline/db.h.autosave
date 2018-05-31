@@ -1,0 +1,29 @@
+#ifndef DB_H
+#define DB_H
+#include <QSqlDatabase>
+#include <logindialog.h>
+#include "configure.h"
+class DB
+{
+private:
+    QSqlDatabase m_db;
+public:
+    DB(const QString& path);
+    ~DB();
+    int EnterCheck(const QString& username,const QString& password);
+    bool CreateTable(const QString& type);//成功和表
+    bool DeleteTable(const QString& type);
+    void PrintTablesType();//debug用，qdebug输出所有表类型，没几个表就没做查找了
+    bool InsertUser(const QString& _account, 
+    const QString&  _password ,
+    const QString& _schoolID ,
+    const QString& _department ,
+    const QString& _major ,
+    const QString&  _name ,
+    const QString& _sex );
+    
+
+
+};
+
+#endif // DB_H
