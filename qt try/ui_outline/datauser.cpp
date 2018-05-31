@@ -1,4 +1,5 @@
 #include "datauser.h"
+#include <QSqlDatabase>
 
 DataUser::DataUser(QString a, QString p, QString ID, QString d,
                    QString m, QString n, QString s)
@@ -23,4 +24,9 @@ std::vector<QString> DataUser::TranslateToString(){
     list.push_back(sex);
 
     return list;
+}
+void DataUser::Insert(QSqlDatabase& db){
+    QSqlQuery query(db);
+    query.prepare(QString("insert into USERS values (%1, %2, %3, %4, %5, %6, %7)")
+                  .arg(this->account).arg(this->password).arg(this->schoolID).arg(this->department).arg(this->major).arg(this->name).arg(this->sex));
 }
