@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QAbstractButton>
+#include "datauser.h"
 
 namespace Ui {
 class RegisterDialog;
@@ -17,8 +18,9 @@ public:
     ~RegisterDialog();
 
 signals:
-    void Register();
+    void Register(DataUser user);
 private slots:
+
     void on_buttonBox_clicked(QAbstractButton *button);
 
 private:

@@ -8,7 +8,6 @@ class Data
 {
 public:
     Data();
-    virtual void TranslateFromString(std::vector<QString>) = 0;
     virtual std::vector<QString> TranslateToString() = 0;
 };
 

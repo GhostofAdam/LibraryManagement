@@ -78,7 +78,7 @@
     <enum>QLineEdit::Password</enum>
    </property>
   </widget>
-  <widget class="QLineEdit" name="major_2">
+  <widget class="QLineEdit" name="schoolID">
    <property name="geometry">
     <rect>
      <x>130</x>

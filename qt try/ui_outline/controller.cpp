@@ -32,6 +32,11 @@ void Controller::OpenMainWindow(){
     mainwindowptr->show();
 }
 
+void Controller::Register(DataUser data)
+{
+
+}
+
 void Controller::ShowLogin(){
     if(this->loginptr == nullptr)
         QMessageBox::StandardButton reply = QMessageBox::critical(nullptr, tr("#"),tr("程序出错"),QMessageBox::Retry);

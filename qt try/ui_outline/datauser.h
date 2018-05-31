@@ -5,12 +5,19 @@
 class DataUser : public Data
 {
 private:
-    QMap<QString,QString> map;
+    QString  account ;
+    QString  password ;
+    QString  schoolID ;
+    QString  department ;
+    QString  major ;
+    QString  name ;
+    QString  sex ;
     int finemoney = 0;
 public:
-    DataUser();
-    virtual void TranslateFromString(std::vector<QString>){}
-    virtual std::vector<QString> TranslateToString(){}
+    DataUser(QString account,QString password, QString schoolID,
+             QString department, QString major, QString name,
+             QString sex);
+    virtual std::vector<QString> TranslateToString();
 };
 
 #endif // DATAUSER_H
