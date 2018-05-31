@@ -18,9 +18,6 @@ public:
              QString department, QString major, QString name,
              QString sex);
     virtual std::vector<QString> TranslateToString();
-    virtual void Insert(QSqlDatabase& db);
-    virtual bool IsExist(QSqlDatabase& db);
-
 };
 
 #endif // DATAUSER_H

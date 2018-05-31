@@ -9,8 +9,5 @@
 #define LOGINCHECK_NOQUEST 1
 #define LOGINCHECK_UNMATCH 2
 
-#define FAIL false
-#define SUCCESS true
-
 #define BUG qDebug() << "THERE'S A BUG!"
 #endif // CONSTANT_H

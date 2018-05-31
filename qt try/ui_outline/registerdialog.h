@@ -19,7 +19,6 @@ private:
 public:
     explicit RegisterDialog(QWidget *parent = 0);
     ~RegisterDialog();
-    void ShowAlreadyExistError();
 
 signals:
     void Register(DataUser user);

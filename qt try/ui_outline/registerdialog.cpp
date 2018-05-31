@@ -28,11 +28,6 @@ RegisterDialog::~RegisterDialog()
     delete ui;
 }
 
-void RegisterDialog::ShowAlreadyExistError()
-{
-    QMessageBox::critical(this,tr("错误"),tr("该账号已经存在"),QMessageBox::Retry);
-}
-
 void RegisterDialog::on_ok_clicked()
 {
     if(ui->password->text() != ui->passwordaffirm->text()){

@@ -38,19 +38,22 @@ void Controller::CloseRegister()
 {
     if(registerptr != nullptr){
     registerptr ->close();
-    delete registerptr;
     registerptr = nullptr;
     }
 }
 
 void Controller::Register(DataUser data)
 {
+<<<<<<< HEAD
     if(databaseptr->isExist(&data))
         registerptr->ShowAlreadyExistError();
     else{
         databaseptr->Insert(&data);
         CloseRegister();
     }
+=======
+
+>>>>>>> ae4b323b893ca7aaf5de6fa8930ca83a8728b9b7
 }
 
 void Controller::ShowLogin(){
