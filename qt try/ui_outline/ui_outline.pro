@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     controller.cpp \
     registerdialog.cpp \
     data.cpp \
-    datauser.cpp
+    datauser.cpp \
+    usermainwindow.cpp
 
 HEADERS  += mainwindow.h \
     logindialog.h \
@@ -29,8 +30,10 @@ HEADERS  += mainwindow.h \
     controller.h \
     registerdialog.h \
     data.h \
-    datauser.h
+    datauser.h \
+    usermainwindow.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
-    registerdialog.ui
+    registerdialog.ui \
+    usermainwindow.ui
