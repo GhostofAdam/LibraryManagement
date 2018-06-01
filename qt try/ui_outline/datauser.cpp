@@ -53,6 +53,14 @@ void DataUser::Insert(QSqlDatabase& db){
 
 bool DataUser::IsExist(QSqlDatabase& db){
     QSqlQuery query(db);
-    bool _isExist = query.exec(QString("select count(*) from %1 where account ='%2')").arg("USERS").arg(account));
-    return _isExist;
+    qDebug()<<"test";
+    query.prepare("SELECT password FROM USERS WHERE account = (:name)");
+    query.bindValue(":name",account);
+
+   if (query.exec())
+   {
+       return true;
+   }
+   else
+       return false;
 }
