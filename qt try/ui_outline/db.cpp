@@ -41,14 +41,14 @@ int DB::EnterCheck(const QString &username, const QString &password)
         qDebug() << username;
         qDebug() << password;
         QSqlQuery checkQuery(m_db);
-        checkQuery.prepare("SELECT password FROM USERS WHERE account = (:name)");
+        checkQuery.prepare("SELECT * FROM USERS WHERE account = (:name)");
         checkQuery.bindValue(":name", username);
 
         if (checkQuery.exec())
         {
             if (checkQuery.next())
             {
-                QString real = checkQuery.value(0).toString();
+                QString real = checkQuery.value(1).toString();
                 qDebug() << real;
                 qDebug() << password;
 

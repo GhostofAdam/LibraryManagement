@@ -26,18 +26,18 @@ std::vector<QString> DataUser::TranslateToString(){
 }
 void DataUser::Insert(QSqlDatabase& db){
 
-    qDebug() << this->account<<" "<<this->password<<" "<<this->password<<" "<<this->schoolID<<" "<<this->department<<" "<<this->major<<" "<<this->name<<" "<<this->sex;
+    qDebug() << this->account<<" "<<this->password<<" "<<" "<<this->schoolID<<" "<<this->department<<" "<<this->major<<" "<<this->name<<" "<<this->sex;
     QSqlQuery query(db);
     query.prepare(QString("insert into USERS values (?, ?, ?, ?, ?, ?, ?)"));
-    QVariantList INFO;
-    INFO.append(this->account);
-    INFO.append(this->password);
-    INFO.append(this->schoolID);
-    INFO.append(this->department);
-    INFO.append(this->major);
-    INFO.append(this->name);
-    INFO.append(this->sex);
-    query.addBindValue(INFO);
+
+    query.addBindValue(this->account);
+    query.addBindValue(this->password);
+    query.addBindValue(this->schoolID);
+    query.addBindValue(this->department);
+    query.addBindValue(this->major);
+    query.addBindValue(this->name);
+    query.addBindValue(this->sex);
+
 
     if(!query.exec())
     {
@@ -59,8 +59,12 @@ bool DataUser::IsExist(QSqlDatabase& db){
 
    if (query.exec())
    {
-       return true;
+       if(query.next())
+            return true;
+       else
+           return false;
    }
    else
+      qDebug()<<"error";
        return false;
 }
