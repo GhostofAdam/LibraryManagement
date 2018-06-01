@@ -12,5 +12,6 @@
 #define FAIL false
 #define SUCCESS true
 
+#define USER_TABLE 0
 #define BUG qDebug() << "THERE'S A BUG!"
 #endif // CONSTANT_H

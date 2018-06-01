@@ -5,6 +5,9 @@
 #include <QString>
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <QDebug>
+#include <QSqlError>
+
 
 class Data
 {

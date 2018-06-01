@@ -25,9 +25,30 @@ std::vector<QString> DataUser::TranslateToString(){
     return list;
 }
 void DataUser::Insert(QSqlDatabase& db){
+
+    qDebug() << this->account<<" "<<this->password<<" "<<this->password<<" "<<this->schoolID<<" "<<this->department<<" "<<this->major<<" "<<this->name<<" "<<this->sex;
     QSqlQuery query(db);
-    query.prepare(QString("insert into USERS values (%1, %2, %3, %4, %5, %6, %7)")
-                  .arg(this->account).arg(this->password).arg(this->schoolID).arg(this->department).arg(this->major).arg(this->name).arg(this->sex));
+    query.prepare(QString("insert into USERS values (?, ?, ?, ?, ?, ?, ?)"));
+    QVariantList INFO;
+    INFO.append(this->account);
+    INFO.append(this->password);
+    INFO.append(this->schoolID);
+    INFO.append(this->department);
+    INFO.append(this->major);
+    INFO.append(this->name);
+    INFO.append(this->sex);
+    query.addBindValue(INFO);
+
+    if(!query.exec())
+    {
+        qDebug() << "insert failed"<<query.lastError();
+
+    }
+    else
+    {
+        qDebug() << "insert successeded";
+
+    }
 }
 
 bool DataUser::IsExist(QSqlDatabase& db){

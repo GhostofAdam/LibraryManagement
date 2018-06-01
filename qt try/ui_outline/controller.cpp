@@ -3,7 +3,8 @@
 Controller::Controller(QObject *parent) : QObject(parent)
 {
     //database 路径暂时就是"../LibraryManagement/sqlite/admitDB.db"
-    databaseptr = new DB("../LibraryManagement/sqlite/admitDB.db");
+    databaseptr = new DB("G:/oop_big_work/sqlite/admitDB.db");
+
 
     OpenLogin();
 }

@@ -1,7 +1,7 @@
 #include "db.h"
 
 #include <QSqlQuery>
-#include <QSqlError>
+
 #include <QSqlRecord>
 #include <QMessageBox>
 #include "configure.h"
@@ -12,8 +12,9 @@
 #include <QDebug>
 DB::DB(const QString& path)
 {
+
     m_db = QSqlDatabase::addDatabase("QSQLITE");
-       m_db.setDatabaseName(path);
+    m_db.setDatabaseName(path);
 
        if (!m_db.open())
        {
@@ -24,22 +25,23 @@ DB::DB(const QString& path)
        {
          qDebug() << "Database: connection ok";
        }
-
-
 }
+
+
 DB::~DB()
 {
     if (m_db.isOpen())
        {
            m_db.close();
        }
+     QSqlDatabase::removeDatabase("QSQLITE");
 }
 int DB::EnterCheck(const QString &username, const QString &password)
 {
         qDebug() << username;
         qDebug() << password;
         QSqlQuery checkQuery(m_db);
-        checkQuery.prepare("SELECT PASSWORD FROM ADMITS WHERE USERNAME = (:name)");
+        checkQuery.prepare("SELECT password FROM USERS WHERE account = (:name)");
         checkQuery.bindValue(":name", username);
 
         if (checkQuery.exec())
@@ -65,43 +67,44 @@ int DB::EnterCheck(const QString &username, const QString &password)
 
         return 1;
 }
-//bool DB::CreateTable(const QString& type){
-//    QSqlQuery query(m_db);
-//    bool isTableExist = query.exec(QString("select count(*) from sqlite_master where type='table' and name='%1'").arg(type));
-//    if(isTableExist){
-//        qDebug()<<"table already exits";
-//        PrintTablesType();//查看表类型
-//        return SUCCESS;//表已存在也返回成功 ture
-//        }
-//    else{
-//    switch (type) {
-//    case "USERS":
-        
-//        QString create_sql =
-//                "create table USERS (account int primary key, password varchar(30), schoolID int, department varchar(30),major varchar(30),"
-//                "name varchar(30),sex boolean)";
-//        query.prepare(create_sql);
-//        if(!query.exec())
-//        {
-//            qDebug() << "Error: Fail to create table." << sql_query.lastError();
-//            return FAIL;
-//        }
-//        else
-//        {
-//            qDebug() << "Table created!";
-//            PrintTablesType();//查看表类型
-//            return SUCCESS;
-//        }
-        
-        
-        
-//        break;
-//    default:
-//        break;
-//    }
-//    }
-    
-//}
+bool DB::CreateTable(int type){
+    QSqlQuery query(m_db);
+    switch (type){
+    case USER_TABLE:{
+    bool isTableExist = query.exec(QString("select count(*) from sqlite_master where type='table' and name='%1'").arg("USER"));
+    if(isTableExist){
+        qDebug()<<"table already exits";
+        //PrintTablesType();//查看表类型
+        return SUCCESS;//表已存在也返回成功 ture
+        }
+    else{
+        QString create_sql =
+                "create table USERS (account int primary key, password varchar(30), schoolID int, department varchar(30),major varchar(30),"
+                "name varchar(30),sex boolean)";
+        query.prepare(create_sql);
+        if(!query.exec())
+        {
+            qDebug() << "Error: Fail to create table." << query.lastError();
+            return FAIL;
+        }
+        else
+        {
+            qDebug() << "Table created!";
+            //PrintTablesType();//查看表类型
+            return SUCCESS;
+        }
+    }
+        break;
+}
+    default:
+            break;
+    }
+
+
+
+
+    }
+
 //bool DB::DeleteTable(const QString &type){
 //    QSqlQuery query(m_db);
 //    bool isTableExist = query.exec(QString("select count(*) from sqlite_master where type='table' and name='%1'").arg(type));
@@ -143,6 +146,8 @@ bool DB::isExist(Data*data){
 
 void DB::Insert(Data *data)
 {
+    QSqlQuery query(m_db);
+
     data->Insert(m_db);
 }
 
