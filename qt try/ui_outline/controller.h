@@ -10,6 +10,7 @@
 #include "db.h"
 #include "configure.h"
 #include "registerdialog.h"
+#include "usermainwindow.h"
 
 class Controller : public QObject
 {
@@ -18,7 +19,7 @@ private:
     LoginDialog * loginptr = nullptr;
     DB * databaseptr = nullptr;
     RegisterDialog * registerptr = nullptr;
-    MainWindow * mainwindowptr = nullptr;
+    UserMainWindow * mainwindowptr = nullptr;
 
 public:
     explicit Controller(QObject *parent = 0);
@@ -27,7 +28,7 @@ public slots:
     void Login(QString,QString);
     void OpenLogin();
     void OpenRegister();
-    void OpenMainWindow();
+    void OpenUserMainWindow();
     void CloseRegister();
     void Register(DataUser data);
 signals:

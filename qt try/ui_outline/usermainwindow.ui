@@ -14,47 +14,44 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QListWidget" name="listWidget">
+   <widget class="QListWidget" name="SelectList">
     <property name="geometry">
      <rect>
       <x>20</x>
       <y>40</y>
-      <width>256</width>
+      <width>131</width>
       <height>521</height>
      </rect>
     </property>
     <item>
      <property name="text">
-      <string>新建项目</string>
+      <string>图书</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>新建项目</string>
+      <string>借阅情况</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>新建项目</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>新建项目</string>
+      <string>信息管理</string>
      </property>
     </item>
    </widget>
-   <widget class="QStackedWidget" name="stackedWidget">
+   <widget class="QStackedWidget" name="PageStack">
     <property name="geometry">
      <rect>
-      <x>280</x>
+      <x>210</x>
       <y>40</y>
-      <width>611</width>
+      <width>681</width>
       <height>521</height>
      </rect>
     </property>
-    <widget class="QWidget" name="page"/>
-    <widget class="QWidget" name="page_2"/>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="BookPage"/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

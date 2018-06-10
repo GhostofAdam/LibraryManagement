@@ -27,11 +27,11 @@ void Controller::OpenRegister(){
     connect(registerptr, SIGNAL(Destruction()),this,SLOT(CloseRegister()));
 }
 
-void Controller::OpenMainWindow(){
+void Controller::OpenUserMainWindow(){
     if(mainwindowptr != nullptr)
         return;
     //needs switch
-    mainwindowptr = new MainWindow();
+    mainwindowptr = new UserMainWindow();
     mainwindowptr->show();
 }
 
@@ -67,7 +67,7 @@ void Controller::Login(QString account,QString password){
     switch(databaseptr->EnterCheck(account, password)){
     case LOGINCHECK_SUCCESS:
         loginptr->close();
-        OpenMainWindow();
+        OpenUserMainWindow();
         break;
     case LOGINCHECK_NOQUEST:
         loginptr->ShowNoQuestRefutation();
