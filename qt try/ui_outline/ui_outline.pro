@@ -25,7 +25,8 @@ SOURCES += main.cpp\
     bookstackedpage.cpp \
     dataadapter.cpp \
     databookadapter.cpp \
-    databook.cpp
+    databook.cpp \
+    bookinfopage.cpp
 
 HEADERS  += mainwindow.h \
     logindialog.h \
@@ -39,10 +40,12 @@ HEADERS  += mainwindow.h \
     bookstackedpage.h \
     dataadapter.h \
     databookadapter.h \
-    databook.h
+    databook.h \
+    bookinfopage.h
 
 FORMS    += mainwindow.ui \
     logindialog.ui \
     registerdialog.ui \
     usermainwindow.ui \
-    bookstackedpage.ui
+    bookstackedpage.ui \
+    bookinfopage.ui

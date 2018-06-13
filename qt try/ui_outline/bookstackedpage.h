@@ -34,7 +34,6 @@ signals:
     void SelectBookIsbn(QString isbn);
 private slots:
     void on_SearchButton_clicked();
-
     void on_ViewButton_clicked();
 
 private:

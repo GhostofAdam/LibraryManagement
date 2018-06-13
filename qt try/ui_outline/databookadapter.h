@@ -9,7 +9,7 @@ class DataBookAdapter
 private:
     DataBook book;
 public:
-    DataBookAdapter();
+    DataBookAdapter(DataBook databook):book(databook){}
     QString author(){
         return this->book.author;
     }
