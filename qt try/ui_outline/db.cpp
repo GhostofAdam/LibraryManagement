@@ -67,79 +67,8 @@ int DB::EnterCheck(const QString &username, const QString &password)
 
         return 1;
 }
-bool DB::CreateTable(int type){
-    QSqlQuery query(m_db);
-    switch (type){
-    case USER_TABLE:{
-    bool isTableExist = query.exec(QString("select count(*) from sqlite_master where type='table' and name='%1'").arg("USER"));
-    if(isTableExist){
-        qDebug()<<"table already exits";
-        //PrintTablesType();//查看表类型
-        return SUCCESS;//表已存在也返回成功 ture
-        }
-    else{
-        QString create_sql =
-                "create table USERS (account int primary key, password varchar(30), schoolID int, department varchar(30),major varchar(30),"
-                "name varchar(30),sex boolean)";
-        query.prepare(create_sql);
-        if(!query.exec())
-        {
-            qDebug() << "Error: Fail to create table." << query.lastError();
-            return FAIL;
-        }
-        else
-        {
-            qDebug() << "Table created!";
-            //PrintTablesType();//查看表类型
-            return SUCCESS;
-        }
-    }
-        break;
-}
-    default:
-            break;
-    }
 
 
-
-
-    }
-
-//bool DB::DeleteTable(const QString &type){
-//    QSqlQuery query(m_db);
-//    bool isTableExist = query.exec(QString("select count(*) from sqlite_master where type='table' and name='%1'").arg(type));
-//    if(!isTableExist){
-//        qDebug<<"table doesn't exist";
-//        return SUCCESS;
-//    }
-//    else{
-//    QString clear_sql = "delete from "+type;
-//    query.prepare(clear_sql);
-//    if(!query.exec())
-//    {
-//        qDebug() << "delete failed"<<sql_query.lastError();
-//        return FAIL;
-//    }
-//    else
-//    {
-//        qDebug() << "table cleared";
-//        return SUCCESS;
-//    }
-//    }
-//}
-
-//void DB:: PrintTablesType(){
-//    QStringList tables = m_db.tables();  //获取数据库中的表
-//           qDebug() << QString::fromLocal8Bit("表的个数： %1").arg(tables.count()); //打印表的个数
-//           QStringListIterator itr(tables);
-//           while (itr.hasNext())
-//           {
-//               QString tableNmae = itr.next().toLocal8Bit();
-//               qDebug() << QString::fromLocal8Bit("表名：")+ tableNmae;
-                 
-//               outPutTableInfo(tableNmae);
-//           }
-//}
 bool DB::isExist(Data*data){
     return data->IsExist(m_db);
 }
@@ -151,32 +80,101 @@ void DB::Insert(Data *data)
     data->Insert(m_db);
 }
 
- 
-/*bool InsertUser(const QString& _account, 
-const QString&  _password ,
-const QString& _schoolID ,
-const QString& _department ,
-const QString& _major ,
-const QString&  _name ,
-const QString& _sex ){
-   QSqlQuery query(m_db);
-   bool isExist = query.exec(QString("select count(*) from USERS where account ='%1')").arg(_account));
-   if(isExist){
-       qDebug<<"User already exits";
-       return SUCCESS;
-   }
-   else{
-     query.prepare(QString("insert into USERS values (%1, %2, %3, %4, %5, %6, %7)").arg(_account).arg(_password).arg(_schoolID).arg(_department).arg(_major).arg(_name).arg(_sex));
-     if(!query.exec())
+std::vector<DataBook> DB:: ExactSearch(QString keyword){
+     std::vector<DataBook> result;
+     QSqlQuery query(m_db);
+     query.prepare("select * from Books where name=(:keyword)");//查找name
+     query.bindValue(":keyword",keyword);
+     if (query.exec())
      {
-         qDebug() << "insert failed"<<sql_query.lastError();
-         return FAIL;
+         if (query.next())
+         {
+             DataBook a(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
+                        QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()));
+             result.push_back(a);
+         }
      }
      else
      {
-         qDebug() << "table cleared";
-         return SUCCESS;
+         qDebug() << "ExactSearch failed: " << query.lastError();
      }
-   }
-    
-}*/
+       
+     query.prepare("select * from Books where author= (:keyword)");//查找author
+     query.bindValue(":keyword",keyword);
+     if (query.exec())
+     {
+         if (query.next())
+         {
+             DataBook a(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
+                        QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()));
+             result.push_back(a);
+
+         }
+     }
+     else
+     {
+         qDebug() << "ExactSearch failed: " << query.lastError();
+     }
+     
+     return result;
+}
+std::vector<DataBook> DB::FuzzySearch(QString keyword){
+     std::vector<DataBook> result;
+
+     QSqlQuery query(m_db);
+
+     query.prepare(QString("select* from Books where name like :keyword"));
+     query.bindValue(":keyword","%"+keyword+"%");
+
+     if (query.exec())
+     {
+        while(query.next())
+         {
+             DataBook a(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
+                        QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()));
+             result.push_back(a);
+
+         }
+     }
+     else
+     {
+         qDebug() << "FuzzySearch failed: " << query.lastError();
+     }
+
+     query.prepare(QString("select *from Books where author like :keyword"));
+     query.bindValue(":keyword","%"+keyword+"%");
+
+     if (query.exec())
+     {
+         while (query.next())
+         {
+             DataBook a(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
+                        QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()));
+             result.push_back(a);
+
+         }
+     }
+     else
+     {
+         qDebug() << "FuzzySearch failed: " << query.lastError();
+     }
+
+     query.prepare(QString("select* from Books where label like :keyword"));
+     query.bindValue(":keyword","%"+keyword+"%");
+     if (query.exec())
+     {
+         while (query.next())
+         {
+             DataBook a(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
+                        QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()));
+             result.push_back(a);
+         }
+     }
+     else
+     {
+         qDebug() << "FuzzySearch failed: " << query.lastError();
+     }
+
+     return result;
+
+}

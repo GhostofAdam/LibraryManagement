@@ -68,3 +68,5 @@ bool DataUser::IsExist(QSqlDatabase& db){
       qDebug()<<"error";
        return false;
 }
+void DataUser::update(QSqlDatabase& db){}
+void DataUser::show(){}

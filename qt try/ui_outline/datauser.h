@@ -20,7 +20,8 @@ public:
     virtual std::vector<QString> TranslateToString();
     virtual void Insert(QSqlDatabase& db);
     virtual bool IsExist(QSqlDatabase& db);
-
+    virtual void update(QSqlDatabase& db);
+    virtual void show();
 };
 
 #endif // DATAUSER_H
