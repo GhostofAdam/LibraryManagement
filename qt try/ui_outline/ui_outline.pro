@@ -14,7 +14,6 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
     logindialog.cpp \
     db.cpp\
     controller.cpp \
@@ -26,10 +25,11 @@ SOURCES += main.cpp\
     dataadapter.cpp \
     databookadapter.cpp \
     databook.cpp \
-    bookinfopage.cpp
+    bookadddialog.cpp \
+    bookchangedialog.cpp \
+    administermainwindow.cpp
 
-HEADERS  += mainwindow.h \
-    logindialog.h \
+HEADERS  += logindialog.h \
     configure.h \
     db.h\
     controller.h \
@@ -41,11 +41,14 @@ HEADERS  += mainwindow.h \
     dataadapter.h \
     databookadapter.h \
     databook.h \
-    bookinfopage.h
+    bookadddialog.h \
+    bookchangedialog.h \
+    administermainwindow.h
 
-FORMS    += mainwindow.ui \
-    logindialog.ui \
+FORMS    += logindialog.ui \
     registerdialog.ui \
     usermainwindow.ui \
     bookstackedpage.ui \
-    bookinfopage.ui
+    bookadddialog.ui \
+    bookchangedialog.ui \
+    administermainwindow.ui

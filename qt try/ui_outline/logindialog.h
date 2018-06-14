@@ -6,7 +6,6 @@
 #include <QMessageBox>
 #include "configure.h"
 #include "registerdialog.h"
-#include "mainwindow.h"
 
 namespace Ui {
 class LoginDialog;

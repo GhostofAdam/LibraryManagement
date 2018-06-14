@@ -2,6 +2,7 @@
 #define DATABOOK_H
 #include "data.h"
 
+class DataBookAdapter;
 class DataBook : public Data
 {
 private:
@@ -12,6 +13,7 @@ private:
     QString  abstract ;
     QString  comments;
     int finemoney = 0;
+    friend class DataBookAdapter;
 public:
     DataBook(){}
     DataBook(QString id,

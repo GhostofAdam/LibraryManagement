@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AdministerMainWindow</class>
+ <widget class="QWidget" name="AdministerMainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>903</width>
+    <height>640</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QStackedWidget" name="PageStack">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>50</y>
+     <width>681</width>
+     <height>521</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="BookPage"/>
+  </widget>
+  <widget class="QListWidget" name="SelectList">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>50</y>
+     <width>131</width>
+     <height>521</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>图书</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>借阅情况</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>信息管理</string>
+    </property>
+   </item>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

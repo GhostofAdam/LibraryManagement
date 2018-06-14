@@ -1,7 +1,7 @@
 #ifndef DATABOOKADAPTER_H
 #define DATABOOKADAPTER_H
-#include "databook.h"
 
+#include "databook.h"
 
 class DataBook;
 class DataBookAdapter
@@ -10,20 +10,28 @@ private:
     DataBook book;
 public:
     DataBookAdapter(DataBook databook):book(databook){}
+    QString abstract(){
+        return this->book.abstract;
+    }
+
     QString author(){
-        //return this->book.author;
+       return this->book.author;
     }
 
     QString title(){
-       // return this->book.title;
+       return this->book.title;
     }
 
     QString place(){
-       // return this->book.place;
+       return this->book.place;
     }
 
     QString isbn(){
-     //   return this->book.isbn;
+       return this->book.isbn;
+    }
+
+    int id(){
+        return book.id.toInt();
     }
 };
 
