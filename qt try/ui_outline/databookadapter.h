@@ -19,7 +19,7 @@ public:
     }
 
     QString title(){
-       return this->book.title;
+       return this->book.name;
     }
 
     QString place(){

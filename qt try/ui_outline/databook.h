@@ -9,9 +9,10 @@ private:
     QString  id;
     QString  name ;
     QString  author ;
-    QString  label ;
-    QString  abstract ;
-    QString  comments;
+    QString  place ;
+    QString  isbn ;
+    QString  abstract;
+
     int finemoney = 0;
     friend class DataBookAdapter;
 public:
@@ -19,9 +20,8 @@ public:
     DataBook(QString id,
       QString name ,
       QString author ,
-      QString label ,
-      QString abstract ,
-      QString comments);
+      QString place ,
+      QString isbn);
     virtual std::vector<QString> TranslateToString();
     
     virtual void update(QSqlDatabase& db);
