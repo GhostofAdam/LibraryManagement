@@ -1,7 +1,7 @@
 #include "db.h"
 
 #include <QSqlQuery>
-
+#include <QSqlDatabase>
 #include <QSqlRecord>
 #include <QMessageBox>
 #include "configure.h"
@@ -90,7 +90,7 @@ std::vector<DataBook> DB:: ExactSearch(QString keyword){
          if (query.next())
          {
              DataBook a(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
-                        QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()));
+                        QString(query.value(3).toString()),QString(query.value(4).toString()));
              result.push_back(a);
          }
      }
@@ -106,7 +106,7 @@ std::vector<DataBook> DB:: ExactSearch(QString keyword){
          if (query.next())
          {
              DataBook a(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
-                        QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()));
+                        QString(query.value(3).toString()),QString(query.value(4).toString()));
              result.push_back(a);
 
          }
@@ -131,7 +131,7 @@ std::vector<DataBook> DB::FuzzySearch(QString keyword){
         while(query.next())
          {
              DataBook a(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
-                        QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()));
+                        QString(query.value(3).toString()),QString(query.value(4).toString()));
              result.push_back(a);
 
          }
@@ -149,7 +149,7 @@ std::vector<DataBook> DB::FuzzySearch(QString keyword){
          while (query.next())
          {
              DataBook a(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
-                        QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()));
+                        QString(query.value(3).toString()),QString(query.value(4).toString()));
              result.push_back(a);
 
          }
@@ -159,21 +159,6 @@ std::vector<DataBook> DB::FuzzySearch(QString keyword){
          qDebug() << "FuzzySearch failed: " << query.lastError();
      }
 
-     query.prepare(QString("select* from Books where label like :keyword"));
-     query.bindValue(":keyword","%"+keyword+"%");
-     if (query.exec())
-     {
-         while (query.next())
-         {
-             DataBook a(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
-                        QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()));
-             result.push_back(a);
-         }
-     }
-     else
-     {
-         qDebug() << "FuzzySearch failed: " << query.lastError();
-     }
 
      return result;
 
