@@ -33,10 +33,13 @@ public:
 signals:
     void SearchBook(QString search_info, QString search_type);
     void SelectBookIsbn(QString isbn);
+    void InsertBook();
 private slots:
     void on_SearchButton_clicked();
     void on_ViewButton_clicked();
 
+    void on_InsertButton_clicked();
+    void on_ChangeButton_clicked();
 private:
     Ui::BookStackedPage *ui;
 };

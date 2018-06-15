@@ -1,15 +1,15 @@
 #ifndef BOOKADDDIALOG_H
 #define BOOKADDDIALOG_H
 
-#include <QWidget>
-#include <databook.h>
-//添加书的时候有很大的问题
+#include <QDialog>
+#include "configure.h"
 
+#include "databook.h"
 namespace Ui {
 class BookAddDialog;
 }
 
-class BookAddDialog : public QWidget
+class BookAddDialog : public QDialog
 {
     Q_OBJECT
 
@@ -18,11 +18,9 @@ public:
     ~BookAddDialog();
 
 signals:
-    void Cancel();
-    void AddBook(DataBook book);
+    void InsertBook(DataBook book);
 private slots:
-    void on_AddButton_clicked();
-    void on_CancelButton_clicked();
+    void on_buttonBox_accepted();
 
 private:
     Ui::BookAddDialog *ui;

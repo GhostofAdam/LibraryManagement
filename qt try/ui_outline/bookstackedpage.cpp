@@ -54,7 +54,7 @@ void BookStackedPage::Adapt2User(){
 
 void BookStackedPage::on_InsertButton_clicked()
 {
-
+    emit InsertBook();
 }
 
 void BookStackedPage::on_ChangeButton_clicked()

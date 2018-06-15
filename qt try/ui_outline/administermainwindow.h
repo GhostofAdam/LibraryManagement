@@ -22,6 +22,7 @@ public:
 signals:
     void SearchBook(QString search_info, QString search_type);
     void ChangeBookById(QString id);
+    void InsertBook();
 public slots:
     void on_SearchBook(QString search_info, QString search_type){
         emit SearchBook(search_info, search_type);
@@ -29,6 +30,10 @@ public slots:
     void on_ChangeBookById(QString isbn){
         emit ChangeBookById(isbn);
     }
+    void on_InsertBook(){
+        emit InsertBook();
+    }
+
 private:
     Ui::AdministerMainWindow *ui;
     BookStackedPage * bookpage;

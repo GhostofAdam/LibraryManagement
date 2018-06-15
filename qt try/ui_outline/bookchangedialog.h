@@ -11,7 +11,7 @@ namespace Ui {
 class BookChangeDialog;
 }
 
-class BookChangeDialog : public QWidget
+class BookChangeDialog : public QDialog
 {
     Q_OBJECT
 public:

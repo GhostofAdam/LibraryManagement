@@ -9,6 +9,7 @@
 #include <QStackedWidget>
 #include <QMessageBox>
 #include <QLabel>
+#include <QPushButton>
 
 #define ADMINISTRATOR_NUM 0
 #define USER_NUM 1

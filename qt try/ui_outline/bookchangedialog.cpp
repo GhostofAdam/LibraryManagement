@@ -2,7 +2,7 @@
 #include "ui_bookchangedialog.h"
 
 BookChangeDialog::BookChangeDialog(QWidget * parent,DataBook book) :
-    QWidget(parent),
+    QDialog(parent),
     ui(new Ui::BookChangeDialog)
 {
     ui->setupUi(this);

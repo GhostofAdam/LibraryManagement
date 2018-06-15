@@ -14,7 +14,9 @@
 #include "registerdialog.h"
 #include "usermainwindow.h"
 #include "administermainwindow.h"
+#include "bookadddialog.h"
 
+class BookAddDialog;
 class Controller : public QObject
 {
     Q_OBJECT
@@ -37,6 +39,9 @@ public slots:
     void CloseRegister();
     void Register(DataUser data);
     void SearchBook(QString search_info, QString search_type);
+    //连接不同的ui窗口
+    void InsertBook();
+    void InsertBook(DataBook book);
 signals:
 
 public slots:

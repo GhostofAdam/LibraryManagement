@@ -12,7 +12,7 @@ AdministerMainWindow::AdministerMainWindow(QWidget *parent) :
     ui->PageStack->addWidget(new QLabel("123"));
     connect(bookpage,SIGNAL(SearchBook(QString,QString)),this,SLOT(on_SearchBook(QString,QString)));
     connect(bookpage,SIGNAL(SelectBookIsbn(QString)),this,SLOT(on_ChangeBookById(QString)));
-
+    connect(bookpage,SIGNAL(InsertBook()),this, SLOT(on_InsertBook()));
 //    connect(ui->SelectList,SIGNAL(currentRowChanged(int)),ui->PageStack,SLOT(setCurrentIndex(int)));
 }
 

@@ -25,10 +25,10 @@ SOURCES += main.cpp\
     dataadapter.cpp \
     databookadapter.cpp \
     databook.cpp \
-    bookadddialog.cpp \
     bookchangedialog.cpp \
     administermainwindow.cpp \
-    bookfromuserpage.cpp
+    bookfromuserpage.cpp \
+    bookadddialog.cpp
 
 HEADERS  += logindialog.h \
     configure.h \
@@ -42,16 +42,16 @@ HEADERS  += logindialog.h \
     dataadapter.h \
     databookadapter.h \
     databook.h \
-    bookadddialog.h \
     bookchangedialog.h \
     administermainwindow.h \
-    bookfromuserpage.h
+    bookfromuserpage.h \
+    bookadddialog.h
 
 FORMS    += logindialog.ui \
     registerdialog.ui \
     usermainwindow.ui \
     bookstackedpage.ui \
-    bookadddialog.ui \
     bookchangedialog.ui \
     administermainwindow.ui \
-    bookfromuserpage.ui
+    bookfromuserpage.ui \
+    bookadddialog.ui

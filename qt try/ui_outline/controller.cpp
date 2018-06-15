@@ -40,6 +40,7 @@ void Controller::OpenAdministerMainWindow(){
         return;
     //needs switch
     mainwindowptr2 = new AdministerMainWindow();
+    connect(mainwindowptr2, SIGNAL(InsertBook()), this, SLOT(InsertBook()));
     mainwindowptr2->show();
 }
 
@@ -65,6 +66,18 @@ void Controller::Register(DataUser data)
 void Controller::SearchBook(QString search_info, QString search_type)
 {
 
+}
+//TODO 插入书籍
+void Controller::InsertBook()
+{
+    BookAddDialog *dialog_tmpptr = new BookAddDialog();
+    connect(dialog_tmpptr, SIGNAL(InsertBook(DataBook)), this, SLOT(InsertBook(DataBook)));
+    dialog_tmpptr ->exec();
+}
+
+void Controller::InsertBook(DataBook book)
+{
+    databaseptr->Insert(&book);
 }
 
 void Controller::ShowLogin(){

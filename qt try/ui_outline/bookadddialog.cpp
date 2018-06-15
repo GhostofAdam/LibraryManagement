@@ -2,10 +2,12 @@
 #include "ui_bookadddialog.h"
 
 BookAddDialog::BookAddDialog(QWidget *parent) :
-    QWidget(parent),
+    QDialog(parent),
     ui(new Ui::BookAddDialog)
 {
     ui->setupUi(this);
+    ui->buttonBox->button(QDialogButtonBox::Ok)->setText("确定");
+    ui->buttonBox->button(QDialogButtonBox::Cancel)->setText("取消");
 }
 
 BookAddDialog::~BookAddDialog()
@@ -13,9 +15,7 @@ BookAddDialog::~BookAddDialog()
     delete ui;
 }
 
-
-
-void BookAddDialog::on_AddButton_clicked()
+void BookAddDialog::on_buttonBox_accepted()
 {
     QString title = ui->Title->text();
     QString author = ui->Author->text();
@@ -24,10 +24,7 @@ void BookAddDialog::on_AddButton_clicked()
     QString label = ui->label->text();
 
     DataBook book(title,author,isbn,label,summary);
-    emit AddBook(book);
+
+    emit InsertBook(book);
 }
 
-void BookAddDialog::on_CancelButton_clicked()
-{
-    emit Cancel();
-}
