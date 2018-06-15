@@ -1,6 +1,14 @@
 #ifndef CONSTANT_H
 #define CONSTANT_H
-
+#include <QMainWindow>
+#include <QSplitter>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QAction>
+#include <QListWidget>
+#include <QStackedWidget>
+#include <QMessageBox>
+#include <QLabel>
 
 #define ADMINISTRATOR_NUM 0
 #define USER_NUM 1

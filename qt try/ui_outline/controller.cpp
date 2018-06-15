@@ -14,7 +14,7 @@ void Controller::OpenLogin(){
         return;
     loginptr = new LoginDialog ();
     loginptr->show();
-    connect(loginptr, SIGNAL(LoginSignals(QString,QString)),this,SLOT(Login(QString,QString)));
+    connect(loginptr, SIGNAL(LoginSignals(QString,QString,QString)),this,SLOT(Login(QString,QString,QString)));
     connect(loginptr, SIGNAL(OpenRegisterSignals()),this,SLOT(OpenRegister()));
 }
 
@@ -35,6 +35,14 @@ void Controller::OpenUserMainWindow(){
     mainwindowptr->show();
 }
 
+void Controller::OpenAdministerMainWindow(){
+    if(mainwindowptr2 != nullptr)
+        return;
+    //needs switch
+    mainwindowptr2 = new AdministerMainWindow();
+    mainwindowptr2->show();
+}
+
 void Controller::CloseRegister()
 {
     if(registerptr != nullptr){
@@ -53,6 +61,11 @@ void Controller::Register(DataUser data)
         CloseRegister();
     }
 }
+//TODO 模糊搜索图书
+void Controller::SearchBook(QString search_info, QString search_type)
+{
+
+}
 
 void Controller::ShowLogin(){
     if(this->loginptr == nullptr)
@@ -62,12 +75,16 @@ void Controller::ShowLogin(){
     }
 }
 
-void Controller::Login(QString account,QString password){
+void Controller::Login(QString account,QString password, QString type){
         //ui信息未填完不会发送过来
+    qDebug() << type;
     switch(databaseptr->EnterCheck(account, password)){
     case LOGINCHECK_SUCCESS:
         loginptr->close();
-        OpenUserMainWindow();
+        if(type == "用户")
+            OpenUserMainWindow();
+        else if(type == "管理员")
+            OpenAdministerMainWindow();
         break;
     case LOGINCHECK_NOQUEST:
         loginptr->ShowNoQuestRefutation();

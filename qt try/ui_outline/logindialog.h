@@ -23,7 +23,7 @@ public:
     void ShowBlankRefutation();
     void ShowNoQuestRefutation();
 signals:
-    void LoginSignals(QString accnount, QString password);
+    void LoginSignals(QString accnount, QString password, QString type);
     void OpenRegisterSignals();
 
 private slots:

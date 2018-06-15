@@ -44,7 +44,7 @@ void BookChangeDialog::on_ChangeButton_clicked()
                                  QMessageBox::Yes | QMessageBox::Default,
                                  QMessageBox::No | QMessageBox::Escape ))
     {
-    case QMessageBox::Yes:
+    case QMessageBox::Yes:{
         QString id = QString::number(this->id);
         QString author = ui->Author_2->text();
         QString title = ui->Title_2->text();
@@ -53,6 +53,7 @@ void BookChangeDialog::on_ChangeButton_clicked()
         QString summary = ui->Summary_2->text();
         DataBook newbook(title, author, place, isbn, summary);
         emit ChangeBook(id, newbook);
+        }
         break;
     case QMessageBox::No:
         return;

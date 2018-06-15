@@ -8,6 +8,7 @@
 #include <QAction>
 #include <QListWidget>
 #include <QStackedWidget>
+#include <QMessageBox>
 #include <QLabel>
 
 #include "bookstackedpage.h"
@@ -20,9 +21,6 @@ class UserMainWindow : public QMainWindow
 {
     Q_OBJECT
 
-private:
-    BookStackedPage * bookpage;
-
 public:
     explicit UserMainWindow(QWidget *parent = 0);
     void SetBookTable(QVector<DataBook> books){
@@ -33,17 +31,18 @@ public:
 
 signals:
     void SearchBook(QString search_info, QString search_type);
-    void SelectBookIsbn(QString isbn);
-private slots:
+    void ViewBookByIsbn(QString isbn);
+public slots:
     void on_SearchBook(QString search_info, QString search_type){
         emit SearchBook(search_info, search_type);
     }
-    void on_SelectBookIsbn(QString isbn){
-        emit SelectBookIsbn(isbn);
+    void on_ViewBookByIsbn(QString isbn){
+        emit ViewBookByIsbn(isbn);
     }
 
 private:
     Ui::UserMainWindow *ui;
+    BookStackedPage * bookpage;
 };
 
 #endif // USERMAINWINDOW_H

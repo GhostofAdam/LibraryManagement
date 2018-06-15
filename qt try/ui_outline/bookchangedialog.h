@@ -2,6 +2,8 @@
 #define BOOKCHANGEDIALOG_H
 
 #include <QWidget>
+#include <QMessageBox>
+
 #include <databook.h>
 #include "databook.h"
 #include "databookadapter.h"
@@ -12,7 +14,6 @@ class BookChangeDialog;
 class BookChangeDialog : public QWidget
 {
     Q_OBJECT
-    QString id;
 public:
     BookChangeDialog() = delete;
     BookChangeDialog(QWidget * parent,DataBook book);
@@ -29,7 +30,7 @@ private slots:
 
 private:
     Ui::BookChangeDialog *ui;
-    QString id;
+    int id;
     void SetupBook(const DataBook & book);
 };
 
