@@ -1,7 +1,7 @@
 #include "db.h"
 
 #include <QSqlQuery>
-
+#include <QSqlDatabase>
 #include <QSqlRecord>
 #include <QMessageBox>
 #include "configure.h"

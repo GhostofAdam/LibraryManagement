@@ -40,24 +40,24 @@ void BookChangeDialog::SetupBook(const DataBook & book)
 
 void BookChangeDialog::on_ChangeButton_clicked()
 {
-    switch( QMessageBox::warning(NULL, "warning",QString::fromLocal8Bit("确定修改书籍吗?"),
-                                 QMessageBox::Yes | QMessageBox::Default,
-                                 QMessageBox::No | QMessageBox::Escape ))
-    {
-    case QMessageBox::Yes:
-        QString id = QString::number(this->id);
-        QString author = ui->Author_2->text();
-        QString title = ui->Title_2->text();
-        QString place = ui->Place_2->text();
-        QString isbn = ui->Isbn->text();
-        QString summary = ui->Summary_2->text();
-        DataBook newbook(title, author, place, isbn, summary);
-        emit ChangeBook(id, newbook);
-        break;
-    case QMessageBox::No:
-        return;
-        break;
-    }
+//    switch( QMessageBox::warning(NULL, "warning",QString::fromLocal8Bit("确定修改书籍吗?"),
+//                                 QMessageBox::Yes | QMessageBox::Default,
+//                                 QMessageBox::No | QMessageBox::Escape ))
+//    {
+//    case QMessageBox::Yes:
+//        QString id = QString::number(this->id);
+//        QString author = ui->Author_2->text();
+//        QString title = ui->Title_2->text();
+//        QString place = ui->Place_2->text();
+//        QString isbn = ui->Isbn->text();
+//        QString summary = ui->Summary_2->text();
+//        DataBook newbook(title, author, place, isbn, summary);
+//        emit ChangeBook(id, newbook);
+//        break;
+//    case QMessageBox::No:
+//        return;
+//        break;
+//    }
 }
 
 void BookChangeDialog::on_CancelButton_clicked()
