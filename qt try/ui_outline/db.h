@@ -13,15 +13,20 @@ private:
 public:
     DB(const QString& path);
     ~DB();
-    int EnterCheck(const QString& username,const QString& password);
-    //bool CreateTable(int type);//创建成功和表已存在返回SUCCCESS=true，否则返回FAIL=false
-    //bool DeleteTable(const QString& type);//删除成功和表不存在返回SUCCCESS=true，否则返回FAIL=false
-    //void PrintTablesType();//debug用，qdebug输出所有表类型，没几个表就没做查找了
+    int EnterCheck(const QString& username,const QString& password);//LOGINCHECK_SUCCESS_READER 
+                                                                    //LOGINCHECK_SUCCESS_ADMINISTRATOR 
+                                                                    //LOGINCHECK_NOQUEST 
+                                                                    //LOGINCHECK_UNMATCH 
+                                                                    //datauser 增加permission 值为Reader Administrator
+    
     bool isExist(Data*data);
     void Insert(Data*data);//插入成功和用户已存在返回SUCCCESS=true，否则返回FAIL=false
+                            //对于书籍的插入将自动生成id，此时databook中的id值也被修改
+                            //所以务必插入表中不存在书籍
+    void Update(Data*data,QString key,QString value);//key为需要更新的列名，value为更新值
 
-    std::vector<DataBook> ExactSearch(QString keyword);//精确搜索，返回databook的vector
-    std::vector<DataBook> FuzzySearch(QString keyword);//模糊搜索
+    std::vector<DataBook> ExactSearch(QString keyword,QString type);//精确搜索，返回databook的vector
+    std::vector<DataBook> FuzzySearch(QString keyword,QString type);//模糊搜索
 
 
     

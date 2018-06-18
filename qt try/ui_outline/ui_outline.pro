@@ -28,7 +28,10 @@ SOURCES += main.cpp\
     bookchangedialog.cpp \
     administermainwindow.cpp \
     bookfromuserpage.cpp \
-    bookadddialog.cpp
+    bookadddialog.cpp \
+    loanstackedpage.cpp \
+    infostackedpage.cpp \
+    userstackedpage.cpp
 
 HEADERS  += logindialog.h \
     configure.h \
@@ -45,7 +48,10 @@ HEADERS  += logindialog.h \
     bookchangedialog.h \
     administermainwindow.h \
     bookfromuserpage.h \
-    bookadddialog.h
+    bookadddialog.h \
+    loanstackedpage.h \
+    infostackedpage.h \
+    userstackedpage.h
 
 FORMS    += logindialog.ui \
     registerdialog.ui \
@@ -54,4 +60,7 @@ FORMS    += logindialog.ui \
     bookchangedialog.ui \
     administermainwindow.ui \
     bookfromuserpage.ui \
-    bookadddialog.ui
+    bookadddialog.ui \
+    loanstackedpage.ui \
+    infostackedpage.ui \
+    userstackedpage.ui
