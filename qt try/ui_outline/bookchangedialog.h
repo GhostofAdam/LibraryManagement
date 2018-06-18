@@ -22,11 +22,8 @@ public:
 
 signals:
     void ChangeBook(QString id, DataBook book);
-    void Cancel();
 private slots:
-    void on_ChangeButton_clicked();
-
-    void on_CancelButton_clicked();
+    void on_buttonBox_accepted();
 
 private:
     Ui::BookChangeDialog *ui;

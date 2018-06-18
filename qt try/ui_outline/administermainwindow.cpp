@@ -13,7 +13,9 @@ AdministerMainWindow::AdministerMainWindow(QWidget *parent) :
     connect(bookpage,SIGNAL(SearchBook(QString,QString)),this,SLOT(on_SearchBook(QString,QString)));
     connect(bookpage,SIGNAL(SelectBookIsbn(QString)),this,SLOT(on_ChangeBookById(QString)));
     connect(bookpage,SIGNAL(InsertBook()),this, SLOT(on_InsertBook()));
-//    connect(ui->SelectList,SIGNAL(currentRowChanged(int)),ui->PageStack,SLOT(setCurrentIndex(int)));
+
+    bookpage->Adapt2Administer();
+    //    connect(ui->SelectList,SIGNAL(currentRowChanged(int)),ui->PageStack,SLOT(setCurrentIndex(int)));
 }
 
 AdministerMainWindow::~AdministerMainWindow()
