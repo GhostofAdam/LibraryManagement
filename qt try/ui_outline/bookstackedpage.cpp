@@ -64,5 +64,6 @@ void BookStackedPage::on_InsertButton_clicked()
 void BookStackedPage::on_ChangeButton_clicked()
 {
      int selectrow = ui->ViewTable->currentRow();
+     if(selectrow >= 0)
     emit ChangeBook(ui->ViewTable->item(ISBNCOLUMN,selectrow)->text());
 }

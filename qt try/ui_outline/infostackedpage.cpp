@@ -12,3 +12,7 @@ InfoStackedPage::~InfoStackedPage()
 {
     delete ui;
 }
+void InfoStackedPage::on_pushButton_clicked()
+{
+
+}
