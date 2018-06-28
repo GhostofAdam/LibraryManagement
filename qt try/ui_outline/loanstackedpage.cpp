@@ -12,3 +12,18 @@ LoanStackedPage::~LoanStackedPage()
 {
     delete ui;
 }
+
+void LoanStackedPage::on_SearchButton_clicked()
+{
+
+}
+
+void LoanStackedPage::on_FinishButton_clicked()
+{
+
+}
+
+void LoanStackedPage::on_ProlongButton_clicked()
+{
+
+}

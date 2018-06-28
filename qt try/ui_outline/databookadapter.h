@@ -10,6 +10,10 @@ private:
     DataBook book;
 public:
     DataBookAdapter(DataBook databook):book(databook){}
+    QString id(){
+        return this->book.id;
+    }
+
     QString abstract(){
         return this->book.abstract;
     }
