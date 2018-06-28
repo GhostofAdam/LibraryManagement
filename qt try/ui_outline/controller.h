@@ -43,6 +43,18 @@ public slots:
     //连接不同的ui窗口
     void InsertBook();
     void InsertBook(DataBook book);
+    void ChangeBook(QString id);
+    void ChangeBook(QString id, DataBook book);
+    void SelectBookIsbn(QString isbn);//???
+    void AppointBook(QString id);//??id or isbn
+
+    void ChangePassword(QString account,QString password);
+
+    void SearchRecord(QString key, QString type);
+    void ExtendRecord(QString id);
+    void FinishRecord(QString id);
+
+    void ChangeUser(QString account, DataUser newinfo);
 signals:
 
 public slots:

@@ -86,6 +86,51 @@ void Controller::InsertBook(DataBook book)
     databaseptr->Insert(&book);
 }
 
+void Controller::ChangeBook(QString id)
+{
+
+}
+
+void Controller::ChangeBook(QString id, DataBook book)
+{
+
+}
+
+void Controller::SelectBookIsbn(QString isbn)
+{
+
+}
+
+void Controller::AppointBook(QString id)
+{
+
+}
+
+void Controller::ChangePassword(QString account, QString password)
+{
+
+}
+
+void Controller::SearchRecord(QString key, QString type)
+{
+
+}
+
+void Controller::ExtendRecord(QString id)
+{
+
+}
+
+void Controller::FinishRecord(QString id)
+{
+
+}
+
+void Controller::ChangeUser(QString account, DataUser newinfo)
+{
+
+}
+
 void Controller::ShowLogin(){
     if(this->loginptr == nullptr)
         QMessageBox::StandardButton reply = QMessageBox::critical(nullptr, tr("#"),tr("程序出错"),QMessageBox::Retry);

@@ -16,7 +16,7 @@ public:
     explicit UserChangeDialog(DataUser data,QWidget *parent = 0);
     ~UserChangeDialog();
 signals:
-    void ChangeUser(DataUser);
+    void ChangeUser(QString account, DataUser newinfo);
 private slots:
     void on_buttonBox_accepted();
 
