@@ -106,6 +106,14 @@ void Controller::AppointBook(QString id)
 
 }
 
+void Controller::ChangePassword(QString password)
+{
+    if(mainwindowptr2){
+        QString account = mainwindowptr2->Account();
+        ChangePassword(account, password);
+    }
+}
+
 void Controller::ChangePassword(QString account, QString password)
 {
 
@@ -147,8 +155,9 @@ void Controller::Login(QString account,QString password, QString type){
         loginptr->close();
         if(type == "用户")
             OpenUserMainWindow();
-        else if(type == "管理员")
+        else if(type == "管理员"){
             OpenAdministerMainWindow();
+        }
         break;
     case LOGINCHECK_NOQUEST:
         loginptr->ShowNoQuestRefutation();

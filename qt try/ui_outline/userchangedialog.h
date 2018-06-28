@@ -4,6 +4,7 @@
 #include <QDialog>
 #include "configure.h"
 #include "datauser.h"
+#include "datauseradapter.h"
 namespace Ui {
 class UserChangeDialog;
 }
@@ -21,6 +22,8 @@ private slots:
     void on_buttonBox_accepted();
 
 private:
+    void SetUp();
+    void SetUpSex(QString sex);
     Ui::UserChangeDialog *ui;
     DataUser user;
 };

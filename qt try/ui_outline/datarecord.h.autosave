@@ -1,6 +1,8 @@
 #ifndef DATARECORD_H
 #define DATARECORD_H
 #include "data.h"
+
+class DataRecordAdapter;
 class DataRecord: public Data
 {
 private:

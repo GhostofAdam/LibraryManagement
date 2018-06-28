@@ -48,6 +48,7 @@ public slots:
     void SelectBookIsbn(QString isbn);//???
     void AppointBook(QString id);//??id or isbn
 
+    void ChangePassword(QString password);//assume exists a user
     void ChangePassword(QString account,QString password);
 
     void SearchRecord(QString key, QString type);
