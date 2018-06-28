@@ -1,9 +1,9 @@
 #include "userchangedialog.h"
 #include "ui_userchangedialog.h"
 
-UserChangeDialog::UserChangeDialog(QWidget *parent) :
+UserChangeDialog::UserChangeDialog(DataUser data,QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::UserChangeDialog)
+    ui(new Ui::UserChangeDialog),user(data)
 {
     ui->setupUi(this);
 }

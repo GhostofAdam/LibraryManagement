@@ -13,7 +13,7 @@ class UserChangeDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit UserChangeDialog(QWidget *parent = 0);
+    explicit UserChangeDialog(DataUser data,QWidget *parent = 0);
     ~UserChangeDialog();
 signals:
     void ChangeUser(DataUser);

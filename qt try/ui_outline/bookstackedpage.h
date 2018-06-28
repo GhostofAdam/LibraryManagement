@@ -27,7 +27,7 @@ class BookStackedPage : public QWidget
 public:
     explicit BookStackedPage(QWidget *parent = 0);
     ~BookStackedPage();
-    void SetBookTable(QVector<DataBook>);
+    void SetBookTable(QVector<DataBook *>);
     void Adapt2User();
     void Adapt2Administer();
 

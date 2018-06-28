@@ -40,7 +40,8 @@ void Controller::OpenAdministerMainWindow(){
         return;
     //needs switch
     mainwindowptr2 = new AdministerMainWindow();
-    connect(mainwindowptr2, SIGNAL(InsertBook()), this, SLOT(InsertBook()));
+    connect(mainwindowptr2->BPage(), SIGNAL(InsertBook()), this, SLOT(InsertBook()));
+    connect(mainwindowptr2->BPage(), SIGNAL(SearchBook(QString,QString)), this, SLOT(SearchBook(QString,QString)));
     mainwindowptr2->show();
 }
 
@@ -65,7 +66,12 @@ void Controller::Register(DataUser data)
 //TODO 模糊搜索图书
 void Controller::SearchBook(QString search_info, QString search_type)
 {
-
+    if(mainwindowptr2){
+        QVector<DataBook*> books = databaseptr->FuzzySearch(search_info,search_type);
+        mainwindowptr2->BPage()->SetBookTable(books);
+        for(DataBook * book : books)
+            delete book;
+    }
 }
 //TODO 插入书籍
 void Controller::InsertBook()

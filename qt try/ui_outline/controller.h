@@ -14,6 +14,7 @@
 #include "registerdialog.h"
 #include "usermainwindow.h"
 #include "administermainwindow.h"
+#include "databook.h"
 #include "bookadddialog.h"
 
 class BookAddDialog;

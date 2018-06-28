@@ -35,7 +35,7 @@ void BookChangeDialog::SetupBook(const DataBook & book)
     ui->Place->setReadOnly(true);
     ui->Isbn->setReadOnly(true);\
 
-    this->id = bookadpt.id();
+    this->id = bookadpt.id_int();
 }
 
 void BookChangeDialog::on_buttonBox_accepted()

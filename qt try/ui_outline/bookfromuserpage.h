@@ -23,7 +23,6 @@ signals:
     void Appoint(QString isbn);
 private slots:
     void on_buttonBox_accepted();
-
 private:
     Ui::BookFromUserPage *ui;
 };

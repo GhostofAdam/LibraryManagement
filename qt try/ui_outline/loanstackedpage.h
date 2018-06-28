@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include "configure.h"
+#include "datarecord.h"
 namespace Ui {
 class LoanStackedPage;
 }
@@ -14,7 +15,7 @@ class LoanStackedPage : public QWidget
 public:
     explicit LoanStackedPage(QWidget *parent = 0);
     ~LoanStackedPage();
-    void SetLoanTable(QVector<DataLoan>);
+    void SetLoanTable(QVector<DataRecord>);
     void Adapt2User();
     void Adapt2Administer();
 signals:

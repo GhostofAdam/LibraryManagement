@@ -34,7 +34,7 @@ public:
        return this->book.isbn;
     }
 
-    int id(){
+    int id_int(){
         return book.id.toInt();
     }
 };

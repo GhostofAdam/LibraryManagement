@@ -24,7 +24,8 @@ public:
 
     virtual void Insert(QSqlDatabase& db);
     virtual void update(QSqlDatabase& db,QString key, QString value);
-
+    virtual void show(){}
+    virtual bool IsExist(QSqlDatabase& db){return 0;}
 
 
 

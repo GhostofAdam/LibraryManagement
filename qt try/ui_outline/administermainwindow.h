@@ -20,9 +20,9 @@ public:
     ~AdministerMainWindow();
 
 
-    void SetBookTable(QVector<DataBook> books){
-        bookpage -> SetBookTable(books);
-    }
+//    void SetBookTable(QVector<DataBook> books){
+//        bookpage -> SetBookTable(books);
+//    }
     BookStackedPage* BPage(){
         return bookpage;
     }
