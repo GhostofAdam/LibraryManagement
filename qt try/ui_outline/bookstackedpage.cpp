@@ -50,10 +50,6 @@ void BookStackedPage::Adapt2User(){
     ui->InsertButton->hide();
 }
 
-void BookStackedPage::Adapt2Administer(){
-    ui->ViewButton->hide();
-}
-
 #undef TABLE
 
 void BookStackedPage::on_InsertButton_clicked()
@@ -63,6 +59,5 @@ void BookStackedPage::on_InsertButton_clicked()
 
 void BookStackedPage::on_ChangeButton_clicked()
 {
-     int selectrow = ui->ViewTable->currentRow();
-    emit ChangeBook(ui->ViewTable->item(IDCOLUMN,selectrow)->text());
+
 }

@@ -15,8 +15,6 @@ public:
     explicit InfoStackedPage(QWidget *parent = 0);
     ~InfoStackedPage();
 
-signals:
-    void ChangePassword(QString password);
 private:
     Ui::InfoStackedPage *ui;
 };

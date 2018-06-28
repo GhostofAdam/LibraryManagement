@@ -38,7 +38,7 @@ void BookChangeDialog::SetupBook(const DataBook & book)
     this->id = bookadpt.id();
 }
 
-void BookChangeDialog::on_buttonBox_accepted()
+void BookChangeDialog::on_ChangeButton_clicked()
 {
     switch( QMessageBox::warning(NULL, "warning",QString::fromLocal8Bit("确定修改书籍吗?"),
                                  QMessageBox::Yes | QMessageBox::Default,
@@ -59,4 +59,9 @@ void BookChangeDialog::on_buttonBox_accepted()
         return;
         break;
     }
+}
+
+void BookChangeDialog::on_CancelButton_clicked()
+{
+    emit Cancel();
 }
