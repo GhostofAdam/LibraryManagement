@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>BookFromUserPage</class>
- <widget class="QWidget" name="BookFromUserPage">
+ <widget class="QDialog" name="BookFromUserPage">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -79,19 +79,6 @@
     <string>作者</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="CancelButton">
-   <property name="geometry">
-    <rect>
-     <x>290</x>
-     <y>470</y>
-     <width>93</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>取消</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
@@ -131,20 +118,7 @@
     <string>摘要</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="ChangeButton">
-   <property name="geometry">
-    <rect>
-     <x>130</x>
-     <y>470</y>
-     <width>121</width>
-     <height>28</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>预约</string>
-   </property>
-  </widget>
-  <widget class="QListWidget" name="listWidget">
+  <widget class="QListWidget" name="PlaceList">
    <property name="geometry">
     <rect>
      <x>150</x>
@@ -175,6 +149,19 @@
    </property>
    <property name="text">
     <string>评论</string>
+   </property>
+  </widget>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>470</y>
+     <width>193</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
    </property>
   </widget>
  </widget>

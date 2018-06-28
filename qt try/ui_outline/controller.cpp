@@ -65,7 +65,8 @@ void Controller::Register(DataUser data)
 //TODO 模糊搜索图书
 void Controller::SearchBook(QString search_info, QString search_type)
 {
-
+//    QVector<DataBook> booktable = databaseptr->FuzzySearch(search_info, search_type);
+//    mainwindowptr2->SetBookTable(booktable);
 }
 //TODO 插入书籍
 void Controller::InsertBook()
