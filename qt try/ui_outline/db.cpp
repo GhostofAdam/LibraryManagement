@@ -13,7 +13,11 @@
 DB::DB(const QString& path)
 {
 
-    m_db = QSqlDatabase::addDatabase("QSQLITE");
+    if(QSqlDatabase::contains("qt_sql_default_connection"))
+      m_db = QSqlDatabase::database("qt_sql_default_connection");
+    else
+      m_db = QSqlDatabase::addDatabase("QSQLITE");
+
     m_db.setDatabaseName(path);
 
        if (!m_db.open())
@@ -52,8 +56,15 @@ int DB::EnterCheck(const QString &username, const QString &password)
                 qDebug() << real;
                 qDebug() << password;
 
-                if(real==password)
-                    return 0;
+                if(real==password){
+                    QString permission = checkQuery.value(7).toString();
+                    if(permission=="Reader")
+                        return 0;
+                    else if(permission=="Administrator")
+                         return 3;
+                    else
+                        qDebug() << "Permssion error " << checkQuery.lastError();
+                }
                 else
                     return 2;
 
@@ -75,22 +86,34 @@ bool DB::isExist(Data*data){
 
 void DB::Insert(Data *data)
 {
-    QSqlQuery query(m_db);
+
 
     data->Insert(m_db);
 }
+void DB::Update(Data *data,QString key,QString value)
+{
 
-std::vector<DataBook> DB:: ExactSearch(QString keyword){
-     std::vector<DataBook> result;
+    data->update(m_db,key,value);
+}
+
+QVector<DataBook*> DB:: ExactSearch(QString keyword,QString type){
+     QVector<DataBook*> result;
      QSqlQuery query(m_db);
-     query.prepare("select * from Books where name=(:keyword)");//查找name
-     query.bindValue(":keyword",keyword);
+     qDebug()<<"ExactSearch begin!";
+     if(type=="name")
+        query.prepare(QString("select * from Books where name = '%1'").arg(keyword));//查找name
+       else if(type=="author")
+        query.prepare(QString("select * from Books where author = '%1'").arg(keyword));//查找author
+     else if(type=="isbn")
+         query.prepare(QString("select * from Books where isbn = '%1'").arg(keyword));//查找author
+     //query.addBindValue(keyword);
      if (query.exec())
      {
-         if (query.next())
+         while (query.next())
          {
-             DataBook a(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
-                        QString(query.value(3).toString()),QString(query.value(4).toString()));
+             // qDebug()<<"Find one!";
+             DataBook* a=new DataBook(QString(query.value(1).toString()),QString(query.value(2).toString()),QString(query.value(3).toString()),
+                        QString(query.value(4).toString()),QString(query.value(0).toString()),QString(query.value(5).toString()));
              result.push_back(a);
          }
      }
@@ -99,39 +122,32 @@ std::vector<DataBook> DB:: ExactSearch(QString keyword){
          qDebug() << "ExactSearch failed: " << query.lastError();
      }
        
-     query.prepare("select * from Books where author= (:keyword)");//查找author
-     query.bindValue(":keyword",keyword);
-     if (query.exec())
-     {
-         if (query.next())
-         {
-             DataBook a(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
-                        QString(query.value(3).toString()),QString(query.value(4).toString()));
-             result.push_back(a);
 
-         }
-     }
-     else
-     {
-         qDebug() << "ExactSearch failed: " << query.lastError();
-     }
      
      return result;
 }
-std::vector<DataBook> DB::FuzzySearch(QString keyword){
-     std::vector<DataBook> result;
+QVector<DataBook*> DB::FuzzySearch(QString keyword,QString type){
+     QVector<DataBook*> result;
 
      QSqlQuery query(m_db);
-
+    if(type=="name")
      query.prepare(QString("select* from Books where name like :keyword"));
+    else if(type=="author")
+        query.prepare(QString("select* from Books where author like :keyword"));
+    else if(type=="isbn")
+        query.prepare(QString("select* from Books where isbn like :keyword"));
+
      query.bindValue(":keyword","%"+keyword+"%");
 
      if (query.exec())
      {
+
         while(query.next())
          {
-             DataBook a(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
-                        QString(query.value(3).toString()),QString(query.value(4).toString()));
+            //qDebug()<<"Find one!";
+            DataBook* a=new DataBook(QString(query.value(1).toString()),QString(query.value(2).toString()),QString(query.value(3).toString()),
+                       QString(query.value(4).toString()),QString(query.value(0).toString()),QString(query.value(5).toString()));
+
              result.push_back(a);
 
          }
@@ -141,23 +157,7 @@ std::vector<DataBook> DB::FuzzySearch(QString keyword){
          qDebug() << "FuzzySearch failed: " << query.lastError();
      }
 
-     query.prepare(QString("select *from Books where author like :keyword"));
-     query.bindValue(":keyword","%"+keyword+"%");
 
-     if (query.exec())
-     {
-         while (query.next())
-         {
-             DataBook a(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
-                        QString(query.value(3).toString()),QString(query.value(4).toString()));
-             result.push_back(a);
-
-         }
-     }
-     else
-     {
-         qDebug() << "FuzzySearch failed: " << query.lastError();
-     }
 
 
      return result;

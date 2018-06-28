@@ -13,20 +13,25 @@ private:
     QString  isbn ;
     QString  abstract;
 
-    int finemoney = 0;
+
     friend class DataBookAdapter;
 public:
     DataBook(){}
-    DataBook(QString id,
+    DataBook(
       QString name ,
       QString author ,
       QString place ,
-      QString isbn);
+      QString isbn,
+      QString id="*",
+      QString abstract="*");
     virtual std::vector<QString> TranslateToString();
     
-    virtual void update(QSqlDatabase& db);
+    virtual void update(QSqlDatabase& db,QString type,QString value);
     virtual void Insert(QSqlDatabase& db);
     virtual bool IsExist(QSqlDatabase& db);
     virtual void show();
+
+
+
 };
 #endif // DATABOOK_H

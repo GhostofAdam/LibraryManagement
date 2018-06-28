@@ -1,17 +1,21 @@
 #include "databook.h"
 #include "datauser.h"
 
-DataBook::DataBook(QString a,
+DataBook::DataBook(
 QString b ,
 QString c ,
 QString d ,
-QString e)
+QString e,
+QString i,
+QString a)
 {
-    this->id = a;
+
     this->name = b;
     this->author = c;
     this->place = d;
     this->isbn = e;
+    this->id = i;
+    this->abstract=a;
 
 
 }
@@ -23,6 +27,7 @@ std::vector<QString> DataBook::TranslateToString(){
     list.push_back(author);
     list.push_back(place);
     list.push_back(isbn);
+    list.push_back(abstract);
 
     return list;
 
@@ -30,7 +35,14 @@ std::vector<QString> DataBook::TranslateToString(){
 void DataBook::Insert(QSqlDatabase& db){
     qDebug() << this->id<<" "<<this->name<<" "<<this->author<<" "<<this->place<<" "<<this->isbn;
     QSqlQuery query(db);
-    query.prepare(QString("insert into BOOKS values (?, ?, ?, ?, ?)"));
+    query.prepare("select count* from Books");
+    query.exec();
+    query.next();
+
+    this->id=QString::number(query.value(0).toInt(),10);
+    qDebug()<<"hahahahashahh  "<<this->id;
+
+    query.prepare(QString("insert into BOOKS values (?, ?, ?, ?, ?,'*',0)"));
 
     query.addBindValue(this->id);
     query.addBindValue(this->name);
@@ -39,16 +51,16 @@ void DataBook::Insert(QSqlDatabase& db){
     query.addBindValue(this->isbn);
 
 
-    if(!query.exec())
-    {
-        qDebug() << "insert failed"<<query.lastError();
+//    if(!query.exec())
+//    {
+//        qDebug() << "insert failed"<<query.lastError();
 
-    }
-    else
-    {
-        qDebug() << "insert successeded";
+//    }
+//    else
+//    {
+//        qDebug() << "insert successeded";
 
-    }
+//    }
 }
 
 bool DataBook::IsExist(QSqlDatabase& db){
@@ -69,14 +81,19 @@ bool DataBook::IsExist(QSqlDatabase& db){
        return false;
 }
 
-void DataBook::update(QSqlDatabase& db){
+void DataBook::update(QSqlDatabase& db,QString key, QString value){
     QSqlQuery query(db);
-    query.prepare(QString("update Books set id='?', name='?',author='?',label='?',abstract='?',comments='?' where id ='?'"));
-    query.addBindValue(this->id);
-    query.addBindValue(this->name);
-    query.addBindValue(this->author);
-    query.addBindValue(this->place);
-    query.addBindValue(this->isbn);
+    if(key=="name")
+        query.prepare(QString("update Books set name='%1' where id ='%2'").arg(value).arg(this->id));
+    else if(key=="author")
+        query.prepare(QString("update Books set author='%1' where id ='%2'").arg(value).arg(this->id));
+    else if(key=="place")
+        query.prepare(QString("update Books set place='%1' where id ='%2'").arg(value).arg(this->id));
+    else if(key=="isbn")
+        query.prepare(QString("update Books set isbn='%1' where id ='%2'").arg(value).arg(this->id));
+    else if(key=="abstract")
+        query.prepare(QString("update Books set abstract='%1' where id ='%2'").arg(value).arg(this->id));
+
 
     if(!query.exec())
     {
@@ -93,5 +110,5 @@ void DataBook::update(QSqlDatabase& db){
                           
 }
 void DataBook::show(){
-    qDebug()<<id<<" "<<name<<" "<<author<<" "<<place<<" "<<isbn;
+    qDebug()<<id<<" "<<name<<" "<<author<<" "<<place<<" "<<isbn<<" "<<abstract;
 }

@@ -28,7 +28,8 @@ SOURCES += main.cpp\
     bookchangedialog.cpp \
     administermainwindow.cpp \
     bookfromuserpage.cpp \
-    bookadddialog.cpp
+    bookadddialog.cpp \
+    datarecord.cpp
 
 HEADERS  += logindialog.h \
     configure.h \
@@ -45,7 +46,8 @@ HEADERS  += logindialog.h \
     bookchangedialog.h \
     administermainwindow.h \
     bookfromuserpage.h \
-    bookadddialog.h
+    bookadddialog.h \
+    datarecord.h
 
 FORMS    += logindialog.ui \
     registerdialog.ui \
