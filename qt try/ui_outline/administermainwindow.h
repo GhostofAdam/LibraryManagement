@@ -7,6 +7,7 @@
 #include "loanstackedpage.h"
 #include "userstackedpage.h"
 #include "infostackedpage.h"
+#include "datauseradapter.h"
 namespace Ui {
 class AdministerMainWindow;
 }
@@ -16,13 +17,14 @@ class AdministerMainWindow : public QWidget
     Q_OBJECT
 
 public:
-    explicit AdministerMainWindow(QWidget *parent = 0);
+    explicit AdministerMainWindow(DataUser user, QWidget *parent = 0);
+    explicit AdministerMainWindow(QWidget *parent = 0);//暂时这样做
     ~AdministerMainWindow();
 
 
-    void SetBookTable(QVector<DataBook> books){
-        bookpage -> SetBookTable(books);
-    }
+//    void SetBookTable(QVector<DataBook> books){
+//        bookpage -> SetBookTable(books);
+//    }
     BookStackedPage* BPage(){
         return bookpage;
     }
@@ -35,8 +37,13 @@ public:
     UserStackedPage* UPage(){
         return userpage;
     }
+    QString Account(){
+        DataUserAdapter a(user);
+        return a.Account();
+    }
 
 private:
+    DataUser user;
     Ui::AdministerMainWindow *ui;
     BookStackedPage * bookpage;
     LoanStackedPage * loanpage;

@@ -26,9 +26,9 @@ class UserMainWindow : public QMainWindow
 
 public:
     explicit UserMainWindow(QWidget *parent = 0);
-    void SetBookTable(QVector<DataBook> books){
-        bookpage->SetBookTable(books);
-    }
+//    void SetBookTable(QVector<DataBook> books){
+//        bookpage->SetBookTable(books);
+//    }
 
     ~UserMainWindow();
     BookStackedPage* BPage(){

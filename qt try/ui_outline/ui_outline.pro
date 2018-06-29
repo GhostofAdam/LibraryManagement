@@ -22,6 +22,9 @@ SOURCES += main.cpp\
     datauser.cpp \
     usermainwindow.cpp \
     bookstackedpage.cpp \
+    userstackedpage.cpp \
+    infostackedpage.cpp \
+    loanstackedpage.cpp \
     dataadapter.cpp \
     databookadapter.cpp \
     databook.cpp \
@@ -29,7 +32,10 @@ SOURCES += main.cpp\
     administermainwindow.cpp \
     bookfromuserpage.cpp \
     bookadddialog.cpp \
-    datarecord.cpp
+    datarecord.cpp \
+    userchangedialog.cpp \
+    datauseradapter.cpp \
+    datarecordadapter.cpp
 
 HEADERS  += logindialog.h \
     configure.h \
@@ -40,6 +46,9 @@ HEADERS  += logindialog.h \
     datauser.h \
     usermainwindow.h \
     bookstackedpage.h \
+    infostackedpage.h \
+    loanstackedpage.h \
+    userstackedpage.h \
     dataadapter.h \
     databookadapter.h \
     databook.h \
@@ -47,13 +56,20 @@ HEADERS  += logindialog.h \
     administermainwindow.h \
     bookfromuserpage.h \
     bookadddialog.h \
-    datarecord.h
+    datarecord.h \
+    userchangedialog.h \
+    datauseradapter.h \
+    datarecordadapter.h
 
 FORMS    += logindialog.ui \
     registerdialog.ui \
     usermainwindow.ui \
     bookstackedpage.ui \
+    userstackedpage.ui \
+    infostackedpage.ui \
+    loanstackedpage.ui \
     bookchangedialog.ui \
     administermainwindow.ui \
     bookfromuserpage.ui \
-    bookadddialog.ui
+    bookadddialog.ui \
+    userchangedialog.ui

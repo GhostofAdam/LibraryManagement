@@ -4,6 +4,7 @@
 #include <QDialog>
 #include "configure.h"
 #include "datauser.h"
+#include "datauseradapter.h"
 namespace Ui {
 class UserChangeDialog;
 }
@@ -13,14 +14,16 @@ class UserChangeDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit UserChangeDialog(QWidget *parent = 0);
+    explicit UserChangeDialog(DataUser data,QWidget *parent = 0);
     ~UserChangeDialog();
 signals:
-    void ChangeUser(DataUser);
+    void ChangeUser(QString account, DataUser newinfo);
 private slots:
     void on_buttonBox_accepted();
 
 private:
+    void SetUp();
+    void SetUpSex(QString sex);
     Ui::UserChangeDialog *ui;
     DataUser user;
 };

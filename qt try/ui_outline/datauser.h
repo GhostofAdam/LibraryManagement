@@ -2,6 +2,7 @@
 #define DATAUSER_H
 #include "data.h"
 
+class DataUserdAdapter;
 class DataUser : public Data
 {
 private:

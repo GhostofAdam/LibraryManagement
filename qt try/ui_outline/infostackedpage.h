@@ -17,6 +17,9 @@ public:
 
 signals:
     void ChangePassword(QString password);
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::InfoStackedPage *ui;
 };

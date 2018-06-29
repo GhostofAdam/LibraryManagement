@@ -40,7 +40,8 @@ void Controller::OpenAdministerMainWindow(){
         return;
     //needs switch
     mainwindowptr2 = new AdministerMainWindow();
-    connect(mainwindowptr2, SIGNAL(InsertBook()), this, SLOT(InsertBook()));
+    connect(mainwindowptr2->BPage(), SIGNAL(InsertBook()), this, SLOT(InsertBook()));
+    connect(mainwindowptr2->BPage(), SIGNAL(SearchBook(QString,QString)), this, SLOT(SearchBook(QString,QString)));
     mainwindowptr2->show();
 }
 
@@ -65,8 +66,12 @@ void Controller::Register(DataUser data)
 //TODO 模糊搜索图书
 void Controller::SearchBook(QString search_info, QString search_type)
 {
-//    QVector<DataBook> booktable = databaseptr->FuzzySearch(search_info, search_type);
-//    mainwindowptr2->SetBookTable(booktable);
+    if(mainwindowptr2){
+        QVector<DataBook*> books = databaseptr->FuzzySearch(search_info,search_type);
+        mainwindowptr2->BPage()->SetBookTable(books);
+        for(DataBook * book : books)
+            delete book;
+    }
 }
 //TODO 插入书籍
 void Controller::InsertBook()
@@ -79,6 +84,59 @@ void Controller::InsertBook()
 void Controller::InsertBook(DataBook book)
 {
     databaseptr->Insert(&book);
+}
+
+void Controller::ChangeBook(QString id)
+{
+
+}
+
+void Controller::ChangeBook(QString id, DataBook book)
+{
+
+}
+
+void Controller::SelectBookIsbn(QString isbn)
+{
+
+}
+
+void Controller::AppointBook(QString id)
+{
+
+}
+
+void Controller::ChangePassword(QString password)
+{
+    if(mainwindowptr2){
+        QString account = mainwindowptr2->Account();
+        ChangePassword(account, password);
+    }
+}
+
+void Controller::ChangePassword(QString account, QString password)
+{
+
+}
+
+void Controller::SearchRecord(QString key, QString type)
+{
+
+}
+
+void Controller::ExtendRecord(QString id)
+{
+
+}
+
+void Controller::FinishRecord(QString id)
+{
+
+}
+
+void Controller::ChangeUser(QString account, DataUser newinfo)
+{
+
 }
 
 void Controller::ShowLogin(){
@@ -97,8 +155,9 @@ void Controller::Login(QString account,QString password, QString type){
         loginptr->close();
         if(type == "用户")
             OpenUserMainWindow();
-        else if(type == "管理员")
+        else if(type == "管理员"){
             OpenAdministerMainWindow();
+        }
         break;
     case LOGINCHECK_NOQUEST:
         loginptr->ShowNoQuestRefutation();
