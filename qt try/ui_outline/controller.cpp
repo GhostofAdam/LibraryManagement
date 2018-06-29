@@ -68,6 +68,7 @@ void Controller::SearchBook(QString search_info, QString search_type)
 {
     if(mainwindowptr2){
         QVector<DataBook*> books = databaseptr->FuzzySearch(search_info,search_type);
+        qDebug() << "fuzzysearch";
         mainwindowptr2->BPage()->SetBookTable(books);
         for(DataBook * book : books)
             delete book;

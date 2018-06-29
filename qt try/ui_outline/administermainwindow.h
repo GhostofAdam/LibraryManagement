@@ -38,7 +38,7 @@ public:
         return userpage;
     }
     QString Account(){
-        DataUserAdapter a(user);
+        DataUserAdapter a(&user);
         return a.Account();
     }
 

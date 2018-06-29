@@ -24,7 +24,9 @@ AdministerMainWindow::AdministerMainWindow(DataUser user_, QWidget *parent) :
 }
 
 //这个是应该删掉的
-AdministerMainWindow::AdministerMainWindow(QWidget *parent)
+AdministerMainWindow::AdministerMainWindow(QWidget *parent):
+QWidget(parent),user("1","1","1","1","1","1","1","1"),
+ui(new Ui::AdministerMainWindow)
 {
     ui->setupUi(this);
     bookpage = new BookStackedPage(this);

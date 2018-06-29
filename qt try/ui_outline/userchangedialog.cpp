@@ -20,7 +20,7 @@ UserChangeDialog::~UserChangeDialog()
 
 void UserChangeDialog::on_buttonBox_accepted()
 {
-    DataUserAdapter a(user);
+    DataUserAdapter a(&user);
 
 }
 

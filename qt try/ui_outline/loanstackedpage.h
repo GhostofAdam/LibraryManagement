@@ -15,11 +15,9 @@ class LoanStackedPage : public QWidget
 public:
     explicit LoanStackedPage(QWidget *parent = 0);
     ~LoanStackedPage();
-<<<<<<< HEAD
-    //void SetLoanTable(QVector<DataLoan>);
-=======
+
     void SetLoanTable(QVector<DataRecord>);
->>>>>>> 916793ca42385bd503d2f3f507e81f63df1dd620
+
     void Adapt2User();
     void Adapt2Administer();
 signals:

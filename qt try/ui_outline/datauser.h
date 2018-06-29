@@ -2,7 +2,7 @@
 #define DATAUSER_H
 #include "data.h"
 
-class DataUserdAdapter;
+class DataUserAdapter;
 class DataUser : public Data
 {
 private:
@@ -15,6 +15,7 @@ private:
     QString  sex ;
     QString  permission;
     int finemoney = 0;
+    friend class DataUserAdapter;
 public:
     DataUser(QString account,QString password, QString schoolID,
              QString department, QString major, QString name,
