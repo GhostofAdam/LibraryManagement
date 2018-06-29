@@ -163,3 +163,49 @@ QVector<DataBook*> DB::FuzzySearch(QString keyword,QString type){
      return result;
 
 }
+QVector<DataRecord*> DB::ShowRecords(QString keyword,QString type){//type有readerID，bookID，begintime,endtime,condition
+
+    QVector<DataRecord*> result;
+    QSqlQuery query(m_db);
+    qDebug()<<"ExactSearch begin!";
+    if(type=="readerID")
+       query.prepare(QString("select * from Records where readerID = '%1'").arg(keyword));
+      else if(type=="bookID")
+       query.prepare(QString("select * from Records where bookID = '%1'").arg(keyword));
+    else if(type=="begintime")
+        query.prepare(QString("select * from Records where begintime = '%1'").arg(keyword));
+    else if(type=="endtime")
+        query.prepare(QString("select * from Records where endtime = '%1'").arg(keyword));
+    else if(type=="condition")
+        query.prepare(QString("select * from Records where condition = '%1'").arg(keyword));
+    //query.addBindValue(keyword);
+    if (query.exec())
+    {
+        while (query.next())
+        {
+            // qDebug()<<"Find one!";
+            DataRecord* a=new DataRecord(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
+                       QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()));
+            result.push_back(a);
+        }
+    }
+    else
+    {
+        qDebug() << "ExactSearch failed: " << query.lastError();
+    }
+
+
+
+    return result;
+}
+
+Data*  DB::BookofRecord(Data*a){
+    DataRecord* b=dynamic_cast<DataRecord*>(a);
+    return b->thebook(m_db);
+}
+
+Data*  DB::ReaderofRecord(Data*a){
+    DataRecord* b=dynamic_cast<DataRecord*>(a);
+    return b->thereader(m_db);
+
+}

@@ -16,12 +16,12 @@ BookFromUserPage::~BookFromUserPage()
     delete ui;
 }
 
-void BookFromUserPage::on_AppointButton_clicked()
-{
-    DataBookAdapter a(book);
-    QString id = a.id();
-    emit Appoint(id);
-}
+//void BookFromUserPage::on_AppointButton_clicked()
+//{
+//    DataBookAdapter a(book);
+//    QString id = a.id();
+//    emit Appoint(id);
+//}
 
 void BookFromUserPage::SetUp(){
     DataBookAdapter a(book);

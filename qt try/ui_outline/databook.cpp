@@ -35,11 +35,14 @@ std::vector<QString> DataBook::TranslateToString(){
 void DataBook::Insert(QSqlDatabase& db){
     qDebug() << this->id<<" "<<this->name<<" "<<this->author<<" "<<this->place<<" "<<this->isbn;
     QSqlQuery query(db);
-    query.prepare("select count* from Books");
-    query.exec();
-    query.next();
-
-    this->id=QString::number(query.value(0).toInt(),10);
+    query.prepare("select count(*) from Books");
+    if(query.exec()){;
+        query.next();
+        qDebug()<<"counted";
+        this->id=QString::number(query.value(0).toInt(),10);
+    }
+    else
+        this->id="0";
     qDebug()<<"hahahahashahh  "<<this->id;
 
     query.prepare(QString("insert into BOOKS values (?, ?, ?, ?, ?,'*',0)"));
@@ -51,16 +54,16 @@ void DataBook::Insert(QSqlDatabase& db){
     query.addBindValue(this->isbn);
 
 
-//    if(!query.exec())
-//    {
-//        qDebug() << "insert failed"<<query.lastError();
+    if(!query.exec())
+    {
+        qDebug() << "insert failed"<<query.lastError();
 
-//    }
-//    else
-//    {
-//        qDebug() << "insert successeded";
+    }
+    else
+    {
+        qDebug() << "insert successeded";
 
-//    }
+    }
 }
 
 bool DataBook::IsExist(QSqlDatabase& db){
@@ -83,16 +86,27 @@ bool DataBook::IsExist(QSqlDatabase& db){
 
 void DataBook::update(QSqlDatabase& db,QString key, QString value){
     QSqlQuery query(db);
-    if(key=="name")
+    if(key=="name"){
         query.prepare(QString("update Books set name='%1' where id ='%2'").arg(value).arg(this->id));
-    else if(key=="author")
+        name=value;
+    }
+    else if(key=="author"){
         query.prepare(QString("update Books set author='%1' where id ='%2'").arg(value).arg(this->id));
-    else if(key=="place")
+        author=value;
+    }
+    else if(key=="place"){
         query.prepare(QString("update Books set place='%1' where id ='%2'").arg(value).arg(this->id));
-    else if(key=="isbn")
+        place=value;
+    }
+    else if(key=="isbn"){
         query.prepare(QString("update Books set isbn='%1' where id ='%2'").arg(value).arg(this->id));
-    else if(key=="abstract")
+        isbn=value;
+    }
+    else if(key=="abstract"){
         query.prepare(QString("update Books set abstract='%1' where id ='%2'").arg(value).arg(this->id));
+        abstract=value;
+    }
+
 
 
     if(!query.exec())
