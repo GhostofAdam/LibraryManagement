@@ -35,13 +35,16 @@ void Controller::OpenUserMainWindow(){
     mainwindowptr->show();
 }
 
-void Controller::OpenAdministerMainWindow(){
+void Controller::OpenAdministerMainWindow(DataUser user){
     if(mainwindowptr2 != nullptr)
         return;
     //needs switch
-    mainwindowptr2 = new AdministerMainWindow();
+    mainwindowptr2 = new AdministerMainWindow(user);
     connect(mainwindowptr2->BPage(), SIGNAL(InsertBook()), this, SLOT(InsertBook()));
     connect(mainwindowptr2->BPage(), SIGNAL(SearchBook(QString,QString)), this, SLOT(SearchBook(QString,QString)));
+    connect(mainwindowptr2->IPage(),SIGNAL(ChangePassword(QString,QString)),this,SLOT(ChangePassword(QString,QString)));
+    //调试用
+    connect(mainwindowptr2->BPage(), SIGNAL(SelectBookIsbn(QString)),this,SLOT(SelectBookIsbn(QString)));
     mainwindowptr2->show();
 }
 
@@ -67,6 +70,10 @@ void Controller::Register(DataUser data)
 void Controller::SearchBook(QString search_info, QString search_type)
 {
     if(mainwindowptr2){
+        if(search_type == "书名")
+            search_type = "name";
+        else if(search_type == "作者")
+            search_type = "author";
         QVector<DataBook*> books = databaseptr->FuzzySearch(search_info,search_type);
         qDebug() << "fuzzysearch";
         mainwindowptr2->BPage()->SetBookTable(books);
@@ -89,35 +96,63 @@ void Controller::InsertBook(DataBook book)
 
 void Controller::ChangeBook(QString id)
 {
-
+    qDebug()<<id;
+    DataBook* book = dynamic_cast<DataBook *>(databaseptr->SearchBook(id));
+    qDebug() << book->id;
+    BookChangeDialog *dialog_tmpptr = new BookChangeDialog(*book,mainwindowptr2);
+    connect(dialog_tmpptr, SIGNAL(ChangeBook(QString,DataBook)), this, SLOT(ChangeBook(QString,DataBook)));
+    dialog_tmpptr ->exec();
+    if(mainwindowptr2)
+    mainwindowptr2->BPage()->ClearTable();
 }
 
 void Controller::ChangeBook(QString id, DataBook book)
 {
-
+    databaseptr->update(&book);
 }
 
-void Controller::SelectBookIsbn(QString isbn)
+void Controller::SelectBookIsbn(QString id)
 {
-
+     DataBook* book = dynamic_cast<DataBook *>(databaseptr->SearchBook(id));
+     BookFromUserPage *dialog_tmpptr = new  BookFromUserPage(*book,mainwindowptr2);
+     connect(dialog_tmpptr, SIGNAL(Appoint(QString)), this, SLOT(AppointBook(QString)));
+     dialog_tmpptr ->exec();
+     if(mainwindowptr2)
+     mainwindowptr2->BPage()->ClearTable();
 }
 
 void Controller::AppointBook(QString id)
 {
-
-}
-
-void Controller::ChangePassword(QString password)
-{
     if(mainwindowptr2){
-        QString account = mainwindowptr2->Account();
-        ChangePassword(account, password);
+        qDebug()<<id;
+        databaseptr->Subscribe(mainwindowptr2->Account(),id);
+
     }
 }
 
-void Controller::ChangePassword(QString account, QString password)
+void Controller::ChangePassword(QString oldpassword,QString newpassword)
 {
-
+    if(mainwindowptr2){
+        QString account = mainwindowptr2->Account();
+        switch(databaseptr->EnterCheck(account, oldpassword)){
+        case LOGINCHECK_UNMATCH:
+            QMessageBox::StandardButton reply;
+            reply = QMessageBox::critical(mainwindowptr2, tr("密码错误"),tr("密码错误，请重新尝试"),QMessageBox::Retry);
+            break;
+        case LOGINCHECK_SUCCESS_ADMINISTRATOR:
+            ChangePassword(mainwindowptr2->User(),newpassword);
+            break;
+        default:
+            BUG;
+        }
+    }
+}
+//??
+void Controller::ChangePassword(Data * data, QString password)
+{
+    if(mainwindowptr2){
+        databaseptr->my_update(data,"password",password);
+    }
 }
 
 void Controller::SearchRecord(QString key, QString type)
@@ -131,6 +166,11 @@ void Controller::ExtendRecord(QString id)
 }
 
 void Controller::FinishRecord(QString id)
+{
+
+}
+
+void Controller::AcceptReserveRecord(QString id)
 {
 
 }
@@ -169,7 +209,8 @@ void Controller::Login(QString account,QString password, QString type){
         break;
     case LOGINCHECK_SUCCESS_ADMINISTRATOR:
         if(type == "管理员"){
-            OpenAdministerMainWindow();
+            DataUser * user = dynamic_cast<DataUser*>(databaseptr->SearchReader(account));
+            OpenAdministerMainWindow(*user);
             loginptr ->close();
         }
         else{

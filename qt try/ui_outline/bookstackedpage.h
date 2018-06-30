@@ -30,6 +30,7 @@ public:
     void SetBookTable(QVector<DataBook *>);
     void Adapt2User();
     void Adapt2Administer();
+    void ClearTable();
 
 signals:
     void SearchBook(QString search_info, QString search_type);

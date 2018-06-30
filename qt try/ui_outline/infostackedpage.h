@@ -16,7 +16,7 @@ public:
     ~InfoStackedPage();
 
 signals:
-    void ChangePassword(QString password);
+    void ChangePassword(QString oldpassword,QString newpassword);
 private slots:
     void on_pushButton_clicked();
 

@@ -45,3 +45,9 @@ void LoanStackedPage::on_ProlongButton_clicked()
 
 void SetLoanTable(QVector<DataRecord> records){
 }
+
+
+void LoanStackedPage::on_ReserveButton_clicked()
+{
+
+}

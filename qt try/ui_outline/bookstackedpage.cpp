@@ -1,7 +1,7 @@
 #include "bookstackedpage.h"
 #include "ui_bookstackedpage.h"
 #define TABLE ui->ViewTable
-#define ISBNCOLUMN 4
+#define IDCOLUMN 4
 BookStackedPage::BookStackedPage(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::BookStackedPage)
@@ -33,6 +33,7 @@ void BookStackedPage::SetBookTable(QVector<DataBook *> book)
         ui->ViewTable->setItem(i, 1, new QTableWidgetItem(tmp.author()));
         ui->ViewTable->setItem(i, 2, new QTableWidgetItem(tmp.place()));
         ui->ViewTable->setItem(i, 3, new QTableWidgetItem(tmp.isbn()));
+         ui->ViewTable->setItem(i, 4, new QTableWidgetItem(tmp.id()));
     }
 }
 
@@ -44,9 +45,7 @@ void BookStackedPage::on_SearchButton_clicked()
 void BookStackedPage::on_ViewButton_clicked()
 {
     int selectrow = ui->ViewTable->currentRow();
-    qDebug() << selectrow;
-    if(selectrow >= 0)
-    emit SelectBookIsbn(ui->ViewTable->item(ISBNCOLUMN,selectrow)->text());
+    emit SelectBookIsbn(ui->ViewTable->item(selectrow,IDCOLUMN)->text());
 }
 
 void BookStackedPage::Adapt2User(){
@@ -58,7 +57,6 @@ void BookStackedPage::Adapt2Administer(){
     ui->ViewButton->hide();
 }
 
-#undef TABLE
 
 void BookStackedPage::on_InsertButton_clicked()
 {
@@ -68,5 +66,12 @@ void BookStackedPage::on_InsertButton_clicked()
 void BookStackedPage::on_ChangeButton_clicked()
 {
      int selectrow = ui->ViewTable->currentRow();
-    //emit ChangeBook(ui->ViewTable->item(IDCOLUMN,selectrow)->text());
+     emit ChangeBook(ui->ViewTable->item(selectrow,IDCOLUMN)->text());
 }
+
+void BookStackedPage::ClearTable(){
+    ui->ViewTable->setRowCount(0);
+    ui->ViewTable->clearContents();
+}
+
+#undef TABLE

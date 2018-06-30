@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>LOGO</string>
+    <string>W __ W</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
@@ -31,12 +31,12 @@
     <rect>
      <x>150</x>
      <y>30</y>
-     <width>72</width>
-     <height>15</height>
+     <width>111</width>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>HEADLINE</string>
+    <string>图书管理系统</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_3">
@@ -151,12 +151,12 @@
    </property>
    <item>
     <property name="text">
-     <string>用户</string>
+     <string>管理员</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>管理员</string>
+     <string>用户</string>
     </property>
    </item>
   </widget>

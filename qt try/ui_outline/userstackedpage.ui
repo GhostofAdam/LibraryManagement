@@ -95,7 +95,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>删除用户</string>
+    <string>用户禁用</string>
    </property>
   </widget>
  </widget>
