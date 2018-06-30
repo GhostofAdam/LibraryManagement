@@ -312,22 +312,22 @@ int DB:: Subscribe(QString readerID,QString bookID){
     {
         if (query.next())
         {
-            QTime current_date_time;
-            current_date_time.currentTime();
-            QString current_date =current_date_time.toString("yyyy.MM.dd");
+            QDateTime time = QDateTime::currentDateTime();
+            QString str = time.toString("yyyy.MM.dd");
+            qDebug()<<str;
             QString state = query.value(0).toString();
             if(state=="on_shelf"){
 
-                DataRecord* a=new DataRecord("",readerID, bookID,current_date,"","borrowed");
+                DataRecord* a=new DataRecord("",readerID, bookID,str,"","borrowed");
                 Data* b=new DataBook("","","","","","",bookID);
                 my_update(b,"state","borrowed");
                 a->Insert(m_db);
                 return BORROW_SUCCEED;
             }
             else if(state=="borrowed"){
-                current_date_time.addSecs(2678400);
-                QString end_time=current_date_time.toString("yyyt.MM.dd");
-                DataRecord* a=new DataRecord("",readerID,bookID,current_date,end_time,"subscribed");
+                QDateTime end=time.addSecs(2678400);
+                QString end_time=end.toString("yyyy.MM.dd");
+                DataRecord* a=new DataRecord("",readerID,bookID,str,end_time,"subscribed");
                 a->Insert(m_db);
                 return SUBSCRIBE_SUCCEED;
             }
