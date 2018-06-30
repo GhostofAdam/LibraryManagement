@@ -319,6 +319,8 @@ int DB:: Subscribe(QString readerID,QString bookID){
             if(state=="on_shelf"){
 
                 DataRecord* a=new DataRecord("",readerID, bookID,current_date,"","borrowed");
+                Data* b=new DataBook("","","","","","",bookID);
+                my_update(b,"state","borrowed");
                 a->Insert(m_db);
                 return BORROW_SUCCEED;
             }

@@ -110,6 +110,10 @@ void DataBook::update(QSqlDatabase& db,QString key, QString value){
         query.prepare(QString("update Books set abstract='%1' where id ='%2'").arg(value).arg(this->id));
         abstract=value;
     }
+    else if(key=="state"){
+        query.prepare(QString("update Books set state='%1' where id ='%2'").arg(value).arg(this->id));
+        state=value;
+    }
 
 
 
