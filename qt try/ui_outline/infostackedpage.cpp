@@ -14,5 +14,5 @@ InfoStackedPage::~InfoStackedPage()
 }
 void InfoStackedPage::on_pushButton_clicked()
 {
-    emit ChangePassword(ui->NewPassword->text());
+    emit ChangePassword(ui->OldPassword->text(),ui->NewPassword->text());
 }

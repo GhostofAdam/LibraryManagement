@@ -23,7 +23,7 @@ void BookAddDialog::on_buttonBox_accepted()
     QString summary = ui->Summary->text();
     QString label = ui->label->text();
 
-    DataBook book(title,author,isbn,label,summary);
+    DataBook book("0",title,author,isbn,label,summary);
 
     emit InsertBook(book);
 }

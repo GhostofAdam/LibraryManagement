@@ -24,11 +24,12 @@ signals:
     void SearchLoan(QString search_info, QString search_type);
     void ExtendLoan(QString id);
     void FinishLoan(QString id);
-
+    void AcceptReserveLoan(QString id);
 private slots:
     void on_SearchButton_clicked();
     void on_FinishButton_clicked();
     void on_ProlongButton_clicked();
+    void on_ReserveButton_clicked();
 
 private:
     Ui::LoanStackedPage *ui;

@@ -1,8 +1,8 @@
 #include "bookchangedialog.h"
 #include "ui_bookchangedialog.h"
 
-BookChangeDialog::BookChangeDialog(QWidget * parent,DataBook book) :
-    QDialog(parent),
+BookChangeDialog::BookChangeDialog(DataBook book,QWidget * parent) :
+    QDialog(parent),book(book),
     ui(new Ui::BookChangeDialog)
 {
     ui->setupUi(this);
@@ -40,23 +40,27 @@ void BookChangeDialog::SetupBook(const DataBook & book)
 
 void BookChangeDialog::on_buttonBox_accepted()
 {
-    switch( QMessageBox::warning(NULL, "warning",QString::fromLocal8Bit("确定修改书籍吗?"),
+    switch( QMessageBox::warning(NULL, tr("warning"),tr("确定修改书籍吗?"),
                                  QMessageBox::Yes | QMessageBox::Default,
                                  QMessageBox::No | QMessageBox::Escape ))
     {
     case QMessageBox::Yes:{
-        QString id = QString::number(this->id);
-        QString author = ui->Author_2->text();
-        QString title = ui->Title_2->text();
-        QString place = ui->Place_2->text();
-        QString isbn = ui->Isbn->text();
-        QString summary = ui->Summary_2->text();
-        DataBook newbook(title, author, place, isbn, summary);
-        emit ChangeBook(id, newbook);
+        DataBook newbook = this->book;
+        newbook.id = this->book.id;
+        newbook.author = ui->Author_2->text();
+        newbook.name = ui->Title_2->text();
+        newbook.place = ui->Place_2->text();
+        newbook.isbn = ui->Isbn_2->text();
+        newbook.abstract = ui->Summary_2->text();
+        qDebug()<< newbook.id;
+        emit ChangeBook(newbook.id, newbook);
+        this->close();
         }
         break;
     case QMessageBox::No:
-        return;
         break;
     }
+}
+void BookChangeDialog::on_buttonBox_rejected(){
+    this->close();
 }

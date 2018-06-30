@@ -16,7 +16,7 @@ class BookChangeDialog : public QDialog
     Q_OBJECT
 public:
     BookChangeDialog() = delete;
-    BookChangeDialog(QWidget * parent,DataBook book);
+    BookChangeDialog(DataBook book, QWidget * parent);
     ~BookChangeDialog();
 
 
@@ -24,10 +24,10 @@ signals:
     void ChangeBook(QString id, DataBook book);
 private slots:
     void on_buttonBox_accepted();
-
+    void on_buttonBox_rejected();
 private:
     Ui::BookChangeDialog *ui;
-    int id;
+    DataBook book;
     void SetupBook(const DataBook & book);
 };
 

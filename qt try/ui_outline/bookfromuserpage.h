@@ -20,9 +20,11 @@ public:
     void SetUp();
     void SetUpPlaces(QVector<QString> places);
 signals:
-    void Appoint(QString isbn);
+    void Appoint(QString id);
 private slots:
     void on_buttonBox_accepted();
+    void on_buttonBox_rejected();
+
 private:
     Ui::BookFromUserPage *ui;
 };

@@ -116,6 +116,11 @@
      <string>isbn</string>
     </property>
    </column>
+   <column>
+    <property name="text">
+     <string>id</string>
+    </property>
+   </column>
   </widget>
   <widget class="QPushButton" name="ChangeButton">
    <property name="geometry">

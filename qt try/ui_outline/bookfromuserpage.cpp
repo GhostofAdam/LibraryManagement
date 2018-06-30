@@ -47,5 +47,11 @@ void BookFromUserPage::SetUpPlaces(QVector<QString> places){
 void BookFromUserPage::on_buttonBox_accepted()
 {
     DataBookAdapter a(book);
-    emit Appoint(a.isbn());
+    emit Appoint(a.id());
+    close();
+}
+
+void BookFromUserPage::on_buttonBox_rejected()
+{
+    close();
 }

@@ -16,6 +16,8 @@
 #include "administermainwindow.h"
 #include "databook.h"
 #include "bookadddialog.h"
+#include "bookchangedialog.h"
+#include "bookfromuserpage.h"
 
 class BookAddDialog;
 class Controller : public QObject
@@ -36,7 +38,7 @@ public slots:
     void OpenLogin();
     void OpenRegister();
     void OpenUserMainWindow();
-    void OpenAdministerMainWindow();
+    void OpenAdministerMainWindow(DataUser);
     void CloseRegister();
     void Register(DataUser data);
     void SearchBook(QString search_info, QString search_type);
@@ -48,12 +50,13 @@ public slots:
     void SelectBookIsbn(QString isbn);//???
     void AppointBook(QString id);//??id or isbn
 
-    void ChangePassword(QString password);//assume exists a user
-    void ChangePassword(QString account,QString password);
+    void ChangePassword(QString oldpassword, QString newpassword);//assume exists a user
+    void ChangePassword(Data * data,QString password);
 
     void SearchRecord(QString key, QString type);
     void ExtendRecord(QString id);
     void FinishRecord(QString id);
+    void AcceptReserveRecord(QString id);
 
     void ChangeUser(QString account, DataUser newinfo);
 signals:

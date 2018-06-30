@@ -18,7 +18,6 @@ class AdministerMainWindow : public QWidget
 
 public:
     explicit AdministerMainWindow(DataUser user, QWidget *parent = 0);
-    explicit AdministerMainWindow(QWidget *parent = 0);//暂时这样做
     ~AdministerMainWindow();
 
 
@@ -40,6 +39,9 @@ public:
     QString Account(){
         DataUserAdapter a(&user);
         return a.Account();
+    }
+    Data* User(){
+        return &user;
     }
 
 private:

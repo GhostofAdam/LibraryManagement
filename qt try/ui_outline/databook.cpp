@@ -55,7 +55,7 @@ void DataBook::Insert(QSqlDatabase& db){
     query.addBindValue(this->place);
     query.addBindValue(this->isbn);
     query.addBindValue(this->state);
-
+    query.addBindValue(this->abstract);
 
 
     if(!query.exec())
@@ -133,17 +133,46 @@ void DataBook::show(){
 
 
 void DataBook::update(QSqlDatabase& db){
-    QSqlQuery query(db);
-    query.prepare(QString("update Books set name ='%1',author ='%2',place ='%3',isbn='%4',abstract='%5',state='%6' where id='%7'")
-                   .arg(name).arg(author).arg(place).arg(isbn).arg(abstract).arg(state).arg(id));
-    if(!query.exec())
+
+    qDebug() << name << author << place << isbn << abstract << state << id;
+//    query.prepare(QString("update Books set name ='%1',author ='%2',place ='%3',isbn='%4',abstract='%5',state='%6' where id='%7'")
+//                   .arg(name).arg(author).arg(place).arg(isbn).arg(abstract).arg(state).arg(id));
+//
     {
-        qDebug() << "update failed"<<query.lastError();
+         QSqlQuery query(db);
+        query.prepare(QString("update Books set name='%1' where id ='%2'").arg(name).arg(this->id));
+        query.exec();
+    }
+    {
+         QSqlQuery query(db);
+        query.prepare(QString("update Books set author='%1' where id ='%2'").arg(author).arg(this->id));
+        query.exec();
+    }
+    {
+         QSqlQuery query(db);
+        query.prepare(QString("update Books set place='%1' where id ='%2'").arg(place).arg(this->id));
+            query.exec();
+    }
+    {
+         QSqlQuery query(db);
+        query.prepare(QString("update Books set isbn='%1' where id ='%2'").arg(isbn).arg(this->id));
+            query.exec();
+    }
+    {
+         QSqlQuery query(db);
+        query.prepare(QString("update Books set abstract='%1' where id ='%2'").arg(abstract).arg(this->id));
+        if(!query.exec())
+        {
+            qDebug() << "update failed"<<query.lastError();
+
+        }
+        else
+        {
+            qDebug() << "update successeded";
+
+        }
 
     }
-    else
-    {
-        qDebug() << "update successeded";
 
-    }
+
 }
