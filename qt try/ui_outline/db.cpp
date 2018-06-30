@@ -4,6 +4,7 @@
 #include <QSqlDatabase>
 #include <QSqlRecord>
 #include <QMessageBox>
+#include <QTime>
 #include "configure.h"
 
 
@@ -90,7 +91,7 @@ void DB::Insert(Data *data)
 
     data->Insert(m_db);
 }
-void DB::Update(Data *data,QString key,QString value)
+void DB::my_update(Data *data,QString key,QString value)
 {
 
     data->update(m_db,key,value);
@@ -112,8 +113,8 @@ QVector<DataBook*> DB:: ExactSearch(QString keyword,QString type){
          while (query.next())
          {
              // qDebug()<<"Find one!";
-             DataBook* a=new DataBook(QString(query.value(1).toString()),QString(query.value(2).toString()),QString(query.value(3).toString()),
-                        QString(query.value(4).toString()),QString(query.value(0).toString()),QString(query.value(5).toString()));
+             DataBook* a=new DataBook(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
+                        QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()),QString(query.value(6).toString()));
              result.push_back(a);
          }
      }
@@ -146,8 +147,8 @@ QVector<DataBook*> DB::FuzzySearch(QString keyword,QString type){
         while(query.next())
          {
             //qDebug()<<"Find one!";
-            DataBook* a=new DataBook(QString(query.value(1).toString()),QString(query.value(2).toString()),QString(query.value(3).toString()),
-                       QString(query.value(4).toString()),QString(query.value(0).toString()),QString(query.value(5).toString()));
+            DataBook* a=new DataBook(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
+                       QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()),QString(query.value(6).toString()));
 
              result.push_back(a);
 
@@ -224,16 +225,117 @@ Data*  DB::SearchReader(QString account){
             // qDebug()<<"Find one!";
             Data* a=new DataUser(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
                        QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()),
-                                QString(query.value(6).toString()),QString(query.value(8).toString()) );
+                                QString(query.value(6).toString()),QString(query.value(7).toString()),query.value(8).toInt() );
             return a;
         }
     }
     else
     {
-        qDebug() << "ExactSearch failed: " << query.lastError();
+        qDebug() << "Search user from account error! " << query.lastError();
     }
 
 
 
-    return NULL;
+    return nullptr;
 }
+Data*DB::  SearchBook(QString id){
+    QSqlQuery query(m_db);
+
+
+        query.prepare(QString("select * from Books where id = '%1'").arg(id));
+    //query.addBindValue(keyword);
+    if (query.exec())
+    {
+        if (query.next())
+        {
+            // qDebug()<<"Find one!";
+            DataBook* a=new DataBook(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
+                       QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()),QString(query.value(6).toString()));
+            return a;
+        }
+    }
+    else
+    {
+        qDebug() << "SearchBook from id error!" << query.lastError();
+    }
+
+
+
+    return nullptr;
+}
+
+Data*DB::  SeachRecord(QString id){
+    QSqlQuery query(m_db);
+
+
+        query.prepare(QString("select * from Records where recordID = '%1'").arg(id));
+    //query.addBindValue(keyword);
+    if (query.exec())
+    {
+        if (query.next())
+        {
+            // qDebug()<<"Find one!";
+            Data* a=new DataRecord(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
+                       QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()));
+
+            return a;
+        }
+    }
+    else
+    {
+        qDebug() << "Search record from id error! " << query.lastError();
+    }
+
+
+
+    return nullptr;
+}
+int DB:: Subscribe(QString readerID,QString bookID){
+    QSqlQuery query(m_db);
+    query.prepare(QString("select finemoney from USERS where account= '?'").arg(readerID));
+    if (query.exec())
+    {
+        if (query.next())
+        {
+            int finemoney=query.value(0).toInt();
+            if(finemoney==-1)
+                return READER_DISABLE;
+        }
+    }
+
+    query.prepare(QString("select state from USERS where id = '%1'").arg(bookID));
+    if (query.exec())
+    {
+        if (query.next())
+        {
+            QTime current_date_time;
+            current_date_time.currentTime();
+            QString current_date =current_date_time.toString("yyyy.MM.dd");
+            QString state = query.value(0).toString();
+            if(state=="on_shelf"){
+
+                DataRecord* a=new DataRecord("",readerID, bookID,current_date,"","borrowed");
+                a->Insert(m_db);
+                return BORROW_SUCCEED;
+            }
+            else if(state=="borrowed"){
+                current_date_time.addSecs(2678400);
+                QString end_time=current_date_time.toString("yyyt.MM.dd");
+                DataRecord* a=new DataRecord("",readerID,bookID,current_date,end_time,"subscribed");
+                a->Insert(m_db);
+                return SUBSCRIBE_SUCCEED;
+            }
+        }
+    }
+}
+
+void DB::Fine(Data*a){
+    DataRecord* b=dynamic_cast<DataRecord*>(a);
+    b->fine(m_db);
+}
+
+void DB::update(Data* _new){
+    _new->update(m_db);
+}
+
+void UpdateDB();

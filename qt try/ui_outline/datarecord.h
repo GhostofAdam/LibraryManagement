@@ -33,9 +33,10 @@ public:
     virtual void show(){
         qDebug()<<recordID<<" "<<readerID<<" "<<bookID<<" "<<begintime<<" "<<endtime<<" "<<condition;
     }
-
+    virtual void update(QSqlDatabase& db);
     Data* thebook(QSqlDatabase& db);
     Data* thereader(QSqlDatabase& db);
+    void fine(QSqlDatabase& db);
 
 
 

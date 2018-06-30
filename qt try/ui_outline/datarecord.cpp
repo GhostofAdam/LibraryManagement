@@ -111,7 +111,7 @@ Data* DataRecord::thebook(QSqlDatabase& db){
     }
     else
     {
-        qDebug() << "ExactSearch failed: " << query.lastError();
+        qDebug()  << query.lastError();
     }
 
 
@@ -137,9 +137,40 @@ Data* DataRecord::thereader(QSqlDatabase& db){
     }
     else
     {
-        qDebug() << "ExactSearch failed: " << query.lastError();
+        qDebug()  << query.lastError();
     }
 
    return NULL;
 
+}
+void fine(QSqlDatabase& db){
+    QSqlQuery query(db);
+    query.prepare(QString("select finemoney from USERS where account = '%1'").arg(readerID));
+    if(query.exec())
+    {
+        if(query.next()){
+            int finemoney=query.value(0).toInt;
+            finemoney+=10;
+        query.prepare(QString("update USERS set finemoney = '%1' where account ='%2'").arg(finemoney).arg(readerID));
+    }
+        else {
+            qDebug() << "Fine error" << query.lastError();
+        }
+}
+}
+void DataRecord::update(QSqlDatabase& db){
+ QSqlQuery query(db);
+        query.prepare(QString("update Records set readerID ='%1',bookID ='%2',begintime ='%3',endtime='%4',condition='%5'where recordID='%6'")
+                       .arg(readerID).arg(bookID).arg(begintime).arg(endtime).arg(condition).arg(recordID);
+        if(!query.exec())
+        {
+            qDebug() << "update failed"<<query.lastError();
+
+        }
+        else
+        {
+            qDebug() << "update successeded";
+
+        }
+    }
 }

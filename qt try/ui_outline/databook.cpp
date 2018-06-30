@@ -2,20 +2,22 @@
 #include "datauser.h"
 
 DataBook::DataBook(
+QString a ,
 QString b ,
 QString c ,
-QString d ,
+QString d,
 QString e,
-QString i,
-QString a)
+QString f,
+QString g)
 {
 
-    this->name = b;
-    this->author = c;
-    this->place = d;
-    this->isbn = e;
-    this->id = i;
-    this->abstract=a;
+    this->name = a;
+    this->author = b;
+    this->place = c;
+    this->isbn = d;
+    this->id = e;
+    this->abstract=f;
+    this->state=g;
 
 
 }
@@ -33,7 +35,7 @@ std::vector<QString> DataBook::TranslateToString(){
 
 }
 void DataBook::Insert(QSqlDatabase& db){
-    qDebug() << this->id<<" "<<this->name<<" "<<this->author<<" "<<this->place<<" "<<this->isbn;
+    qDebug() << this->id<<" "<<this->name<<" "<<this->author<<" "<<this->place<<" "<<this->isbn<<" "<<this->state;
     QSqlQuery query(db);
     query.prepare("select count(*) from Books");
     if(query.exec()){;
@@ -45,13 +47,15 @@ void DataBook::Insert(QSqlDatabase& db){
         this->id="0";
     qDebug()<<"hahahahashahh  "<<this->id;
 
-    query.prepare(QString("insert into BOOKS values (?, ?, ?, ?, ?,'*',0)"));
+    query.prepare(QString("insert into BOOKS values (?, ?, ?, ?, ?,?,?)"));
 
     query.addBindValue(this->id);
     query.addBindValue(this->name);
     query.addBindValue(this->author);
     query.addBindValue(this->place);
     query.addBindValue(this->isbn);
+    query.addBindValue(this->state);
+
 
 
     if(!query.exec())
@@ -124,5 +128,22 @@ void DataBook::update(QSqlDatabase& db,QString key, QString value){
                           
 }
 void DataBook::show(){
-    qDebug()<<id<<" "<<name<<" "<<author<<" "<<place<<" "<<isbn<<" "<<abstract;
+    qDebug()<<id<<" "<<name<<" "<<author<<" "<<place<<" "<<isbn<<" "<<abstract<<" "<<state;
+}
+
+
+void DataBook::update(QSqlDatabase& db){
+    QSqlQuery query(db);
+    query.prepare(QString("update Books set name ='%1',author ='%2',place ='%3',isbn='%4',abstract='%5',state='%6' where id='%7'")
+                   .arg(name).arg(author).arg(place).arg(isbn).arg(abstract).arg(state).arg(id));
+    if(!query.exec())
+    {
+        qDebug() << "update failed"<<query.lastError();
+
+    }
+    else
+    {
+        qDebug() << "update successeded";
+
+    }
 }

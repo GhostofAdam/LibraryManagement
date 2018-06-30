@@ -1,7 +1,7 @@
 #include "datauser.h"
 
 DataUser::DataUser(QString a, QString p, QString ID, QString d,
-                   QString m, QString n, QString s,QString pe)
+                   QString m, QString n, QString s,QString pe,int f)
 {
     this->account = a;
     this->password = p;
@@ -11,6 +11,7 @@ DataUser::DataUser(QString a, QString p, QString ID, QString d,
     this->name = n;
     this->sex = s;
     this->permission=pe;
+    this->finemoney=f;
 }
 
 std::vector<QString> DataUser::TranslateToString(){
@@ -73,10 +74,23 @@ bool DataUser::IsExist(QSqlDatabase& db){
 }
 void DataUser::update(QSqlDatabase& db,QString key, QString value){
     QSqlQuery query(db);
-    query.prepare(QString("update USERS set '?'='?' where id ='?'"));
-    query.addBindValue(key);
-    query.addBindValue(value);
-    query.addBindValue(this->account);
+
+    if(key=="password")
+        query.prepare(QString("update USERS set password='%1' where id ='%2'").arg(value).arg(this->account));
+    else if(key=="schoolID")
+        query.prepare(QString("update USERS set schoolID='%1' where id ='%2'").arg(value).arg(this->account));
+    else if(key=="department")
+        query.prepare(QString("update USERS set department='%1' where id ='%2'").arg(value).arg(this->account));
+    else if(key=="major")
+        query.prepare(QString("update USERS set major='%1' where id ='%2'").arg(value).arg(this->account));
+    else if(key=="name")
+        query.prepare(QString("update USERS set name='%1' where id ='%2'").arg(value).arg(this->account));
+    else if(key=="sex")
+        query.prepare(QString("update USERS set sex='%1' where id ='%2'").arg(value).arg(this->account));
+    else if(key=="permission")
+        query.prepare(QString("update USERS set permission='%1' where id ='%2'").arg(value).arg(this->account));
+
+    ;
 
     if(!query.exec())
     {
@@ -92,4 +106,20 @@ void DataUser::update(QSqlDatabase& db,QString key, QString value){
 
 
 }
-void DataUser::show(){}
+void DataUser::update(QSqlDatabase& db){
+ QSqlQuery query(db);
+
+       query.prepare(QString("update USERS set password ='%1',schoolID ='%2',department ='%3',major='%4',name='%5', sex='%6',permission='%7',finemoney='%8' where account='%9'")
+                       .arg(password).arg(schoolID).arg(department).arg(major).arg(name).arg(sex).arg(permission).arg(finemoney).arg(account));
+        if(!query.exec())
+        {
+            qDebug() << "update failed"<<query.lastError();
+
+        }
+        else
+        {
+            qDebug() << "update successeded";
+
+        }
+    }
+

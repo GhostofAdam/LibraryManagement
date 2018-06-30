@@ -19,6 +19,9 @@
 #define LOGINCHECK_UNMATCH 2
 #define LOGINCHECK_SUCCESS_READER 0
 
+#define READER_DISABLE  0
+#define BORROW_SUCCEED  1
+#define SUBSCRIBE_SUCCEED    2
 #define FAIL false
 #define SUCCESS true
 

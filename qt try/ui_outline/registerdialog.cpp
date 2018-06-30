@@ -51,7 +51,7 @@ void RegisterDialog::on_ok_clicked()
         return;
     }
     DataUser data(account,password,schoolID,
-                  department, major, name, sex,"");
+                  department, major, name, sex,"",0);
     emit Register(data);
     }
 }
