@@ -104,8 +104,8 @@ Data* DataRecord::thebook(QSqlDatabase& db){
         if (query.next())
         {
             // qDebug()<<"Find one!";
-            Data* a=new DataBook(QString(query.value(1).toString()),QString(query.value(2).toString()),QString(query.value(3).toString()),
-                       QString(query.value(4).toString()),QString(query.value(0).toString()),QString(query.value(5).toString()));
+            DataBook* a=new DataBook(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
+                       QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()),QString(query.value(6).toString()));
          return a;
         }
     }
@@ -130,8 +130,8 @@ Data* DataRecord::thereader(QSqlDatabase& db){
         {
             // qDebug()<<"Find one!";
             Data* a=new DataUser(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
-                       QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()),QString(query.value(6).toString()),
-                       QString(query.value(7).toString()));
+                       QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()),
+                                QString(query.value(6).toString()),QString(query.value(7).toString()),query.value(8).toInt() );
          return a;
         }
     }
