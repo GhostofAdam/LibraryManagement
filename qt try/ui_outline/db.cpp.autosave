@@ -90,7 +90,7 @@ void DB::Insert(Data *data)
 
     data->Insert(m_db);
 }
-void DB::Update(Data *data,QString key,QString value)
+void DB::my_update(Data *data,QString key,QString value)
 {
 
     data->update(m_db,key,value);
@@ -230,10 +230,98 @@ Data*  DB::SearchReader(QString account){
     }
     else
     {
-        qDebug() << "ExactSearch failed: " << query.lastError();
+        qDebug() << "Search user from account error! " << query.lastError();
     }
 
 
 
-    return NULL;
+    return nullptr;
 }
+Data*DB::  SearchBook(QString id){
+    QSqlQuery query(m_db);
+
+
+        query.prepare(QString("select * from Books where id = '%1'").arg(id));
+    //query.addBindValue(keyword);
+    if (query.exec())
+    {
+        if (query.next())
+        {
+            // qDebug()<<"Find one!";
+            Data* a=new DataBook(QString(query.value(1).toString()),QString(query.value(2).toString()),QString(query.value(3).toString()),
+                       QString(query.value(4).toString()),QString(query.value(0).toString()),QString(query.value(5).toString()));
+                               
+            return a;
+        }
+    }
+    else
+    {
+        qDebug() << "SearchBook from id error!" << query.lastError();
+    }
+
+
+
+    return nullptr;
+}
+
+Data*DB::  SeachRecord(QString id){
+    QSqlQuery query(m_db);
+
+
+        query.prepare(QString("select * from Records where recordID = '%1'").arg(id));
+    //query.addBindValue(keyword);
+    if (query.exec())
+    {
+        if (query.next())
+        {
+            // qDebug()<<"Find one!";
+            Data* a=new DataRecord(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
+                       QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()));
+                               
+            return a;
+        }
+    }
+    else
+    {
+        qDebug() << "Search record from id error! " << query.lastError();
+    }
+
+
+
+    return nullptr;
+}
+int DB:: Subscribe(QString readerID,QString bookID){
+    QSqlQuery query(m_db);
+    query,prepare(QString("select finemoney from USERS where account= '?'").arg(readerID));
+    if (query.exec())
+    {
+        if (query.next())
+        {
+            int finemoney=query.value(0).toInt();
+            if(finemoney==-1)
+                return READER_DISABLE;
+        }
+    }
+    
+    query,prepare(QString("select state from USERS where id = '?'").arg(bookID));
+    if (query.exec())
+    {
+        if (query.next())
+        {
+            QString state=query.value(0).toStirng();
+            if(state=="on_shelf"){
+                
+                return BORROW_SUCCEED;
+            }
+            else if(state=="borrowed"){
+                
+                return SUBSCRIBE_SUCCEED;
+            }
+        }
+    }
+}
+
+void Fine(Data*);
+
+void update(Data* _old,Data* _new);
+void UpdateDB();

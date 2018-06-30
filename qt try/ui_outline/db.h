@@ -41,6 +41,8 @@ public:
     Data*  BookofRecord(Data*);//请确认输入参数是datarecord，我将在函数中做类型转换
     Data*  ReaderofRecord(Data*); //请确认输入参数是datarecord，我将在函数中做类型转换
 
+    Data*  SearchReader(QString);
+
 
 
 
