@@ -15,9 +15,9 @@ QString g)
     this->author = b;
     this->place = c;
     this->isbn = d;
-    this->id = e;
-    this->abstract=f;
-    this->state=g;
+    this->abstract=e;
+    this->state=f;
+    this->id=g;
 
 
 }

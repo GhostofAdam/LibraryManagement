@@ -6,18 +6,18 @@
 class DataRecord: public Data
 {
 private:
+
+    friend class DataRecordAdapter;
+
+
+
+public:
     QString  recordID;
     QString  readerID ;
     QString  bookID ;
     QString  begintime ;
     QString  endtime;
     QString  condition;
-    friend class DataRecordAdapter;
-
-
-
-public:
-
     DataRecord(QString  recordID ,
              QString  readerID ,
              QString  bookID ,

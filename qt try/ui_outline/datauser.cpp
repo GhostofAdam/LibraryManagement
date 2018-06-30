@@ -76,19 +76,19 @@ void DataUser::update(QSqlDatabase& db,QString key, QString value){
     QSqlQuery query(db);
 
     if(key=="password")
-        query.prepare(QString("update USERS set password='%1' where id ='%2'").arg(value).arg(this->account));
+        query.prepare(QString("update USERS set password='%1' where account ='%2'").arg(value).arg(this->account));
     else if(key=="schoolID")
-        query.prepare(QString("update USERS set schoolID='%1' where id ='%2'").arg(value).arg(this->account));
+        query.prepare(QString("update USERS set schoolID='%1' where account ='%2'").arg(value).arg(this->account));
     else if(key=="department")
-        query.prepare(QString("update USERS set department='%1' where id ='%2'").arg(value).arg(this->account));
+        query.prepare(QString("update USERS set department='%1' where account ='%2'").arg(value).arg(this->account));
     else if(key=="major")
-        query.prepare(QString("update USERS set major='%1' where id ='%2'").arg(value).arg(this->account));
+        query.prepare(QString("update USERS set major='%1' where account ='%2'").arg(value).arg(this->account));
     else if(key=="name")
-        query.prepare(QString("update USERS set name='%1' where id ='%2'").arg(value).arg(this->account));
+        query.prepare(QString("update USERS set name='%1' where account ='%2'").arg(value).arg(this->account));
     else if(key=="sex")
-        query.prepare(QString("update USERS set sex='%1' where id ='%2'").arg(value).arg(this->account));
+        query.prepare(QString("update USERS set sex='%1' where account ='%2'").arg(value).arg(this->account));
     else if(key=="permission")
-        query.prepare(QString("update USERS set permission='%1' where id ='%2'").arg(value).arg(this->account));
+        query.prepare(QString("update USERS set permission='%1' where account ='%2'").arg(value).arg(this->account));
 
     ;
 
@@ -122,4 +122,5 @@ void DataUser::update(QSqlDatabase& db){
 
         }
     }
+
 

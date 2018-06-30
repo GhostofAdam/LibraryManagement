@@ -143,25 +143,35 @@ Data* DataRecord::thereader(QSqlDatabase& db){
    return NULL;
 
 }
-void fine(QSqlDatabase& db){
+void DataRecord::fine(QSqlDatabase& db){
+
     QSqlQuery query(db);
-    query.prepare(QString("select finemoney from USERS where account = '%1'").arg(readerID));
+    query.prepare(QString("select finemoney from USERS where account = '%1'").arg(readerID.toInt()));
+    qDebug()<<readerID.toInt();
     if(query.exec())
     {
         if(query.next()){
-            int finemoney=query.value(0).toInt;
+            int finemoney=query.value(0).toInt();
             finemoney+=10;
-        query.prepare(QString("update USERS set finemoney = '%1' where account ='%2'").arg(finemoney).arg(readerID));
+            query.prepare(QString("update USERS set finemoney = '%1' where account ='%2'").arg(finemoney).arg(readerID));
+            if(query.exec())
+               {}
+            else{
+                 qDebug() << "Fine error" << query.lastError();
+            }
     }
         else {
             qDebug() << "Fine error" << query.lastError();
         }
-}
+        }
+    else {
+        qDebug() << "Fine error" << query.lastError();
+    }
 }
 void DataRecord::update(QSqlDatabase& db){
  QSqlQuery query(db);
         query.prepare(QString("update Records set readerID ='%1',bookID ='%2',begintime ='%3',endtime='%4',condition='%5'where recordID='%6'")
-                       .arg(readerID).arg(bookID).arg(begintime).arg(endtime).arg(condition).arg(recordID);
+                       .arg(readerID).arg(bookID).arg(begintime).arg(endtime).arg(condition).arg(recordID));
         if(!query.exec())
         {
             qDebug() << "update failed"<<query.lastError();
@@ -173,4 +183,4 @@ void DataRecord::update(QSqlDatabase& db){
 
         }
     }
-}
+

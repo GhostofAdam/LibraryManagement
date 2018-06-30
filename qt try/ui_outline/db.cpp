@@ -113,8 +113,8 @@ QVector<DataBook*> DB:: ExactSearch(QString keyword,QString type){
          while (query.next())
          {
              // qDebug()<<"Find one!";
-             DataBook* a=new DataBook(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
-                        QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()),QString(query.value(6).toString()));
+             DataBook* a=new DataBook(QString(query.value(1).toString()),QString(query.value(2).toString()),
+                        QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()),QString(query.value(6).toString()),QString(query.value(0).toString()));
              result.push_back(a);
          }
      }
@@ -147,8 +147,8 @@ QVector<DataBook*> DB::FuzzySearch(QString keyword,QString type){
         while(query.next())
          {
             //qDebug()<<"Find one!";
-            DataBook* a=new DataBook(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
-                       QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()),QString(query.value(6).toString()));
+            DataBook* a=new DataBook(QString(query.value(1).toString()),QString(query.value(2).toString()),
+                       QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()),QString(query.value(6).toString()),QString(query.value(0).toString()));
 
              result.push_back(a);
 
@@ -249,8 +249,8 @@ Data*DB::  SearchBook(QString id){
         if (query.next())
         {
             // qDebug()<<"Find one!";
-            DataBook* a=new DataBook(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
-                       QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()),QString(query.value(6).toString()));
+            DataBook* a=new DataBook(QString(query.value(1).toString()),QString(query.value(2).toString()),
+                       QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()),QString(query.value(6).toString()),QString(query.value(0).toString()));
             return a;
         }
     }
@@ -292,18 +292,22 @@ Data*DB::  SeachRecord(QString id){
 }
 int DB:: Subscribe(QString readerID,QString bookID){
     QSqlQuery query(m_db);
-    query.prepare(QString("select finemoney from USERS where account= '?'").arg(readerID));
+    query.prepare(QString("select finemoney from USERS where account= '%1'").arg(readerID));
     if (query.exec())
     {
         if (query.next())
         {
+
             int finemoney=query.value(0).toInt();
             if(finemoney==-1)
                 return READER_DISABLE;
         }
     }
+    else{
+        qDebug() << "subscribe error!!! " << query.lastError();
+    }
 
-    query.prepare(QString("select state from USERS where id = '%1'").arg(bookID));
+    query.prepare(QString("select state from Books where id = '%1'").arg(bookID));
     if (query.exec())
     {
         if (query.next())
@@ -326,6 +330,9 @@ int DB:: Subscribe(QString readerID,QString bookID){
                 return SUBSCRIBE_SUCCEED;
             }
         }
+    }
+    else{
+        qDebug() << "subscribe error! " << query.lastError();
     }
 }
 

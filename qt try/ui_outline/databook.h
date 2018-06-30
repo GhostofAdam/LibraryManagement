@@ -6,6 +6,11 @@ class DataBookAdapter;
 class DataBook : public Data
 {
 private:
+
+
+
+    friend class DataBookAdapter;
+public:
     QString  id;
     QString  name ;
     QString  author ;
@@ -13,19 +18,16 @@ private:
     QString  isbn ;
     QString  abstract;
     QString  state;
-
-
-    friend class DataBookAdapter;
-public:
     DataBook(){}
     DataBook(
-      QString id,
+
       QString name ,
       QString author ,
       QString place ,
       QString isbn,
       QString abstract,
-      QString state);
+      QString state="on_shelf",
+      QString id="debug");
     virtual std::vector<QString> TranslateToString();
 
 
