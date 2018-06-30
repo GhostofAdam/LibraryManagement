@@ -152,12 +152,13 @@ void Controller::Login(QString account,QString password, QString type){
         //ui信息未填完不会发送过来
     qDebug() << type;
     switch(databaseptr->EnterCheck(account, password)){
-    case LOGINCHECK_SUCCESS:
-        loginptr->close();
-        if(type == "用户")
+    case LOGINCHECK_SUCCESS_READER:
+        if(type == "用户" ){
             OpenUserMainWindow();
-        else if(type == "管理员"){
-            OpenAdministerMainWindow();
+            loginptr->close();
+            }
+        else{
+            loginptr->ShowUnmatchRefutation();
         }
         break;
     case LOGINCHECK_NOQUEST:
@@ -165,6 +166,15 @@ void Controller::Login(QString account,QString password, QString type){
         break;
     case LOGINCHECK_UNMATCH:
         loginptr->ShowUnmatchRefutation();
+        break;
+    case LOGINCHECK_SUCCESS_ADMINISTRATOR:
+        if(type == "管理员"){
+            OpenAdministerMainWindow();
+            loginptr ->close();
+        }
+        else{
+            loginptr->ShowUnmatchRefutation();
+        }
         break;
     default:
         BUG;
