@@ -317,17 +317,17 @@ int DB:: Subscribe(QString readerID,QString bookID){
             qDebug()<<str;
             QString state = query.value(0).toString();
             if(state=="on_shelf"){
-
-                DataRecord* a=new DataRecord("",readerID, bookID,str,"","borrowed");
+                QDateTime end=time.addSecs(2678400);
+                QString end_time=end.toString("yyyy.MM.dd");
+                DataRecord* a=new DataRecord("",readerID, bookID,str,end_time,"borrowed");
                 Data* b=new DataBook("","","","","","",bookID);
                 my_update(b,"state","borrowed");
                 a->Insert(m_db);
                 return BORROW_SUCCEED;
             }
             else if(state=="borrowed"){
-                QDateTime end=time.addSecs(2678400);
-                QString end_time=end.toString("yyyy.MM.dd");
-                DataRecord* a=new DataRecord("",readerID,bookID,str,end_time,"subscribed");
+
+                DataRecord* a=new DataRecord("",readerID,bookID,str,"","subscribed");
                 a->Insert(m_db);
                 return SUBSCRIBE_SUCCEED;
             }
