@@ -229,6 +229,7 @@ void Controller::AcceptReserveRecord(QString id)
 {
     if(mainwindowptr2){
         databaseptr->AcceptReserveRecords(id);
+        mainwindowptr2->LPage()->ClearTable();
     }
 }
 
@@ -324,7 +325,7 @@ void Controller::Login(QString account,QString password, QString type){
         break;
     case LOGINCHECK_SUCCESS_ADMINISTRATOR:
         if(type == "管理员"){
-            DataUser * user = dynamic_cast<DataUser*>(databaseptr->SearchReader(account));
+            DataUser * user = dynamic_cast<DataUser*>(databaseptr->FindAdministrator(account));
             OpenAdministerMainWindow(*user);
             loginptr ->close();
         }

@@ -11,6 +11,8 @@ LoanStackedPage::LoanStackedPage(QWidget *parent) :
     ui->LoanTable->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->LoanTable->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->LoanTable->setSelectionMode(QAbstractItemView::SingleSelection);
+
+    ui->ReserveButton->hide();
 }
 
 LoanStackedPage::~LoanStackedPage()

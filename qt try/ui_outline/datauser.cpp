@@ -89,7 +89,8 @@ void DataUser::update(QSqlDatabase& db,QString key, QString value){
         query.prepare(QString("update USERS set sex='%1' where account ='%2'").arg(value).arg(this->account));
     else if(key=="permission")
         query.prepare(QString("update USERS set permission='%1' where account ='%2'").arg(value).arg(this->account));
-
+    else if(key =="finemoney")
+        query.prepare(QString("update USERS set finemoney ='%1' where account ='%2'").arg(value).arg(this->account));
     ;
 
     if(!query.exec())
