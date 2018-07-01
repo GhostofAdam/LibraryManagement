@@ -48,6 +48,10 @@ void UserStackedPage::ClearTable()
 void UserStackedPage::on_DeleteButton_clicked()
 {
     int selectrow = TABLE->currentRow();
+    if(selectrow < 0){
+        QMessageBox::StandardButton reply = QMessageBox::critical(this, tr("错误"),tr("错误"),QMessageBox::Retry);
+        return;
+    }
     if(selectrow >= 0)
     emit NukeUser(TABLE->item(selectrow,ACCOUNTCOLUMN)->text());
 }
@@ -55,6 +59,10 @@ void UserStackedPage::on_DeleteButton_clicked()
 void UserStackedPage::on_ClearFineButton_clicked()
 {
     int selectrow = TABLE->currentRow();
+    if(selectrow < 0){
+        QMessageBox::StandardButton reply = QMessageBox::critical(this, tr("错误"),tr("错误"),QMessageBox::Retry);
+        return;
+    }
     if(selectrow >= 0)
     emit ClearFineofUser(TABLE->item(selectrow,ACCOUNTCOLUMN)->text());
 }
@@ -62,6 +70,10 @@ void UserStackedPage::on_ClearFineButton_clicked()
 void UserStackedPage::on_ChangeInfoButton_clicked()
 {
     int selectrow = TABLE->currentRow();
+    if(selectrow < 0){
+        QMessageBox::StandardButton reply = QMessageBox::critical(this, tr("错误"),tr("错误"),QMessageBox::Retry);
+        return;
+    }
     if(selectrow >= 0)
     emit ChangeInfoofUser(TABLE->item(selectrow,ACCOUNTCOLUMN)->text());
 }

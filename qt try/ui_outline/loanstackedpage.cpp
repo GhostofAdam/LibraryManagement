@@ -67,6 +67,10 @@ void LoanStackedPage::on_SearchButton_clicked()
 void LoanStackedPage::on_FinishButton_clicked()
 {
     int selectrow = TABLE->currentRow();
+    if(selectrow < 0){
+        QMessageBox::StandardButton reply = QMessageBox::critical(this, tr("错误"),tr("错误"),QMessageBox::Retry);
+        return;
+    }
     QString condit = TABLE->item(selectrow,CONDITIONCOLUMN)->text();
     if(condit != "borrowed"){
         QMessageBox::StandardButton reply;
@@ -79,6 +83,10 @@ void LoanStackedPage::on_FinishButton_clicked()
 void LoanStackedPage::on_ProlongButton_clicked()
 {
     int selectrow = TABLE->currentRow();
+    if(selectrow < 0){
+        QMessageBox::StandardButton reply = QMessageBox::critical(this, tr("错误"),tr("错误"),QMessageBox::Retry);
+        return;
+    }
     QString condit = TABLE->item(selectrow,CONDITIONCOLUMN)->text();
     if(condit != "borrowed"){
         QMessageBox::StandardButton reply;
@@ -91,6 +99,10 @@ void LoanStackedPage::on_ProlongButton_clicked()
 void LoanStackedPage::on_ReserveButton_clicked()
 {
     int selectrow = TABLE->currentRow();
+    if(selectrow < 0){
+        QMessageBox::StandardButton reply = QMessageBox::critical(this, tr("错误"),tr("错误"),QMessageBox::Retry);
+        return;
+    }
     QString condit = TABLE->item(selectrow,CONDITIONCOLUMN)->text();
     if(condit != "subscribed"){
         QMessageBox::StandardButton reply;

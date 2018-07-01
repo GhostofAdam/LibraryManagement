@@ -269,6 +269,8 @@ void Controller::ClearFineofUser(QString account)
     if(mainwindowptr2){
         DataUser * user = dynamic_cast<DataUser *>(databaseptr->SearchReader(account));
         databaseptr->my_update(user, "finemoney", "0");
+        QMessageBox::StandardButton reply = QMessageBox::information(nullptr, tr("ok"),tr("ok"),QMessageBox::Ok);
+        mainwindowptr2->UPage()->ClearTable();
     }
 }
 
