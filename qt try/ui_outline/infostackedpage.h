@@ -2,7 +2,7 @@
 #define INFOSTACKEDPAGE_H
 
 #include <QWidget>
-
+#include "configure.h"
 namespace Ui {
 class InfoStackedPage;
 }

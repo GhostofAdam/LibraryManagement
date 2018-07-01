@@ -14,5 +14,9 @@ InfoStackedPage::~InfoStackedPage()
 }
 void InfoStackedPage::on_pushButton_clicked()
 {
+    if(ui->NewPassword->text() != ui->NewPassword2->text()){
+         QMessageBox::critical(this,tr("错误"),tr("两次密码不一样"),QMessageBox::Retry);
+        return;
+    }
     emit ChangePassword(ui->OldPassword->text(),ui->NewPassword->text());
 }

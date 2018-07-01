@@ -48,7 +48,10 @@ void Controller::OpenAdministerMainWindow(DataUser user){
     connect(mainwindowptr2->UPage(),SIGNAL(NukeUser(QString)),this,SLOT(NukeUser(QString)));
     connect(mainwindowptr2->UPage(),SIGNAL(ChangeInfoofUser(QString)),this,SLOT(ChangeUser(QString)));
     connect(mainwindowptr2->UPage(),SIGNAL(ClearFineofUser(QString)),this,SLOT(ClearFineofUser(QString)));
-
+    connect(mainwindowptr2->LPage(),SIGNAL(SearchLoan(QString,QString)),this,SLOT(SearchRecord(QString,QString)));
+    connect(mainwindowptr2->LPage(),SIGNAL(ExtendLoan(QString)),this,SLOT(ExtendRecord(QString)));
+    connect(mainwindowptr2->LPage(),SIGNAL(FinishLoan(QString)),this,SLOT(FinishRecord(QString)));
+    connect(mainwindowptr2->LPage(),SIGNAL(AcceptReserveLoan(QString)),this,SLOT(AcceptReserveRecord(QString)));
     //调试用
     connect(mainwindowptr2->BPage(), SIGNAL(SelectBookId(QString)),this,SLOT(SelectBookId(QString)));
 
@@ -168,22 +171,42 @@ void Controller::ChangePassword(Data * data, QString password)
 
 void Controller::SearchRecord(QString key, QString type)
 {
+    if(mainwindowptr2){
+        if(type == "用户账号")
+            type = "readerID";
+        else if(type =="书籍编号")
+            type = "bookID";
+        else if(type == "状态")
+            type = "condition";
 
+        QVector<DataRecord*> records = databaseptr->ShowRecords(key,type);
+        mainwindowptr2->LPage()->SetLoanTable(records);
+        for(DataRecord* record: records)
+            delete record;
+    }
 }
 
 void Controller::ExtendRecord(QString id)
 {
-
+    if(mainwindowptr2){
+        databaseptr->ExtendRecords(id);
+        mainwindowptr2->LPage()->ClearTable();
+    }
 }
 
 void Controller::FinishRecord(QString id)
 {
-
+    if(mainwindowptr2){
+        databaseptr->FinishRecords(id);
+        mainwindowptr2->LPage()->ClearTable();
+    }
 }
 
 void Controller::AcceptReserveRecord(QString id)
 {
-
+    if(mainwindowptr2){
+        databaseptr->AcceptReserveRecords(id);
+    }
 }
 
 void Controller::SearchUser(QString key, QString type)

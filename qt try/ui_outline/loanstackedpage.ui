@@ -58,6 +58,21 @@
      <height>22</height>
     </rect>
    </property>
+   <item>
+    <property name="text">
+     <string>用户账号</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>书籍编号</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>状态</string>
+    </property>
+   </item>
   </widget>
   <widget class="QPushButton" name="SearchButton">
    <property name="geometry">
@@ -117,6 +132,11 @@
    <column>
     <property name="text">
      <string>借阅序号</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>状态</string>
     </property>
    </column>
   </widget>
