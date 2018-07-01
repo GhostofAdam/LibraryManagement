@@ -347,4 +347,30 @@ void DB::update(Data* _new){
     _new->update(m_db);
 }
 
-void UpdateDB();
+void UpdateDB(){
+    QSqlQuery query;
+    query.prepare(QString("select *from Records where condition='subscribed'"));
+
+    if(query.exec())
+    {
+        while(query.next())
+        {
+            QString bookID=query.value(2).toString();
+            QString readerID=query.value(1).toString();
+            QString recordID=query.value(0).toString();
+            if(query.exec(QString("select state from Books where id='%1'").arg(bookID))){
+                if(query.next()){
+                    if(query.value(0).toString()=="on_shelf"){
+                        Data* a=new DataRecord(recordID,"","","","","","");
+                        D
+                        my_update(a,"state","borrowed")
+
+
+                    }
+                }
+            }
+
+
+        }
+    }
+}

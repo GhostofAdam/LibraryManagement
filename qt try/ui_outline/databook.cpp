@@ -54,8 +54,9 @@ void DataBook::Insert(QSqlDatabase& db){
     query.addBindValue(this->author);
     query.addBindValue(this->place);
     query.addBindValue(this->isbn);
-    query.addBindValue(this->state);
+
     query.addBindValue(this->abstract);
+    query.addBindValue(this->state);
 
 
     if(!query.exec())
