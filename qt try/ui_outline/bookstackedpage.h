@@ -34,7 +34,7 @@ public:
 
 signals:
     void SearchBook(QString search_info, QString search_type);
-    void SelectBookIsbn(QString isbn);
+    void SelectBookId(QString id);
     void InsertBook();
     void ChangeBook(QString id);
 private slots:

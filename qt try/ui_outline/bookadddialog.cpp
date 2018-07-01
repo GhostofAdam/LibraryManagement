@@ -21,9 +21,8 @@ void BookAddDialog::on_buttonBox_accepted()
     QString author = ui->Author->text();
     QString isbn = ui->Isbn->text();
     QString summary = ui->Summary->text();
-    QString label = ui->label->text();
-
-    DataBook book("0",title,author,isbn,label,summary);
+    QString place = ui->Place->text();
+    DataBook book(title,author,place,isbn,summary);
 
     emit InsertBook(book);
 }

@@ -17,13 +17,13 @@ public:
     explicit UserChangeDialog(DataUser data,QWidget *parent = 0);
     ~UserChangeDialog();
 signals:
-    void ChangeUser(QString account, DataUser newinfo);
+    void ChangeUser(DataUser newinfo);
 private slots:
     void on_buttonBox_accepted();
 
 private:
     void SetUp();
-    void SetUpSex(QString sex);
+    void SetUpSex();
     Ui::UserChangeDialog *ui;
     DataUser user;
 };

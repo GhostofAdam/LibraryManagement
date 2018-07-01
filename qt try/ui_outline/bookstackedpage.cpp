@@ -45,7 +45,7 @@ void BookStackedPage::on_SearchButton_clicked()
 void BookStackedPage::on_ViewButton_clicked()
 {
     int selectrow = ui->ViewTable->currentRow();
-    emit SelectBookIsbn(ui->ViewTable->item(selectrow,IDCOLUMN)->text());
+    emit SelectBookId(ui->ViewTable->item(selectrow,IDCOLUMN)->text());
 }
 
 void BookStackedPage::Adapt2User(){
@@ -75,3 +75,4 @@ void BookStackedPage::ClearTable(){
 }
 
 #undef TABLE
+#undef IDCOLUMN

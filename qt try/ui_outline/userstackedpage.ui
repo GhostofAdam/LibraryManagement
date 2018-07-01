@@ -22,6 +22,46 @@
      <height>411</height>
     </rect>
    </property>
+   <column>
+    <property name="text">
+     <string>账号</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>罚金</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>状态</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>学号</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>姓名</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>院系</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>专业</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>性别</string>
+    </property>
+   </column>
   </widget>
   <widget class="QPushButton" name="ClearFineButton">
    <property name="geometry">
@@ -82,7 +122,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>查询用户id</string>
+    <string>查询用户</string>
    </property>
   </widget>
   <widget class="QPushButton" name="DeleteButton">
@@ -97,6 +137,51 @@
    <property name="text">
     <string>用户禁用</string>
    </property>
+  </widget>
+  <widget class="QComboBox" name="SearchType">
+   <property name="geometry">
+    <rect>
+     <x>280</x>
+     <y>40</y>
+     <width>87</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>账号</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>学号</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>状态</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>姓名</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>院系</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>专业</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string/>
+    </property>
+   </item>
   </widget>
  </widget>
  <resources/>

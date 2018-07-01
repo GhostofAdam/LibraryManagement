@@ -361,9 +361,9 @@ void UpdateDB(){
             if(query.exec(QString("select state from Books where id='%1'").arg(bookID))){
                 if(query.next()){
                     if(query.value(0).toString()=="on_shelf"){
-                        Data* a=new DataRecord(recordID,"","","","","","");
-                        D
-                        my_update(a,"state","borrowed")
+//                        Data* a=new DataRecord(recordID,tr(""),tr(""),tr(""),tr(""),tr(""),tr(""));
+
+//                        my_update(a,"state","borrowed");
 
 
                     }

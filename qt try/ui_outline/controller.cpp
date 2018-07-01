@@ -43,8 +43,15 @@ void Controller::OpenAdministerMainWindow(DataUser user){
     connect(mainwindowptr2->BPage(), SIGNAL(InsertBook()), this, SLOT(InsertBook()));
     connect(mainwindowptr2->BPage(), SIGNAL(SearchBook(QString,QString)), this, SLOT(SearchBook(QString,QString)));
     connect(mainwindowptr2->IPage(),SIGNAL(ChangePassword(QString,QString)),this,SLOT(ChangePassword(QString,QString)));
+    connect(mainwindowptr2->BPage(),SIGNAL(ChangeBook(QString)),this,SLOT(ChangeBook(QString)));
+    connect(mainwindowptr2->UPage(),SIGNAL(SearchUser(QString,QString)),this,SLOT(SearchUser(QString,QString)));
+    connect(mainwindowptr2->UPage(),SIGNAL(NukeUser(QString)),this,SLOT(NukeUser(QString)));
+    connect(mainwindowptr2->UPage(),SIGNAL(ChangeInfoofUser(QString)),this,SLOT(ChangeUser(QString)));
+    connect(mainwindowptr2->UPage(),SIGNAL(ClearFineofUser(QString)),this,SLOT(ClearFineofUser(QString)));
+
     //调试用
-    connect(mainwindowptr2->BPage(), SIGNAL(SelectBookIsbn(QString)),this,SLOT(SelectBookIsbn(QString)));
+    connect(mainwindowptr2->BPage(), SIGNAL(SelectBookId(QString)),this,SLOT(SelectBookId(QString)));
+
     mainwindowptr2->show();
 }
 
@@ -111,7 +118,7 @@ void Controller::ChangeBook(QString id, DataBook book)
     databaseptr->update(&book);
 }
 
-void Controller::SelectBookIsbn(QString id)
+void Controller::SelectBookId(QString id)
 {
      DataBook* book = dynamic_cast<DataBook *>(databaseptr->SearchBook(id));
      BookFromUserPage *dialog_tmpptr = new  BookFromUserPage(*book,mainwindowptr2);
@@ -135,13 +142,17 @@ void Controller::ChangePassword(QString oldpassword,QString newpassword)
     if(mainwindowptr2){
         QString account = mainwindowptr2->Account();
         switch(databaseptr->EnterCheck(account, oldpassword)){
-        case LOGINCHECK_UNMATCH:
+        case LOGINCHECK_UNMATCH:{
             QMessageBox::StandardButton reply;
             reply = QMessageBox::critical(mainwindowptr2, tr("密码错误"),tr("密码错误，请重新尝试"),QMessageBox::Retry);
             break;
-        case LOGINCHECK_SUCCESS_ADMINISTRATOR:
+        }
+        case LOGINCHECK_SUCCESS_ADMINISTRATOR:{
             ChangePassword(mainwindowptr2->User(),newpassword);
+            QMessageBox::StandardButton reply;
+            reply = QMessageBox::information(nullptr,tr("success"),tr("修改成功"),QMessageBox::Ok);
             break;
+        }
         default:
             BUG;
         }
@@ -175,9 +186,61 @@ void Controller::AcceptReserveRecord(QString id)
 
 }
 
-void Controller::ChangeUser(QString account, DataUser newinfo)
+void Controller::SearchUser(QString key, QString type)
+{
+    qDebug()<< "searchuser";
+    if(mainwindowptr2){
+        if(type == "账号")
+            type = "account";
+        else if(type == "学号")
+            type = "schoolID";
+        else if(type == "院系")
+            type = "department";
+        else if(type == "专业")
+            type = "major";
+        else if(type == "姓名")
+            type = "name";
+        else if(type == "状态")
+            type = "permission";
+
+        QVector<DataUser *>users;
+    }
+}
+
+void Controller::NukeUser(QString account)
+{
+    if(mainwindowptr2){
+        DataUser * user = dynamic_cast<DataUser *>(databaseptr->SearchReader(account));
+        databaseptr->my_update(user, "permission", "Nuked");
+    }
+}
+
+void Controller::ClearFineofUser(QString account)
+{
+    if(mainwindowptr2){
+        DataUser * user = dynamic_cast<DataUser *>(databaseptr->SearchReader(account));
+        databaseptr->my_update(user, "finemoney", "0");
+    }
+}
+
+void Controller::ChangeUser(QString account)
+{
+    if(mainwindowptr2){
+        DataUser * user = dynamic_cast<DataUser *>(databaseptr->SearchReader(account));
+        UserChangeDialog *dialog_tmpptr = new UserChangeDialog(*user,mainwindowptr2);
+        connect(dialog_tmpptr,SIGNAL(ChangeUser(DataUser)),this,SLOT(ChangeUser(DataUser)));
+        dialog_tmpptr ->exec();
+        if(mainwindowptr2)
+        mainwindowptr2->UPage()->ClearTable();
+    }
+}
+
+void Controller::ChangeUser(DataUser newinfo)
 {
 
+    databaseptr->update(&newinfo);
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::information(nullptr,tr("success"),tr("修改成功"),QMessageBox::Ok);
 }
 
 void Controller::ShowLogin(){
