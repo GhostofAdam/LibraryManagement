@@ -10,6 +10,7 @@ UserStackedPage::UserStackedPage(QWidget *parent) :
     TABLE->setEditTriggers(QAbstractItemView::NoEditTriggers);;
     TABLE->setSelectionBehavior(QAbstractItemView::SelectRows);
     TABLE->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->DeleteButton->hide();
 }
 
 UserStackedPage::~UserStackedPage()
@@ -27,7 +28,7 @@ void UserStackedPage::SetUserTable(QVector<DataUser*>users)
         int Rowcount = TABLE->rowCount();
         TABLE->insertRow(Rowcount);
         TABLE->setItem(i, 0, new QTableWidgetItem(user->account));
-        TABLE->setItem(i, 1, new QTableWidgetItem(user->finemoney));
+        TABLE->setItem(i, 1, new QTableWidgetItem(QString::number(user->finemoney)));
         TABLE->setItem(i, 2, new QTableWidgetItem(user->permission));
         TABLE->setItem(i, 3, new QTableWidgetItem(user->schoolID));
         TABLE->setItem(i, 4, new QTableWidgetItem(user->name));

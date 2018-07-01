@@ -249,7 +249,10 @@ void Controller::SearchUser(QString key, QString type)
         else if(type == "状态")
             type = "permission";
 
-        QVector<DataUser *>users;
+        QVector<DataUser *>users = databaseptr->FuzzySearchUser(key,type);
+        mainwindowptr2->UPage()->SetUserTable(users);
+        for(DataUser * user: users)
+            delete user;
     }
 }
 
