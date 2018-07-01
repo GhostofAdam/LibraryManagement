@@ -41,13 +41,13 @@ void DataBook::Insert(QSqlDatabase& db){
     if(query.exec()){;
         query.next();
         qDebug()<<"counted";
-        this->id=QString::number(query.value(0).toInt(),10);
+        this->id=QString::number(query.value(0).toInt()+1,10);
     }
     else
         this->id="0";
     qDebug()<<"hahahahashahh  "<<this->id;
 
-    query.prepare(QString("insert into BOOKS values (?, ?, ?, ?, ?,?,?)"));
+    query.prepare(QString("insert into BOOKS values (?, ?, ?, ?, ?, ?, ?)"));
 
     query.addBindValue(this->id);
     query.addBindValue(this->name);
