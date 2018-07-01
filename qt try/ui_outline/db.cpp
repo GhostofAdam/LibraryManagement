@@ -193,10 +193,11 @@ QVector<DataUser*>DB:: FuzzySearchUser(QString keyword,QString type){
        while(query.next())
         {
            //qDebug()<<"Find one!";
+           if(!(QString(query.value(7).toString())=="Administrator")){
            DataUser* a=new DataUser(QString(query.value(0).toString()),QString(query.value(1).toString()),
                       QString(query.value(2).toString()),QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()),QString(query.value(6).toString()),QString(query.value(7).toString()),query.value(8).toInt());
 
-            result.push_back(a);
+            result.push_back(a);}
 
         }
     }
@@ -217,16 +218,17 @@ QVector<DataRecord*> DB::ShowRecords(QString keyword,QString type){//type有read
     QSqlQuery query(m_db);
 
     if(type=="readerID")
-       query.prepare(QString("select * from Records where readerID like '%1'").arg(keyword));
+       query.prepare(QString("select * from Records where readerID like :keyword"));
       else if(type=="bookID")
-       query.prepare(QString("select * from Records where bookID like '%1'").arg(keyword));
+       query.prepare(QString("select * from Records where bookID like :keyword"));
     else if(type=="begintime")
-        query.prepare(QString("select * from Records where begintime like '%1'").arg(keyword));
+        query.prepare(QString("select * from Records where begintime like :keyword"));
     else if(type=="endtime")
-        query.prepare(QString("select * from Records where endtime like '%1'").arg(keyword));
+        query.prepare(QString("select * from Records where endtime like :keyword"));
     else if(type=="condition")
-        query.prepare(QString("select * from Records where condition like '%1'").arg(keyword));
-    //query.addBindValue(keyword);
+        query.prepare(QString("select * from Records where condition like :keyword"));
+    query.bindValue(":keyword",QString("%%1%").arg(keyword));
+
     if (query.exec())
     {
         while (query.next())
@@ -269,10 +271,13 @@ Data*  DB::SearchReader(QString account){
         if (query.next())
         {
             // qDebug()<<"Find one!";
+             if(!(QString(query.value(7).toString())=="Administrator")){
             Data* a=new DataUser(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
                        QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()),
                                 QString(query.value(6).toString()),QString(query.value(7).toString()),query.value(8).toInt() );
             return a;
+             }
+             return nullptr;
         }
     }
     else
