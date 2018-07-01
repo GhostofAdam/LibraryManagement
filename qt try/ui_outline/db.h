@@ -27,7 +27,7 @@ public:
                             //所以务必插入表中不存在书籍
     void my_update(Data*data,QString key,QString value);//key为需要更新的列名，value为更新值
                                                      //book的key有:name author place isbn abstract
-                                              //record的key有begintime,endtime,condition
+                                                     //record的key有begintime,endtime,condition
                                                      //管理员未批准时begintime endtime可表示申请时间和处理请求截至时间
                                                      //批准后表示借书时间和归还时间
     int Subscribe(QString readerID,QString bookID);
@@ -40,8 +40,11 @@ public:
     QVector<DataBook*> ExactSearch(QString keyword,QString type);//精确搜索，返回databook的vector
     QVector<DataBook*> FuzzySearch(QString keyword,QString type);//模糊搜索
 
+    QVector<DataUser*> FuzzySearchUser(QString keyword,QString type);
 
-
+    void AcceptReserveRecords(QString id);//接受预约
+    void ExtendRecords(QString id);//延长借阅
+    void FinishRecords(QString id);//归还图书
 
     QVector<DataRecord*> ShowRecords(QString keyword,QString type);//type有readerID，bookID，begintime,endtime,condition
 
@@ -50,21 +53,12 @@ public:
 
     Data*  SearchReader(QString);
     Data*  SearchBook(QString);
-    Data*  SeachRecord(QString);
+    Data*  SearchRecord(QString);
 
-    void ExtendRecords(QString id){
 
-        }
-    void FinishRecords(QString id){
-        QSqlQuery query(m_db);
-        query.prepare(QString("update Records set condition='%1' where recordID ='%2'").arg("finished").arg(id));
-            query.exec();
-        }
-    void AcceptReserveRecords(QString id){
-        QSqlQuery query(m_db);
-        query.prepare(QString("update Records set condition='%1' where recordID ='%2'").arg("borrowed").arg(id));
-            query.exec();
-        }
+
+
+
 
 
 };

@@ -165,6 +165,52 @@ QVector<DataBook*> DB::FuzzySearch(QString keyword,QString type){
      return result;
 
 }
+QVector<DataUser*>DB:: FuzzySearchUser(QString keyword,QString type){
+    QVector<DataUser*> result;
+
+
+    QSqlQuery query(m_db);
+   if(type=="account")
+       query.prepare(QString("select * from USERS where account like :keyword"));
+   else if(type=="schoolID")
+       query.prepare(QString("select * from USERS where schoolID like :keyword"));
+   else if(type=="department")
+       query.prepare(QString("select * from USERS where department like :keyword"));
+   else if(type=="major")
+       query.prepare(QString("select * from USERS where major like :keyword"));
+   else if(type=="name")
+       query.prepare(QString("select * from USERS where name like :keyword"));
+   else if(type=="sex")
+       query.prepare(QString("select * from USERS where sex like :keyword"));
+
+
+
+    query.bindValue(":keyword",QString("%%1%").arg(keyword));
+
+    if (query.exec())
+    {
+
+       while(query.next())
+        {
+           //qDebug()<<"Find one!";
+           DataUser* a=new DataUser(QString(query.value(0).toString()),QString(query.value(1).toString()),
+                      QString(query.value(2).toString()),QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()),QString(query.value(6).toString()),QString(query.value(7).toString()),query.value(8).toInt());
+
+            result.push_back(a);
+
+        }
+    }
+    else
+    {
+        qDebug() << "FuzzySearch failed: " << query.lastError();
+    }
+
+
+
+
+    return result;
+}
+
 QVector<DataRecord*> DB::ShowRecords(QString keyword,QString type){//type有readerID，bookID，begintime,endtime,condition
 
     QVector<DataRecord*> result;
@@ -264,7 +310,7 @@ Data*DB::  SearchBook(QString id){
     return nullptr;
 }
 
-Data*DB::  SeachRecord(QString id){
+Data*DB::  SearchRecord(QString id){
     QSqlQuery query(m_db);
 
 
@@ -387,3 +433,29 @@ QVector<QString> DB::UpdateDB(){
         qDebug()<<list.at(i);    }
     return list;
 }
+void DB::FinishRecords(QString id){
+    Data*a = SearchRecord(id);
+    DataRecord*t= dynamic_cast<DataRecord*>(a);
+    Data*b = SearchBook(t->bookID);
+
+
+    my_update(a,"condition","endborrow");
+    my_update(b,"state","on_shelf");
+    UpdateDB();
+}
+void DB:: AcceptReserveRecords(QString id){
+
+}
+
+void DB::ExtendRecords(QString id){
+    Data*a = SearchRecord(id);
+    DataRecord*t= dynamic_cast<DataRecord*>(a);
+    QDateTime time;
+    time=QDateTime::fromString(t->endtime,"yyyy.MM.dd");
+    QDateTime endtime=time.addSecs(2678400);
+    QString _endtime=QString(endtime.toString());
+
+    my_update(a,"endtime",_endtime);
+}
+
+
