@@ -5,7 +5,9 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     //Controller Controller;
     DB db("G:/oop_big_work_debug/sqlite/admitDB.db");
-    db.Subscribe("2","1");
+    Data* b=new DataBook("name","author","a","213456","12","on_shelf","");
+    db.Insert(b);
+    //db.Subscribe("2","1");
     //db.CreateTable(USER_TABLE);
 
 //     DB test("G:/oop_big_work_debug/sqlite/admitDB.db");
