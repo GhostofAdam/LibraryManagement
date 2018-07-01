@@ -50,7 +50,7 @@ public:
 
     Data*  BookofRecord(Data*);//请确认输入参数是datarecord，我将在函数中做类型转换
     Data*  ReaderofRecord(Data*); //请确认输入参数是datarecord，我将在函数中做类型转换
-
+    Data*  FindAdministrator(QString);
     Data*  SearchReader(QString);
     Data*  SearchBook(QString);
     Data*  SearchRecord(QString);

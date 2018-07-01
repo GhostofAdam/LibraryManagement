@@ -289,6 +289,36 @@ Data*  DB::SearchReader(QString account){
 
     return nullptr;
 }
+Data*  DB::FindAdministrator(QString account){
+
+    QSqlQuery query(m_db);
+
+
+        query.prepare(QString("select * from USERS where account = '%1'").arg(account));
+    //query.addBindValue(keyword);
+    if (query.exec())
+    {
+        if (query.next())
+        {
+            // qDebug()<<"Find one!";
+             if(QString(query.value(7).toString())=="Administrator"){
+            Data* a=new DataUser(QString(query.value(0).toString()),QString(query.value(1).toString()),QString(query.value(2).toString()),
+                       QString(query.value(3).toString()),QString(query.value(4).toString()),QString(query.value(5).toString()),
+                                QString(query.value(6).toString()),QString(query.value(7).toString()),query.value(8).toInt() );
+            return a;
+             }
+             return nullptr;
+        }
+    }
+    else
+    {
+        qDebug() << "Search user from account error! " << query.lastError();
+    }
+
+
+
+    return nullptr;
+}
 Data*DB::  SearchBook(QString id){
     QSqlQuery query(m_db);
 
