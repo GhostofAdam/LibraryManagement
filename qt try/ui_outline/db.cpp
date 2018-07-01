@@ -347,10 +347,10 @@ void DB::update(Data* _new){
     _new->update(m_db);
 }
 
-void UpdateDB(){
+QVector<QString> DB::UpdateDB(){
     QSqlQuery query;
     query.prepare(QString("select *from Records where condition='subscribed'"));
-
+    QVector<QString> list;
     if(query.exec())
     {
         while(query.next())
@@ -361,9 +361,18 @@ void UpdateDB(){
             if(query.exec(QString("select state from Books where id='%1'").arg(bookID))){
                 if(query.next()){
                     if(query.value(0).toString()=="on_shelf"){
-                        //Data* a=new DataRecord(recordID,"","","","","","");
+                        Data* a=new DataRecord(recordID,"","","","","");
+                        Data* b=new DataBook("","","","","","",bookID);
+                        list.push_back(recordID);
+                        QDateTime time = QDateTime::currentDateTime();
+                        QString str = time.toString("yyyy.MM.dd");
+                        QDateTime end=time.addSecs(2678400);
+                        QString end_time=end.toString("yyyy.MM.dd");
+                        this->my_update(a,"condition","borrowed");
+                        this->my_update(a,"begintime",str);
+                        this->my_update(a,"endtime",end_time);
+                        this->my_update(b,"state","borrowed");
 
-                        //my_update(a,"state","borrowed")
 
 
                     }
@@ -373,4 +382,8 @@ void UpdateDB(){
 
         }
     }
+    for(int i=0;i<list.size();i++)
+    {
+        qDebug()<<list.at(i);    }
+    return list;
 }

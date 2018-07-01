@@ -34,11 +34,12 @@ public:
     void Fine(Data*);
 
     void update(Data* _new);
-    void UpdateDB();
+    QVector<QString> UpdateDB();
 
 
     QVector<DataBook*> ExactSearch(QString keyword,QString type);//精确搜索，返回databook的vector
     QVector<DataBook*> FuzzySearch(QString keyword,QString type);//模糊搜索
+
 
 
 
