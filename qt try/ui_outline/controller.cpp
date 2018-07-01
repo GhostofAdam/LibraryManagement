@@ -27,12 +27,27 @@ void Controller::OpenRegister(){
     connect(registerptr, SIGNAL(Destruction()),this,SLOT(CloseRegister()));
 }
 
-void Controller::OpenUserMainWindow(){
-    if(mainwindowptr != nullptr)
+void Controller::OpenUserMainWindow(DataUser user){
+    if(mainwindowptr2 != nullptr)
         return;
     //needs switch
-    mainwindowptr = new UserMainWindow();
-    mainwindowptr->show();
+    mainwindowptr2 = new UserMainWindow(user);
+//    connect(mainwindowptr2->BPage(), SIGNAL(InsertBook()), this, SLOT(InsertBook()));
+    connect(mainwindowptr2->BPage(), SIGNAL(SearchBook(QString,QString)), this, SLOT(SearchBook(QString,QString)));
+    connect(mainwindowptr2->IPage(),SIGNAL(ChangePassword(QString,QString)),this,SLOT(ChangePassword(QString,QString)));
+//    connect(mainwindowptr2->BPage(),SIGNAL(ChangeBook(QString)),this,SLOT(ChangeBook(QString)));
+//    connect(mainwindowptr2->UPage(),SIGNAL(SearchUser(QString,QString)),this,SLOT(SearchUser(QString,QString)));
+//    connect(mainwindowptr2->UPage(),SIGNAL(NukeUser(QString)),this,SLOT(NukeUser(QString)));
+//    connect(mainwindowptr2->UPage(),SIGNAL(ChangeInfoofUser(QString)),this,SLOT(ChangeUser(QString)));
+//    connect(mainwindowptr2->UPage(),SIGNAL(ClearFineofUser(QString)),this,SLOT(ClearFineofUser(QString)));
+    connect(mainwindowptr2->LPage(),SIGNAL(SearchLoan(QString,QString)),this,SLOT(SearchRecord(QString,QString)));
+    connect(mainwindowptr2->LPage(),SIGNAL(ExtendLoan(QString)),this,SLOT(ExtendRecord(QString)));
+//    connect(mainwindowptr2->LPage(),SIGNAL(FinishLoan(QString)),this,SLOT(FinishRecord(QString)));
+//    connect(mainwindowptr2->LPage(),SIGNAL(AcceptReserveLoan(QString)),this,SLOT(AcceptReserveRecord(QString)));
+    //调试用
+    connect(mainwindowptr2->BPage(), SIGNAL(SelectBookId(QString)),this,SLOT(SelectBookId(QString)));
+
+    mainwindowptr2->show();
 }
 
 void Controller::OpenAdministerMainWindow(DataUser user){
@@ -150,6 +165,7 @@ void Controller::ChangePassword(QString oldpassword,QString newpassword)
             reply = QMessageBox::critical(mainwindowptr2, tr("密码错误"),tr("密码错误，请重新尝试"),QMessageBox::Retry);
             break;
         }
+        case LOGINCHECK_SUCCESS_READER:
         case LOGINCHECK_SUCCESS_ADMINISTRATOR:{
             ChangePassword(mainwindowptr2->User(),newpassword);
             QMessageBox::StandardButton reply;
@@ -171,7 +187,14 @@ void Controller::ChangePassword(Data * data, QString password)
 
 void Controller::SearchRecord(QString key, QString type)
 {
-    if(mainwindowptr2){
+    if(dynamic_cast<UserMainWindow *>(mainwindowptr2)){
+        QString account = mainwindowptr2->Account();
+        QVector<DataRecord*> records = databaseptr->ShowRecords(account,"readerID");
+        mainwindowptr2->LPage()->SetLoanTable(records);
+        for(DataRecord* record: records)
+            delete record;
+    }
+    else{
         if(type == "用户账号")
             type = "readerID";
         else if(type =="书籍编号")
@@ -280,7 +303,8 @@ void Controller::Login(QString account,QString password, QString type){
     switch(databaseptr->EnterCheck(account, password)){
     case LOGINCHECK_SUCCESS_READER:
         if(type == "用户" ){
-            OpenUserMainWindow();
+            DataUser * user = dynamic_cast<DataUser*>(databaseptr->SearchReader(account));
+            OpenUserMainWindow(*user);
             loginptr->close();
             }
         else{

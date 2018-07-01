@@ -44,14 +44,14 @@ public:
         return &user;
     }
 
-private:
+protected:
     DataUser user;
     Ui::AdministerMainWindow *ui;
     BookStackedPage * bookpage;
     LoanStackedPage * loanpage;
     InfoStackedPage * infopage;
     UserStackedPage * userpage;
-
+    void Adapt2User();
     //signals:
     //    void SearchBook(QString search_info, QString search_type);
     //    void ChangeBookById(QString id);

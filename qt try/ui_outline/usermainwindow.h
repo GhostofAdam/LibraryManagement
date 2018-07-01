@@ -12,20 +12,21 @@
 #include <QLabel>
 
 #include "configure.h"
+#include "administermainwindow.h"
 #include "bookstackedpage.h"
 #include "loanstackedpage.h"
 #include "userstackedpage.h"
 #include "infostackedpage.h"
-namespace Ui {
-class UserMainWindow;
-}
+//namespace Ui {
+//class UserMainWindow;
+//}
 
-class UserMainWindow : public QMainWindow
+class UserMainWindow : public AdministerMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit UserMainWindow(QWidget *parent = 0);
+    explicit UserMainWindow(DataUser user,QWidget *parent = 0);
 //    void SetBookTable(QVector<DataBook> books){
 //        bookpage->SetBookTable(books);
 //    }
@@ -40,11 +41,18 @@ public:
     InfoStackedPage* IPage(){
         return infopage;
     }
+    QString Account(){
+        return user.account;
+    }
+    Data* User(){
+        return &user;
+    }
+
 private:
-    Ui::UserMainWindow *ui;
-    BookStackedPage * bookpage;
-    LoanStackedPage * loanpage;
-    InfoStackedPage * infopage;
+//    Ui::UserMainWindow *ui;
+//    BookStackedPage * bookpage;
+//    LoanStackedPage * loanpage;
+//    InfoStackedPage * infopage;
 
     //signals:
     //    void SearchBook(QString search_info, QString search_type);

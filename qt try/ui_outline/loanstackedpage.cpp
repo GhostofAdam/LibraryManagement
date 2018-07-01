@@ -47,6 +47,9 @@ void LoanStackedPage::Adapt2User()
 {
     ui->FinishButton->hide();
     ui->ReserveButton->hide();
+    ui->Search->hide();
+    ui->SearchEdit->hide();
+    ui->label->hide();
 }
 
 void LoanStackedPage::Adapt2Administer()

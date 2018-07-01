@@ -38,7 +38,7 @@ public slots:
     void Login(QString,QString,QString type);
     void OpenLogin();
     void OpenRegister();
-    void OpenUserMainWindow();
+    void OpenUserMainWindow(DataUser);
     void OpenAdministerMainWindow(DataUser);
     void CloseRegister();
     void Register(DataUser data);

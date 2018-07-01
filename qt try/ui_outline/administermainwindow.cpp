@@ -1,6 +1,7 @@
 #include "administermainwindow.h"
 #include "ui_administermainwindow.h"
 #include <QMessageBox>
+#define USERPAGEROW 2
 AdministerMainWindow::AdministerMainWindow(DataUser user_, QWidget *parent) :
     QWidget(parent),user(user_),
     ui(new Ui::AdministerMainWindow)
@@ -27,3 +28,13 @@ AdministerMainWindow::~AdministerMainWindow()
 {
     delete ui;
 }
+
+void AdministerMainWindow::Adapt2User()
+{
+    ui->PageStack->removeWidget(userpage);
+    QListWidgetItem* i = ui->SelectList->takeItem(USERPAGEROW);
+    ui->SelectList->removeItemWidget(i);
+    bookpage->Adapt2User();
+    loanpage->Adapt2User();
+}
+#undef USERPAGEROW
